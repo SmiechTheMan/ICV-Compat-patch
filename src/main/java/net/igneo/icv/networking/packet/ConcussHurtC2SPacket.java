@@ -8,23 +8,21 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
 
-public class ConcussC2SPacket {
+public class ConcussHurtC2SPacket {
 
-    public ConcussC2SPacket(){
+    public ConcussHurtC2SPacket(){
 
     }
-    public ConcussC2SPacket(FriendlyByteBuf buf) {
+    public ConcussHurtC2SPacket(FriendlyByteBuf buf) {
 
     }
 
@@ -39,10 +37,14 @@ public class ConcussC2SPacket {
             ServerPlayer player = context.getSender();
             ServerLevel level = context.getSender().serverLevel();
 
-            level.sendParticles(player, ModParticles.CONCUSS_USE_PARTICLE.get(),true,player.getX(),player.getY() + 1.5,player.getZ(),10,Math.random(),Math.random(),Math.random(),0.5);
-            level.playSound(null, player.blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 1, 0.1F);
-            player.setDeltaMovement(player.getLookAngle().scale(2.5));
 
+            LivingEntity target = level.getNearestEntity(LivingEntity.class, TargetingConditions.forCombat(),null, player.getX(), player.getY(), player.getZ(),player.getBoundingBox().inflate(1.5));
+            level.sendParticles(player, ModParticles.CONCUSS_HIT_PARTICLE.get(),true,target.getX(),target.getY() + 1.5,target.getZ(),10,Math.random(),Math.random(),Math.random(),0.5);
+            level.playSound(null, target.blockPosition(), SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.PLAYERS, 1, 0.1F);
+            target.hurt(player.damageSources().playerAttack(player),5);
+            target.setDeltaMovement(new Vec3(0,0.8,0));
+            target.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 30, 50), player);
+            System.out.println(target);
         });
         return true;
     }
