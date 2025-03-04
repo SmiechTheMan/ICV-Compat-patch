@@ -1,10 +1,8 @@
 package net.igneo.icv.entity.custom;
 
 import net.igneo.icv.sound.ModSounds;
-import net.minecraft.client.resources.GrassColorReloadListener;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -15,7 +13,6 @@ import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.Level.ExplosionInteraction;
-import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -23,7 +20,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.HitResult.Type;
 import net.minecraftforge.event.ForgeEventFactory;
 
-public class CometEntity extends AbstractHurtingProjectile {
+public class RemovedCometEntity extends AbstractHurtingProjectile {
     private long cometTime;
     private double explosionPower = 0.0;
     public double xPower;
@@ -45,7 +42,7 @@ public class CometEntity extends AbstractHurtingProjectile {
 
     }
 
-    public CometEntity(EntityType<? extends AbstractHurtingProjectile> pEntityType, Level pLevel) {
+    public RemovedCometEntity(EntityType<? extends AbstractHurtingProjectile> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.noPhysics = true;
         this.addDeltaMovement(new Vec3(0.0, 0.25, 0.0));

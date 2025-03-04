@@ -1,4 +1,4 @@
-package net.igneo.icv.enchantment.weapon;
+package net.igneo.icv.enchantment;
 
 import net.igneo.icv.enchantmentActions.enchantManagers.EnchantmentManager;
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.BlackHoleManager;
