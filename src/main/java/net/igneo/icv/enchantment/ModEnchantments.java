@@ -3,6 +3,7 @@ package net.igneo.icv.enchantment;
 import net.igneo.icv.ICV;
 import net.igneo.icv.enchantment.armor.*;
 import net.igneo.icv.enchantment.weapon.*;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
@@ -44,6 +45,10 @@ public class ModEnchantments {
             ENCHANTMENTS.register("viper",
                     () -> new ViperEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
+    public static RegistryObject<Enchantment> KINETIC =
+      ENCHANTMENTS.register("kinetic",
+        () -> new KineticEnchantment(Enchantment.Rarity.UNCOMMON,
+          EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
 
 
 
@@ -51,6 +56,10 @@ public class ModEnchantments {
             ENCHANTMENTS.register("black_hole",
                     () -> new BlackHoleEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.HEAD));
+    public static RegistryObject<Enchantment> RIFT_RIPPER =
+      ENCHANTMENTS.register("rift_ripper",
+        () -> new RiftRipperEnchantment(Enchantment.Rarity.UNCOMMON,
+          EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.HEAD));
 
 
 
@@ -62,6 +71,10 @@ public class ModEnchantments {
             ENCHANTMENTS.register("haunt",
                     () -> new HauntEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
+    public static RegistryObject<Enchantment> IMMOLATE =
+      ENCHANTMENTS.register("immolate",
+        () -> new ImmolateEnchantment(Enchantment.Rarity.UNCOMMON,
+          EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
 
 
 
