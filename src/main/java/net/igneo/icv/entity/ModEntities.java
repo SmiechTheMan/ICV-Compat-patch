@@ -6,6 +6,7 @@ import net.igneo.icv.entity.comet.CometEntity;
 import net.igneo.icv.entity.snakeBite.SnakeBiteEntity;
 import net.igneo.icv.entity.soulOrb.SoulOrbEntity;
 import net.igneo.icv.entity.soulSpider.SoulSpiderEntity;
+import net.igneo.icv.entity.surfWave.SurfWaveEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -32,6 +33,9 @@ public class ModEntities {
     public static final RegistryObject<EntityType<SoulSpiderEntity>> SOUL_SPIDER =
             ENTITY_TYPES.register("soul_spider",() -> EntityType.Builder.<SoulSpiderEntity>of(SoulSpiderEntity::new, MobCategory.MISC)
                     .sized(1f,1f).build("soul_spider"));
+    public static final RegistryObject<EntityType<SurfWaveEntity>> SURF_WAVE =
+            ENTITY_TYPES.register("surf_wave",() -> EntityType.Builder.<SurfWaveEntity>of(SurfWaveEntity::new, MobCategory.MISC)
+                    .sized(1f,1f).build("surf_wave"));
 
 
     public static void register(IEventBus eventBus) {

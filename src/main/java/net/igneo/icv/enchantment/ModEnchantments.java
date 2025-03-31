@@ -101,6 +101,10 @@ public class ModEnchantments {
             ENCHANTMENTS.register("stasis",
                     () -> new StasisEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.ARMOR_FEET, EquipmentSlot.FEET));
+    public static RegistryObject<Enchantment> SURF =
+            ENCHANTMENTS.register("surf",
+                    () -> new SurfEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.ARMOR_FEET, EquipmentSlot.FEET));
     public static RegistryObject<Enchantment> BLINK =
       ENCHANTMENTS.register("blink",
         () -> new BlinkEnchantment(Enchantment.Rarity.UNCOMMON,

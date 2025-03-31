@@ -77,4 +77,9 @@ public class SoulSpiderEntity extends ICVEntity {
             entity.hurt(this.damageSources().magic(), 8F);
         }
     }
+
+    @Override
+    public float getStepHeight() {
+        return 1.5F;
+    }
 }

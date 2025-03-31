@@ -13,6 +13,7 @@ import net.igneo.icv.entity.comet.CometRenderer;
 import net.igneo.icv.entity.snakeBite.SnakeBiteRenderer;
 import net.igneo.icv.entity.soulOrb.SoulOrbRenderer;
 import net.igneo.icv.entity.soulSpider.SoulSpiderRenderer;
+import net.igneo.icv.entity.surfWave.SurfWaveRenderer;
 import net.igneo.icv.networking.ModMessages;
 import net.igneo.icv.particle.ModParticles;
 import net.igneo.icv.sound.ModSounds;
@@ -74,6 +75,7 @@ public class ICV
             EntityRenderers.register(ModEntities.SNAKE_BITE.get(), SnakeBiteRenderer::new);
             EntityRenderers.register(ModEntities.SOUL_ORB.get(), SoulOrbRenderer::new);
             EntityRenderers.register(ModEntities.SOUL_SPIDER.get(), SoulSpiderRenderer::new);
+            EntityRenderers.register(ModEntities.SURF_WAVE.get(), SurfWaveRenderer::new);
 
 
             PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
