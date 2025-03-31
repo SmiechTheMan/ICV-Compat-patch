@@ -6,6 +6,7 @@ import net.igneo.icv.entity.comet.CometEntity;
 import net.igneo.icv.entity.snakeBite.SnakeBiteEntity;
 import net.igneo.icv.entity.soulOrb.SoulOrbEntity;
 import net.igneo.icv.entity.soulSpider.SoulSpiderEntity;
+import net.igneo.icv.entity.stonePillar.StonePillarEntity;
 import net.igneo.icv.entity.surfWave.SurfWaveEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -36,6 +37,9 @@ public class ModEntities {
     public static final RegistryObject<EntityType<SurfWaveEntity>> SURF_WAVE =
             ENTITY_TYPES.register("surf_wave",() -> EntityType.Builder.<SurfWaveEntity>of(SurfWaveEntity::new, MobCategory.MISC)
                     .sized(1f,1f).build("surf_wave"));
+    public static final RegistryObject<EntityType<StonePillarEntity>> STONE_PILLAR =
+            ENTITY_TYPES.register("stone_pillar",() -> EntityType.Builder.<StonePillarEntity>of(StonePillarEntity::new, MobCategory.MISC)
+                    .sized(2.5f,4f).build("stone_pillar"));
 
 
     public static void register(IEventBus eventBus) {

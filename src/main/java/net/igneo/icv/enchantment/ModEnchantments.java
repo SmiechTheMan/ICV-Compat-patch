@@ -109,10 +109,14 @@ public class ModEnchantments {
       ENCHANTMENTS.register("blink",
         () -> new BlinkEnchantment(Enchantment.Rarity.UNCOMMON,
           EnchantmentCategory.ARMOR_FEET, EquipmentSlot.FEET));
+    public static RegistryObject<Enchantment> STONE_CALLER =
+            ENCHANTMENTS.register("stone_caller",
+                    () -> new StoneCallerEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.ARMOR_FEET, EquipmentSlot.FEET));
     public static RegistryObject<Enchantment> VOLCANO =
       ENCHANTMENTS.register("volcano",
         () -> new VolcanoEnchantment(Enchantment.Rarity.UNCOMMON,
-          EnchantmentCategory.ARMOR_FEET, EquipmentSlot.FEET));
+          EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.FEET));
     
     
     
