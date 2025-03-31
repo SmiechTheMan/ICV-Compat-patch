@@ -62,6 +62,10 @@ public class ModEnchantments {
             ENCHANTMENTS.register("haunt",
                     () -> new HauntEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
+    public static RegistryObject<Enchantment> MILKY_CHRYSALIS =
+            ENCHANTMENTS.register("milky_chrysalis",
+                    () -> new MilkyChrysalisEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
 
 
 

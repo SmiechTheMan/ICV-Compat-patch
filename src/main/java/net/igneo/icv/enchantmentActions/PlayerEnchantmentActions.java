@@ -62,6 +62,9 @@ public class PlayerEnchantmentActions {
 
     @OnlyIn(Dist.CLIENT)
     public EnchantIndicator[] indicators = new EnchantIndicator[4];
+
+    public Input input;
+
     public void copyFrom(PlayerEnchantmentActions source) {
     }
 

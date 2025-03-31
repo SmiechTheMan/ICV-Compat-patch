@@ -33,6 +33,11 @@ public class ModMessages {
                 .encoder(EnchantUseC2SPacket::toBytes)
                 .consumerMainThread(EnchantUseC2SPacket::handle)
                 .add();
+        net.messageBuilder(InputSyncC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(InputSyncC2SPacket::new)
+                .encoder(InputSyncC2SPacket::toBytes)
+                .consumerMainThread(InputSyncC2SPacket::handle)
+                .add();
         net.messageBuilder(AnimatedSyncC2SPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(AnimatedSyncC2SPacket::new)
                 .encoder(AnimatedSyncC2SPacket::toBytes)

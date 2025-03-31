@@ -4,6 +4,7 @@ import com.alrex.parcool.common.action.impl.Dodge;
 import com.alrex.parcool.common.capability.Parkourability;
 import net.igneo.icv.ICV;
 import net.igneo.icv.enchantment.*;
+import net.igneo.icv.enchantmentActions.Input;
 import net.igneo.icv.enchantmentActions.PlayerEnchantmentActions;
 import net.igneo.icv.enchantmentActions.PlayerEnchantmentActionsProvider;
 import net.igneo.icv.enchantmentActions.enchantManagers.EnchantmentManager;
@@ -41,6 +42,8 @@ import static net.igneo.icv.init.ICVUtils.*;
 
 @Mod.EventBusSubscriber(modid = ICV.MOD_ID)
 public class ModEvents {
+
+    private static int storedInput;
 
     @SubscribeEvent
     public static void equipEvent(LivingEquipmentChangeEvent event) {
@@ -84,6 +87,31 @@ public class ModEvents {
         if (Keybindings.helmet.isDown()) {
             useEnchant(Minecraft.getInstance().player,3);
             ModMessages.sendToServer(new EnchantUseC2SPacket(3));
+        }
+
+        int keyID = 0;
+        if (Minecraft.getInstance().options.keyDown.isDown()) keyID = 4;
+        if (Minecraft.getInstance().options.keyLeft.isDown()) {
+            if (Minecraft.getInstance().options.keyUp.isDown()) {
+                keyID = 7;
+            } else if (Minecraft.getInstance().options.keyDown.isDown()) {
+                keyID = 5;
+            } else {
+                keyID = 6;
+            }
+        }
+        if (Minecraft.getInstance().options.keyRight.isDown()) {
+            if (Minecraft.getInstance().options.keyUp.isDown()) {
+                keyID = 1;
+            } else if (Minecraft.getInstance().options.keyDown.isDown()) {
+                keyID = 3;
+            } else {
+                keyID = 2;
+            }
+        }
+        if (keyID != storedInput) {
+            storedInput = keyID;
+            ModMessages.sendToServer(new InputSyncC2SPacket(keyID));
         }
     }
 

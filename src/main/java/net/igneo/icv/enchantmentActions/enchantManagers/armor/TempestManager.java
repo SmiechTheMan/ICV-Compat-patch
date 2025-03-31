@@ -27,7 +27,7 @@ public class TempestManager extends ArmorEnchantManager{
     @Override
     public void activate() {
         if (player.level().isClientSide) {
-            player.setDeltaMovement(ICVUtils.getFlatInputDirection(player.getYRot(),1.5F,0.5));
+            player.setDeltaMovement(ICVUtils.getFlatInputDirection(player.getYRot(),enchVar.input,1.5F,0.5));
         }
     }
 
