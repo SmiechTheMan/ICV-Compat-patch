@@ -112,6 +112,10 @@ public class ModEvents {
         if (keyID != storedInput) {
             storedInput = keyID;
             ModMessages.sendToServer(new InputSyncC2SPacket(keyID));
+            int finalKeyID = keyID;
+            Minecraft.getInstance().player.getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS).ifPresent(enchVar -> {
+               enchVar.input = Input.getInput(finalKeyID);
+            });
         }
     }
 

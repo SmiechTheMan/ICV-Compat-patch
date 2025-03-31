@@ -3,6 +3,7 @@ package net.igneo.icv.enchantmentActions.enchantManagers.armor;
 import net.igneo.icv.client.indicators.EnchantIndicator;
 import net.igneo.icv.client.indicators.StasisCooldownIndicator;
 import net.igneo.icv.enchantment.EnchantType;
+import net.igneo.icv.enchantmentActions.Input;
 import net.igneo.icv.init.ICVUtils;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
@@ -62,10 +63,10 @@ public class PlanarShiftManager extends ArmorEnchantManager{
         float rot = (float) Math.toDegrees(yaw) - 90;
         System.out.println(shiftRot);
         System.out.println(rot);
-        System.out.println(ICVUtils.getFlatInputDirectionND(rot,10,0));
+        System.out.println(ICVUtils.getFlatInputDirection(rot, Input.flattenInput(enchVar.input),10,0));
         Vec3 scale = new Vec3(5,5,5);
         for (Entity entity : player.level().getEntities(null,new AABB(position.subtract(scale),position.add(scale)))) {
-            entity.setPos(entity.position().add(ICVUtils.getFlatInputDirectionND(rot,10,0)));
+            entity.setPos(entity.position().add(ICVUtils.getFlatInputDirection(rot, Input.flattenInput(enchVar.input),10,0)));
         }
         active = false;
         resetCoolDown();

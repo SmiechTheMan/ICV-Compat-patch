@@ -24,72 +24,24 @@ import java.util.concurrent.atomic.AtomicReference;
 import static net.igneo.icv.enchantmentActions.Input.getRotation;
 
 public class ICVUtils {
-    
-<<<<<<< HEAD
-    public static Vec3 getFlatInputDirection(float rot, Input input, float scale, double yVelocity) {
 
+    public static Vec3 getFlatInputDirection(float rot, Input input, float scale, double yVelocity) {
         int rotation = getRotation(input);
-=======
-    public static Vec3 getFlatInputDirection(float rot,float scale,double yVelocity) {
-        int rotation = 0;
-        
-        if (Minecraft.getInstance().options.keyLeft.isDown()) {
-            if (Minecraft.getInstance().options.keyUp.isDown()) {
-                rotation = 315;
-            } else if (Minecraft.getInstance().options.keyDown.isDown()) {
-                rotation = 225;
-            } else {
-                rotation = 270;
-            }
-        }
-        if (Minecraft.getInstance().options.keyRight.isDown()) {
-            if (Minecraft.getInstance().options.keyUp.isDown()) {
-                rotation = 45;
-            } else if (Minecraft.getInstance().options.keyDown.isDown()) {
-                rotation = 135;
-            } else {
-                rotation = 90;
-            }
-        }
-        
-        if (Minecraft.getInstance().options.keyDown.isDown()) rotation = 180;
-        
->>>>>>> 14ed30ee82d75cb572fdbfc5680000439631c3c2
         double yaw = Math.toRadians(rot + rotation);
-        double x = -Math.sin(yaw);
+        double x = -Math.toRadians(rot + rotation);
         double y = yVelocity;
         double z = Math.cos(yaw);
-        
-        return new Vec3(x*scale, y, z*scale);
+
+        return new Vec3(x*scale,y,z*scale);
     }
-<<<<<<< HEAD
-=======
-    
-    //ND stands for no diagonal
-    public static Vec3 getFlatInputDirectionND(float rot,float scale,double yVelocity) {
-        int rotation = 0;
-        
-        if (Minecraft.getInstance().options.keyLeft.isDown()) rotation = 270;
-        if (Minecraft.getInstance().options.keyRight.isDown()) rotation = 90;
-        
-        if (Minecraft.getInstance().options.keyDown.isDown()) rotation = 180;
-        
-        double yaw = Math.toRadians(rot + rotation);
-        double x = -Math.sin(yaw);
-        double y = yVelocity;
-        double z = Math.cos(yaw);
-        
-        return new Vec3(x*scale, y, z*scale);
-    }
->>>>>>> 14ed30ee82d75cb572fdbfc5680000439631c3c2
-    
+
     public static Vec3 getFlatDirection(float rot,float scale,double yVelocity) {
-        
+
         double yaw = Math.toRadians(rot);
         double x = -Math.sin(yaw);
         double y = yVelocity;
         double z = Math.cos(yaw);
-        
+
         return new Vec3(x*scale, y, z*scale);
     }
     

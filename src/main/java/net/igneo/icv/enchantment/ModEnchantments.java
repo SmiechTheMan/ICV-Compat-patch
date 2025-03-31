@@ -71,17 +71,14 @@ public class ModEnchantments {
             ENCHANTMENTS.register("haunt",
                     () -> new HauntEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
-<<<<<<< HEAD
     public static RegistryObject<Enchantment> MILKY_CHRYSALIS =
             ENCHANTMENTS.register("milky_chrysalis",
                     () -> new MilkyChrysalisEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
-=======
     public static RegistryObject<Enchantment> IMMOLATE =
       ENCHANTMENTS.register("immolate",
         () -> new ImmolateEnchantment(Enchantment.Rarity.UNCOMMON,
           EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
->>>>>>> 14ed30ee82d75cb572fdbfc5680000439631c3c2
 
 
 
