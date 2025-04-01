@@ -1,6 +1,6 @@
 package net.igneo.icv.entity.soulOrb;
 
-import net.igneo.icv.enchantmentActions.enchantManagers.armor.HauntManager;
+import net.igneo.icv.enchantmentActions.enchantManagers.armor.chestplate.HauntManager;
 import net.igneo.icv.entity.ICVEntity;
 import net.igneo.icv.entity.ModEntities;
 import net.igneo.icv.entity.soulSpider.SoulSpiderEntity;

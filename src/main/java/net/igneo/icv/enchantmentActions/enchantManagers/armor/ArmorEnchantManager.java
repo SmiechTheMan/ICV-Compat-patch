@@ -109,7 +109,7 @@ public abstract class ArmorEnchantManager extends EnchantmentManager {
     }
 
     public boolean canUse() {
-        return coolDown != maxCoolDown;
+        return true;
     }
 
     public boolean payBloodCost() {
