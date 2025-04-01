@@ -6,10 +6,7 @@ import net.igneo.icv.enchantment.armor.chestplate.*;
 import net.igneo.icv.enchantment.armor.helmet.BlackHoleEnchantment;
 import net.igneo.icv.enchantment.armor.helmet.RiftRipperEnchantment;
 import net.igneo.icv.enchantment.armor.helmet.VolcanoEnchantment;
-import net.igneo.icv.enchantment.armor.leggings.GaleEnchantment;
-import net.igneo.icv.enchantment.armor.leggings.JudgementEnchantment;
-import net.igneo.icv.enchantment.armor.leggings.TempestEnchantment;
-import net.igneo.icv.enchantment.armor.leggings.TsunamiEnchantment;
+import net.igneo.icv.enchantment.armor.leggings.*;
 import net.igneo.icv.enchantment.weapon.*;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -118,6 +115,10 @@ public class ModEnchantments {
     public static RegistryObject<Enchantment> TSUNAMI =
             ENCHANTMENTS.register("tsunami",
                     () -> new TsunamiEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.ARMOR_LEGS, EquipmentSlot.LEGS));
+    public static RegistryObject<Enchantment> VOID_WAKE =
+            ENCHANTMENTS.register("void_wake",
+                    () -> new VoidWakeEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.ARMOR_LEGS, EquipmentSlot.LEGS));
 
 

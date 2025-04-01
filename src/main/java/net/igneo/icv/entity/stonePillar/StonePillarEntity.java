@@ -35,11 +35,6 @@ public class StonePillarEntity extends ICVEntity {
     }
 
     @Override
-    protected boolean canAddPassenger(Entity pPassenger) {
-        return pPassenger == this.getOwner();
-    }
-
-    @Override
     public boolean canBeCollidedWith() {
         return true;
     }

@@ -17,6 +17,8 @@ import net.igneo.icv.entity.soulOrb.SoulOrbRenderer;
 import net.igneo.icv.entity.soulSpider.SoulSpiderRenderer;
 import net.igneo.icv.entity.stonePillar.StonePillarRenderer;
 import net.igneo.icv.entity.surfWave.SurfWaveRenderer;
+import net.igneo.icv.entity.voidSpike.VoidSpikeEntity;
+import net.igneo.icv.entity.voidSpike.VoidSpikeRenderer;
 import net.igneo.icv.entity.wave.WaveRenderer;
 import net.igneo.icv.networking.ModMessages;
 import net.igneo.icv.particle.ModParticles;
@@ -84,6 +86,7 @@ public class ICV
             EntityRenderers.register(ModEntities.SOUL_EMBER.get(), SoulEmberRenderer::new);
             EntityRenderers.register(ModEntities.ABYSS_STONE.get(), AbyssStoneRenderer::new);
             EntityRenderers.register(ModEntities.WAVE.get(), WaveRenderer::new);
+            EntityRenderers.register(ModEntities.VOID_SPIKE.get(), VoidSpikeRenderer::new);
 
 
             PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(

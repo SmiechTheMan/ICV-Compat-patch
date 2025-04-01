@@ -29,7 +29,7 @@ public class ICVUtils {
     public static Vec3 getFlatInputDirection(float rot, Input input, float scale, double yVelocity) {
         int rotation = getRotation(input);
         double yaw = Math.toRadians(rot + rotation);
-        double x = -Math.toRadians(rot + rotation);
+        double x = -Math.sin(yaw);
         double y = yVelocity;
         double z = Math.cos(yaw);
 
