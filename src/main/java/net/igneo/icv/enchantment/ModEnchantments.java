@@ -4,6 +4,7 @@ import net.igneo.icv.ICV;
 import net.igneo.icv.enchantment.armor.boots.*;
 import net.igneo.icv.enchantment.armor.chestplate.*;
 import net.igneo.icv.enchantment.armor.helmet.BlackHoleEnchantment;
+import net.igneo.icv.enchantment.armor.helmet.GravityWellEnchantment;
 import net.igneo.icv.enchantment.armor.helmet.RiftRipperEnchantment;
 import net.igneo.icv.enchantment.armor.helmet.VolcanoEnchantment;
 import net.igneo.icv.enchantment.armor.leggings.*;
@@ -74,6 +75,10 @@ public class ModEnchantments {
             ENCHANTMENTS.register("volcano",
                     () -> new VolcanoEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.FEET));
+    public static RegistryObject<Enchantment> GRAVITY_WELL =
+      ENCHANTMENTS.register("gravity_well",
+        () -> new GravityWellEnchantment(Enchantment.Rarity.UNCOMMON,
+          EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.HEAD));
 
 
 
