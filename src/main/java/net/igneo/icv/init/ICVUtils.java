@@ -11,6 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
@@ -71,9 +72,9 @@ public class ICVUtils {
         return slot.get();
     }
     
-    public static List<Entity> collectEntitiesBox(Player player, Vec3 position, double radius) {
+    public static List<Entity> collectEntitiesBox(Level level, Vec3 position, double radius) {
         Vec3 scale = new Vec3(radius,radius,radius);
-        return player.level().getEntities(null,new AABB(position.subtract(scale),position.add(scale)));
+        return level.getEntities(null,new AABB(position.subtract(scale),position.add(scale)));
     }
     
     @OnlyIn(Dist.CLIENT)

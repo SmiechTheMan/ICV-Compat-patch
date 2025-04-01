@@ -21,10 +21,12 @@ public class ModEnchantments {
                     () -> new BurstEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.DIGGER, EquipmentSlot.MAINHAND));
 
+
+
     public static RegistryObject<Enchantment> CASCADE =
-      ENCHANTMENTS.register("cascade",
-        () -> new CascadeEnchantment(Enchantment.Rarity.UNCOMMON,
-          EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
+            ENCHANTMENTS.register("cascade",
+                    () -> new CascadeEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
     public static RegistryObject<Enchantment> BURST =
             ENCHANTMENTS.register("burst",
                     () -> new BurstEnchantment(Enchantment.Rarity.UNCOMMON,
@@ -45,10 +47,14 @@ public class ModEnchantments {
             ENCHANTMENTS.register("viper",
                     () -> new ViperEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
+    public static RegistryObject<Enchantment> COMET_STRIKE =
+            ENCHANTMENTS.register("comet_strike",
+                    () -> new CometStrikeEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
     public static RegistryObject<Enchantment> KINETIC =
-      ENCHANTMENTS.register("kinetic",
-        () -> new KineticEnchantment(Enchantment.Rarity.UNCOMMON,
-          EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
+            ENCHANTMENTS.register("kinetic",
+                    () -> new KineticEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
 
 
 
@@ -57,9 +63,13 @@ public class ModEnchantments {
                     () -> new BlackHoleEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.HEAD));
     public static RegistryObject<Enchantment> RIFT_RIPPER =
-      ENCHANTMENTS.register("rift_ripper",
-        () -> new RiftRipperEnchantment(Enchantment.Rarity.UNCOMMON,
-          EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.HEAD));
+            ENCHANTMENTS.register("rift_ripper",
+                    () -> new RiftRipperEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.HEAD));
+    public static RegistryObject<Enchantment> VOLCANO =
+            ENCHANTMENTS.register("volcano",
+                    () -> new VolcanoEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.FEET));
 
 
 
@@ -76,9 +86,9 @@ public class ModEnchantments {
                     () -> new MilkyChrysalisEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
     public static RegistryObject<Enchantment> IMMOLATE =
-      ENCHANTMENTS.register("immolate",
-        () -> new ImmolateEnchantment(Enchantment.Rarity.UNCOMMON,
-          EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
+            ENCHANTMENTS.register("immolate",
+                    () -> new ImmolateEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
 
 
 
@@ -93,10 +103,6 @@ public class ModEnchantments {
 
 
 
-    public static RegistryObject<Enchantment> COMET_STRIKE =
-            ENCHANTMENTS.register("comet_strike",
-                    () -> new CometStrikeEnchantment(Enchantment.Rarity.UNCOMMON,
-                            EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
     public static RegistryObject<Enchantment> STASIS =
             ENCHANTMENTS.register("stasis",
                     () -> new StasisEnchantment(Enchantment.Rarity.UNCOMMON,
@@ -106,17 +112,17 @@ public class ModEnchantments {
                     () -> new SurfEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.ARMOR_FEET, EquipmentSlot.FEET));
     public static RegistryObject<Enchantment> BLINK =
-      ENCHANTMENTS.register("blink",
-        () -> new BlinkEnchantment(Enchantment.Rarity.UNCOMMON,
-          EnchantmentCategory.ARMOR_FEET, EquipmentSlot.FEET));
+            ENCHANTMENTS.register("blink",
+                    () -> new BlinkEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.ARMOR_FEET, EquipmentSlot.FEET));
     public static RegistryObject<Enchantment> STONE_CALLER =
             ENCHANTMENTS.register("stone_caller",
                     () -> new StoneCallerEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.ARMOR_FEET, EquipmentSlot.FEET));
-    public static RegistryObject<Enchantment> VOLCANO =
-      ENCHANTMENTS.register("volcano",
-        () -> new VolcanoEnchantment(Enchantment.Rarity.UNCOMMON,
-          EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.FEET));
+    public static RegistryObject<Enchantment> CURB_STOMP =
+            ENCHANTMENTS.register("curb_stomp",
+                    () -> new CurbStompEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.ARMOR_FEET, EquipmentSlot.FEET));
     
     
     

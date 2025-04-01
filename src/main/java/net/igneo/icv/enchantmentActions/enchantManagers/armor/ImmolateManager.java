@@ -65,7 +65,7 @@ public class ImmolateManager extends ArmorEnchantManager {
     level.playSound(null, player.getX(), player.getY(), player.getZ(),
       SoundEvents.BLAZE_SHOOT, SoundSource.PLAYERS, 1.0f, 0.8f);
     
-    List<Entity> entities = ICVUtils.collectEntitiesBox(player, player.position(), IMMOLATE_RADIUS);
+    List<Entity> entities = ICVUtils.collectEntitiesBox(player.level(), player.position(), IMMOLATE_RADIUS);
     
     for (Entity entity : entities) {
       if (entity == player) {
@@ -147,7 +147,7 @@ public class ImmolateManager extends ArmorEnchantManager {
       15, 0.5f, 0.5f, 0.5f, 0.1f
     );
     
-    List<Entity> nearbyEntities = ICVUtils.collectEntitiesBox(player, position, IMMOLATE_RADIUS);
+    List<Entity> nearbyEntities = ICVUtils.collectEntitiesBox(player.level(), position, IMMOLATE_RADIUS);
     
     for (Entity nearbyEntity : nearbyEntities) {
       nearbyEntity.hurt(level.damageSources().explosion(player, null), 1);

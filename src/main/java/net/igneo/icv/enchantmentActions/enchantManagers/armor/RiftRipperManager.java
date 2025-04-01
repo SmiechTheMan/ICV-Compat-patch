@@ -47,7 +47,7 @@ public class RiftRipperManager extends ArmorEnchantManager {
     
     player.setPos(oldPlayerPosition);
     
-    List<Entity> entities = ICVUtils.collectEntitiesBox(player, oldPlayerPosition, TELEPORT_RADIUS);
+    List<Entity> entities = ICVUtils.collectEntitiesBox(player.level(), oldPlayerPosition, TELEPORT_RADIUS);
     
     for (Entity entity : entities) {
       entity.setPos(newPlayerPosition);

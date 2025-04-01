@@ -83,7 +83,7 @@ public class VolcanoManager extends ArmorEnchantManager {
       level.sendParticles(ParticleTypes.EXPLOSION, player.getX(), player.getY(), player.getZ(),
         5, 0.3f, 0.3f, 0.3f, 0.05f);
       
-      List<Entity> entities = ICVUtils.collectEntitiesBox(player, location.getCenter(), VOLCANO_RANGE);
+      List<Entity> entities = ICVUtils.collectEntitiesBox(player.level(), location.getCenter(), VOLCANO_RANGE);
       
       for (Entity entity : entities) {
         if (entity == player) {
