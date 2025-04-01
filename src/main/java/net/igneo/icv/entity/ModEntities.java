@@ -10,6 +10,7 @@ import net.igneo.icv.entity.soulOrb.SoulOrbEntity;
 import net.igneo.icv.entity.soulSpider.SoulSpiderEntity;
 import net.igneo.icv.entity.stonePillar.StonePillarEntity;
 import net.igneo.icv.entity.surfWave.SurfWaveEntity;
+import net.igneo.icv.entity.wave.WaveEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -48,6 +49,9 @@ public class ModEntities {
     public static final RegistryObject<EntityType<AbyssStoneEntity>> ABYSS_STONE =
       ENTITY_TYPES.register("abyss_stone",() -> EntityType.Builder.<AbyssStoneEntity>of(AbyssStoneEntity::new, MobCategory.MISC)
         .sized(2.5f,4f).build("abyss_stone"));
+    public static final RegistryObject<EntityType<WaveEntity>> WAVE =
+            ENTITY_TYPES.register("wave",() -> EntityType.Builder.<WaveEntity>of(WaveEntity::new, MobCategory.MISC)
+                    .sized(2.5f,4f).build("wave"));
 
 
     public static void register(IEventBus eventBus) {
