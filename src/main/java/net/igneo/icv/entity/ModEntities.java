@@ -1,6 +1,7 @@
 package net.igneo.icv.entity;
 
 import net.igneo.icv.ICV;
+import net.igneo.icv.entity.abyssStone.AbyssStoneEntity;
 import net.igneo.icv.entity.blackHole.BlackHoleEntity;
 import net.igneo.icv.entity.comet.CometEntity;
 import net.igneo.icv.entity.snakeBite.SnakeBiteEntity;
@@ -44,42 +45,12 @@ public class ModEntities {
     public static final RegistryObject<EntityType<SoulEmberEntity>> SOUL_EMBER =
             ENTITY_TYPES.register("soul_ember",() -> EntityType.Builder.<SoulEmberEntity>of(SoulEmberEntity::new, MobCategory.MISC)
                     .sized(1f,1f).build("soul_ember"));
+    public static final RegistryObject<EntityType<AbyssStoneEntity>> ABYSS_STONE =
+      ENTITY_TYPES.register("abyss_stone",() -> EntityType.Builder.<AbyssStoneEntity>of(AbyssStoneEntity::new, MobCategory.MISC)
+        .sized(2.5f,4f).build("abyss_stone"));
 
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
     }
-    /*
-    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES;
-    public static final RegistryObject<EntityType<CometEntity>> COMET;
-    public static final RegistryObject<EntityType<FireEntity>> FIRE;
-    public static final RegistryObject<EntityType<IcicleEntity>> ICICLE;
-    public static final RegistryObject<EntityType<BoltEntity>> BOLT;
-    public static final RegistryObject<EntityType<BlackHoleEntity>> black_hole;
-
-    public ModEntities() {
-    }
-
-    public static void register(IEventBus eventBus) {
-        ENTITY_TYPES.register(eventBus);
-    }
-
-    static {
-        ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, "icv");
-        COMET = ENTITY_TYPES.register("comet", () -> {
-            return Builder.of(CometEntity::new, MobCategory.MISC).sized(1.0F, 1.0F).build("comet");
-        });
-        FIRE = ENTITY_TYPES.register("fire", () -> {
-            return Builder.<FireEntity>of(FireEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).build("fire");
-        });
-        ICICLE = ENTITY_TYPES.register("icicle", () -> {
-            return Builder.of(IcicleEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).build("ice");
-        });
-        BOLT = ENTITY_TYPES.register("bolt", () -> {
-            return Builder.of(BoltEntity::new, MobCategory.MISC).sized(1.0F, 0.5F).build("bolt");
-        });
-        black_hole = ENTITY_TYPES.register("black_hole", () -> {
-            return Builder.of(BlackHoleEntity::new, MobCategory.MISC).sized(0.9F, 0.9F).build("black_hole");
-        });
-    }*/
 }

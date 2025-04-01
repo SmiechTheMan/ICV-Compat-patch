@@ -89,6 +89,10 @@ public class ModEnchantments {
             ENCHANTMENTS.register("immolate",
                     () -> new ImmolateEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
+    public static RegistryObject<Enchantment> ABYSS_OMEN =
+      ENCHANTMENTS.register("abyss_omen",
+        () -> new AbyssOmenEnchantment(Enchantment.Rarity.UNCOMMON,
+          EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
 
 
 
