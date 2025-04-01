@@ -123,6 +123,10 @@ public class ModEnchantments {
             ENCHANTMENTS.register("curb_stomp",
                     () -> new CurbStompEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.ARMOR_FEET, EquipmentSlot.FEET));
+    public static RegistryObject<Enchantment> SOUL_EMBER =
+            ENCHANTMENTS.register("soul_ember",
+                    () -> new SoulEmberEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.ARMOR_FEET, EquipmentSlot.FEET));
     
     
     

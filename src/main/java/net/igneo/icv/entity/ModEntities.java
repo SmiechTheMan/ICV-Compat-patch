@@ -4,6 +4,7 @@ import net.igneo.icv.ICV;
 import net.igneo.icv.entity.blackHole.BlackHoleEntity;
 import net.igneo.icv.entity.comet.CometEntity;
 import net.igneo.icv.entity.snakeBite.SnakeBiteEntity;
+import net.igneo.icv.entity.soulEmber.SoulEmberEntity;
 import net.igneo.icv.entity.soulOrb.SoulOrbEntity;
 import net.igneo.icv.entity.soulSpider.SoulSpiderEntity;
 import net.igneo.icv.entity.stonePillar.StonePillarEntity;
@@ -40,6 +41,9 @@ public class ModEntities {
     public static final RegistryObject<EntityType<StonePillarEntity>> STONE_PILLAR =
             ENTITY_TYPES.register("stone_pillar",() -> EntityType.Builder.<StonePillarEntity>of(StonePillarEntity::new, MobCategory.MISC)
                     .sized(2.5f,4f).build("stone_pillar"));
+    public static final RegistryObject<EntityType<SoulEmberEntity>> SOUL_EMBER =
+            ENTITY_TYPES.register("soul_ember",() -> EntityType.Builder.<SoulEmberEntity>of(SoulEmberEntity::new, MobCategory.MISC)
+                    .sized(1f,1f).build("soul_ember"));
 
 
     public static void register(IEventBus eventBus) {
