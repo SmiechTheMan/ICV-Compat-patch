@@ -120,6 +120,10 @@ public class ModEnchantments {
             ENCHANTMENTS.register("void_wake",
                     () -> new VoidWakeEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.ARMOR_LEGS, EquipmentSlot.LEGS));
+    public static RegistryObject<Enchantment> HURRICANE =
+            ENCHANTMENTS.register("hurricane",
+                    () -> new HurricaneEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.ARMOR_LEGS, EquipmentSlot.LEGS));
 
 
 
