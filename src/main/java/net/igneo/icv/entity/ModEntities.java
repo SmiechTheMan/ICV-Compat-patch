@@ -1,6 +1,7 @@
 package net.igneo.icv.entity;
 
 import net.igneo.icv.ICV;
+import net.igneo.icv.entity.abyssStone.AbyssStoneEntity;
 import net.igneo.icv.entity.blackHole.BlackHoleEntity;
 import net.igneo.icv.entity.comet.CometEntity;
 import net.igneo.icv.entity.snakeBite.SnakeBiteEntity;
@@ -40,6 +41,9 @@ public class ModEntities {
     public static final RegistryObject<EntityType<StonePillarEntity>> STONE_PILLAR =
             ENTITY_TYPES.register("stone_pillar",() -> EntityType.Builder.<StonePillarEntity>of(StonePillarEntity::new, MobCategory.MISC)
                     .sized(2.5f,4f).build("stone_pillar"));
+    public static final RegistryObject<EntityType<AbyssStoneEntity>> ABYSS_STONE =
+      ENTITY_TYPES.register("abyss_stone",() -> EntityType.Builder.<AbyssStoneEntity>of(AbyssStoneEntity::new, MobCategory.MISC)
+        .sized(2.5f,4f).build("abyss_stone"));
 
 
     public static void register(IEventBus eventBus) {
