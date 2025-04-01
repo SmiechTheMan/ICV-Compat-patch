@@ -11,6 +11,7 @@ import net.igneo.icv.entity.ModEntities;
 import net.igneo.icv.entity.abyssStone.AbyssStoneRenderer;
 import net.igneo.icv.entity.blackHole.BlackHoleRenderer;
 import net.igneo.icv.entity.comet.CometRenderer;
+import net.igneo.icv.entity.meteorSummoner.MeteorSummonerRenderer;
 import net.igneo.icv.entity.snakeBite.SnakeBiteRenderer;
 import net.igneo.icv.entity.soulEmber.SoulEmberRenderer;
 import net.igneo.icv.entity.soulOrb.SoulOrbRenderer;
@@ -87,6 +88,7 @@ public class ICV
             EntityRenderers.register(ModEntities.ABYSS_STONE.get(), AbyssStoneRenderer::new);
             EntityRenderers.register(ModEntities.WAVE.get(), WaveRenderer::new);
             EntityRenderers.register(ModEntities.VOID_SPIKE.get(), VoidSpikeRenderer::new);
+            EntityRenderers.register(ModEntities.METEOR_SUMMONER.get(), MeteorSummonerRenderer::new);
 
 
             PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(

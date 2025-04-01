@@ -76,9 +76,9 @@ public class ModEnchantments {
                     () -> new VolcanoEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.FEET));
     public static RegistryObject<Enchantment> GRAVITY_WELL =
-      ENCHANTMENTS.register("gravity_well",
-        () -> new GravityWellEnchantment(Enchantment.Rarity.UNCOMMON,
-          EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.HEAD));
+            ENCHANTMENTS.register("gravity_well",
+                    () -> new GravityWellEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.HEAD));
 
 
 
@@ -98,10 +98,14 @@ public class ModEnchantments {
             ENCHANTMENTS.register("immolate",
                     () -> new ImmolateEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
+    public static RegistryObject<Enchantment> EXTINCTION =
+            ENCHANTMENTS.register("extinction",
+                    () -> new ExtinctionEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
     public static RegistryObject<Enchantment> ABYSS_OMEN =
-      ENCHANTMENTS.register("abyss_omen",
-        () -> new AbyssOmenEnchantment(Enchantment.Rarity.UNCOMMON,
-          EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
+            ENCHANTMENTS.register("abyss_omen",
+                    () -> new AbyssOmenEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.ARMOR_CHEST, EquipmentSlot.CHEST));
 
 
 

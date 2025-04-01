@@ -4,6 +4,7 @@ import net.igneo.icv.ICV;
 import net.igneo.icv.entity.abyssStone.AbyssStoneEntity;
 import net.igneo.icv.entity.blackHole.BlackHoleEntity;
 import net.igneo.icv.entity.comet.CometEntity;
+import net.igneo.icv.entity.meteorSummoner.MeteorSummonerEntity;
 import net.igneo.icv.entity.snakeBite.SnakeBiteEntity;
 import net.igneo.icv.entity.soulEmber.SoulEmberEntity;
 import net.igneo.icv.entity.soulOrb.SoulOrbEntity;
@@ -52,10 +53,13 @@ public class ModEntities {
         .sized(2.5f,4f).build("abyss_stone"));
     public static final RegistryObject<EntityType<WaveEntity>> WAVE =
             ENTITY_TYPES.register("wave",() -> EntityType.Builder.<WaveEntity>of(WaveEntity::new, MobCategory.MISC)
-                    .sized(2.5f,4f).build("wave"));
+                    .sized(1f,1f).build("wave"));
     public static final RegistryObject<EntityType<VoidSpikeEntity>> VOID_SPIKE =
             ENTITY_TYPES.register("void_spike",() -> EntityType.Builder.<VoidSpikeEntity>of(VoidSpikeEntity::new, MobCategory.MISC)
-                    .sized(2.5f,4f).build("void_spike"));
+                    .sized(1f,1f).build("void_spike"));
+    public static final RegistryObject<EntityType<MeteorSummonerEntity>> METEOR_SUMMONER =
+            ENTITY_TYPES.register("meteor_summoner",() -> EntityType.Builder.<MeteorSummonerEntity>of(MeteorSummonerEntity::new, MobCategory.MISC)
+                    .sized(1f,1f).build("meteor_summoner"));
 
 
     public static void register(IEventBus eventBus) {

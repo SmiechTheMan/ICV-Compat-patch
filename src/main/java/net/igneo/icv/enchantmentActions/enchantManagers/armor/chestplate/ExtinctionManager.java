@@ -7,7 +7,6 @@ import net.igneo.icv.enchantmentActions.EntityTracker;
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager;
 import net.igneo.icv.entity.ICVEntity;
 import net.igneo.icv.entity.ModEntities;
-import net.igneo.icv.entity.abyssStone.AbyssStoneEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -15,10 +14,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-public class AbyssOmenManager extends ArmorEnchantManager implements EntityTracker {
+public class ExtinctionManager extends ArmorEnchantManager implements EntityTracker {
   private ICVEntity child = null;
-  
-  public AbyssOmenManager(Player player) {
+
+  public ExtinctionManager(Player player) {
     super(EnchantType.CHESTPLATE, 300, -10, false, player);
   }
   
@@ -37,7 +36,7 @@ public class AbyssOmenManager extends ArmorEnchantManager implements EntityTrack
     if (!(player.level() instanceof ServerLevel level)) {
       return;
     }
-    child = ModEntities.ABYSS_STONE.get().create(player.level());
+    child = ModEntities.METEOR_SUMMONER.get().create(player.level());
     child.setOwner(player);
     
     HitResult hitResult= player.pick(5, 0f, false);
@@ -72,7 +71,7 @@ public class AbyssOmenManager extends ArmorEnchantManager implements EntityTrack
   
   @Override
   public boolean canUse() {
-    return stableCheck() && child == null;
+    return child == null;
   }
 
   @Override
