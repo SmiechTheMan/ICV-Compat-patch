@@ -11,6 +11,8 @@ import net.igneo.icv.entity.ModEntities;
 import net.igneo.icv.entity.abyssStone.AbyssStoneRenderer;
 import net.igneo.icv.entity.blackHole.BlackHoleRenderer;
 import net.igneo.icv.entity.comet.CometRenderer;
+import net.igneo.icv.entity.glacialImpasse.iceSpike.IceSpikeRenderer;
+import net.igneo.icv.entity.glacialImpasse.iceSpikeSpawner.IceSpikeSpawnerRenderer;
 import net.igneo.icv.entity.meteorSummoner.MeteorSummonerRenderer;
 import net.igneo.icv.entity.snakeBite.SnakeBiteRenderer;
 import net.igneo.icv.entity.soulEmber.SoulEmberRenderer;
@@ -18,7 +20,6 @@ import net.igneo.icv.entity.soulOrb.SoulOrbRenderer;
 import net.igneo.icv.entity.soulSpider.SoulSpiderRenderer;
 import net.igneo.icv.entity.stonePillar.StonePillarRenderer;
 import net.igneo.icv.entity.surfWave.SurfWaveRenderer;
-import net.igneo.icv.entity.voidSpike.VoidSpikeEntity;
 import net.igneo.icv.entity.voidSpike.VoidSpikeRenderer;
 import net.igneo.icv.entity.wave.WaveRenderer;
 import net.igneo.icv.networking.ModMessages;
@@ -26,7 +27,6 @@ import net.igneo.icv.particle.ModParticles;
 import net.igneo.icv.sound.ModSounds;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
@@ -89,7 +89,8 @@ public class ICV
             EntityRenderers.register(ModEntities.WAVE.get(), WaveRenderer::new);
             EntityRenderers.register(ModEntities.VOID_SPIKE.get(), VoidSpikeRenderer::new);
             EntityRenderers.register(ModEntities.METEOR_SUMMONER.get(), MeteorSummonerRenderer::new);
-
+            EntityRenderers.register(ModEntities.ICE_SPIKE.get(), IceSpikeRenderer::new);
+            EntityRenderers.register(ModEntities.ICE_SPIKE_SPAWNER.get(), IceSpikeSpawnerRenderer::new);
 
             PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
                     new ResourceLocation(MOD_ID, "enchant_animator"),

@@ -3,10 +3,7 @@ package net.igneo.icv.enchantment;
 import net.igneo.icv.ICV;
 import net.igneo.icv.enchantment.armor.boots.*;
 import net.igneo.icv.enchantment.armor.chestplate.*;
-import net.igneo.icv.enchantment.armor.helmet.BlackHoleEnchantment;
-import net.igneo.icv.enchantment.armor.helmet.GravityWellEnchantment;
-import net.igneo.icv.enchantment.armor.helmet.RiftRipperEnchantment;
-import net.igneo.icv.enchantment.armor.helmet.VolcanoEnchantment;
+import net.igneo.icv.enchantment.armor.helmet.*;
 import net.igneo.icv.enchantment.armor.leggings.*;
 import net.igneo.icv.enchantment.weapon.*;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -79,6 +76,10 @@ public class ModEnchantments {
             ENCHANTMENTS.register("gravity_well",
                     () -> new GravityWellEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.HEAD));
+    public static RegistryObject<Enchantment> GLACIAL_IMPASSE =
+      ENCHANTMENTS.register("glacial_impasse",
+        () -> new GlacialImpasseEnchantment(Enchantment.Rarity.UNCOMMON,
+          EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.HEAD));
 
 
 
