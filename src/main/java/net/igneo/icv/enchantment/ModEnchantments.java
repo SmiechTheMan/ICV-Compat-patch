@@ -80,6 +80,10 @@ public class ModEnchantments {
       ENCHANTMENTS.register("glacial_impasse",
         () -> new GlacialImpasseEnchantment(Enchantment.Rarity.UNCOMMON,
           EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.HEAD));
+    public static RegistryObject<Enchantment> DIVINE_SMITE =
+      ENCHANTMENTS.register("divine_smite",
+        () -> new DivineSmiteEnchantment(Enchantment.Rarity.UNCOMMON,
+          EnchantmentCategory.ARMOR_HEAD, EquipmentSlot.HEAD));
 
 
 

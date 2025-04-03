@@ -4,6 +4,7 @@ import net.igneo.icv.ICV;
 import net.igneo.icv.entity.abyssStone.AbyssStoneEntity;
 import net.igneo.icv.entity.blackHole.BlackHoleEntity;
 import net.igneo.icv.entity.comet.CometEntity;
+import net.igneo.icv.entity.divineLightningRod.DivineLightningRodEntity;
 import net.igneo.icv.entity.glacialImpasse.iceSpike.IceSpikeEntity;
 import net.igneo.icv.entity.glacialImpasse.iceSpikeSpawner.IceSpikeSpawnerEntity;
 import net.igneo.icv.entity.meteorSummoner.MeteorSummonerEntity;
@@ -63,11 +64,14 @@ public class ModEntities {
             ENTITY_TYPES.register("meteor_summoner",() -> EntityType.Builder.<MeteorSummonerEntity>of(MeteorSummonerEntity::new, MobCategory.MISC)
                     .sized(1f,1f).build("meteor_summoner"));
     public static final RegistryObject<EntityType<IceSpikeEntity>> ICE_SPIKE =
-      ENTITY_TYPES.register("icv_spike", () -> EntityType.Builder.<IceSpikeEntity>of(IceSpikeEntity::new, MobCategory.MISC)
+      ENTITY_TYPES.register("ice_spike", () -> EntityType.Builder.<IceSpikeEntity>of(IceSpikeEntity::new, MobCategory.MISC)
         .sized(1.0f, 1.0f).build("ice_spike"));
     public static final RegistryObject<EntityType<IceSpikeSpawnerEntity>> ICE_SPIKE_SPAWNER =
-      ENTITY_TYPES.register("icv_spike_spawner", () -> EntityType.Builder.<IceSpikeSpawnerEntity>of(IceSpikeSpawnerEntity::new, MobCategory.MISC)
+      ENTITY_TYPES.register("ice_spike_spawner", () -> EntityType.Builder.<IceSpikeSpawnerEntity>of(IceSpikeSpawnerEntity::new, MobCategory.MISC)
         .sized(0.0f, 0.0f).build("ice_spike_spawner"));
+    public static final RegistryObject<EntityType<DivineLightningRodEntity>> DIVINE_LIGHTNING_ROD =
+      ENTITY_TYPES.register("divine_lightning_rod", () -> EntityType.Builder.<DivineLightningRodEntity>of(DivineLightningRodEntity::new, MobCategory.MISC)
+        .sized(1.0f, 1.0f).build("divine_lightning_rod"));
 
 
     public static void register(IEventBus eventBus) {

@@ -11,6 +11,7 @@ import net.igneo.icv.entity.ModEntities;
 import net.igneo.icv.entity.abyssStone.AbyssStoneRenderer;
 import net.igneo.icv.entity.blackHole.BlackHoleRenderer;
 import net.igneo.icv.entity.comet.CometRenderer;
+import net.igneo.icv.entity.divineLightningRod.DivineLightningRodRenderer;
 import net.igneo.icv.entity.glacialImpasse.iceSpike.IceSpikeRenderer;
 import net.igneo.icv.entity.glacialImpasse.iceSpikeSpawner.IceSpikeSpawnerRenderer;
 import net.igneo.icv.entity.meteorSummoner.MeteorSummonerRenderer;
@@ -91,6 +92,7 @@ public class ICV
             EntityRenderers.register(ModEntities.METEOR_SUMMONER.get(), MeteorSummonerRenderer::new);
             EntityRenderers.register(ModEntities.ICE_SPIKE.get(), IceSpikeRenderer::new);
             EntityRenderers.register(ModEntities.ICE_SPIKE_SPAWNER.get(), IceSpikeSpawnerRenderer::new);
+            EntityRenderers.register(ModEntities.DIVINE_LIGHTNING_ROD.get(), DivineLightningRodRenderer::new);
 
             PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
                     new ResourceLocation(MOD_ID, "enchant_animator"),
