@@ -11,13 +11,9 @@ import net.igneo.icv.enchantmentActions.EntityTracker;
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager;
 import net.igneo.icv.entity.ICVEntity;
 import net.igneo.icv.entity.ModEntities;
-import net.igneo.icv.entity.blackHole.BlackHoleEntity;
-import net.igneo.icv.networking.ModMessages;
-import net.igneo.icv.networking.packet.EntitySyncS2CPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 

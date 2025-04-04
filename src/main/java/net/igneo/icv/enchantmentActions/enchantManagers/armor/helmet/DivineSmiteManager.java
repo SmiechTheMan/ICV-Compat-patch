@@ -7,7 +7,7 @@ import net.igneo.icv.enchantmentActions.EntityTracker;
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager;
 import net.igneo.icv.entity.ICVEntity;
 import net.igneo.icv.entity.ModEntities;
-import net.igneo.icv.entity.divineLightningRod.DivineLightningRodEntity;
+import net.igneo.icv.entity.helmet.divineLightningRod.DivineLightningRodEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;

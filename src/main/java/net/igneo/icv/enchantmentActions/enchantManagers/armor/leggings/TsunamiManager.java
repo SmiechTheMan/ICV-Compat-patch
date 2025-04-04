@@ -6,13 +6,9 @@ import net.igneo.icv.enchantment.EnchantType;
 import net.igneo.icv.enchantmentActions.Input;
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager;
 import net.igneo.icv.entity.ModEntities;
-import net.igneo.icv.entity.stonePillar.StonePillarEntity;
-import net.igneo.icv.entity.wave.WaveEntity;
+import net.igneo.icv.entity.leggings.wave.WaveEntity;
 import net.igneo.icv.init.ICVUtils;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
 public class TsunamiManager extends ArmorEnchantManager {
