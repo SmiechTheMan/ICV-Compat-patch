@@ -18,9 +18,9 @@ public class MovePlayerS2CPacket {
         this.z = setDirection.z;
     }
     public MovePlayerS2CPacket(FriendlyByteBuf buf) {
-        this.x = buf.readInt();
-        this.y = buf.readInt();
-        this.z = buf.readInt();
+        this.x = buf.readDouble();
+        this.y = buf.readDouble();
+        this.z = buf.readDouble();
     }
 
     public void toBytes(FriendlyByteBuf buf) {

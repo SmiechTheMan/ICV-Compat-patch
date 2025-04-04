@@ -4,6 +4,7 @@
   "minVersion": "0.7",
   "compatibilityLevel": "JAVA_8",
   "client": [
+    "ItemRendererMixin",
     "LocalPlayerMixin"
   ],
   "mixins": [
@@ -15,7 +16,9 @@
     "LivingEntityMixin",
     "MinecraftMixin",
     "PlayerMixin",
-    "ThrownPotionMixin"
+    "ThrownPotionMixin",
+    "TridentEntityMixin",
+    "TridentItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

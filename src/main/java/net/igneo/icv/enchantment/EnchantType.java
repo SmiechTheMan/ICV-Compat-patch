@@ -25,7 +25,7 @@ public enum EnchantType {
             case HELMET: {
                 return slot == 3;
             }
-            case WEAPON: {
+            case WEAPON,TRIDENT: {
                 return slot == 4 || slot == 5;
             }
         }

@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = AnvilMenu.class,priority = 999999999)
+@Mixin(value = AnvilMenu.class)
 public class AnvilMenuMixin extends ItemCombinerMenu {
     @Shadow private final DataSlot cost = DataSlot.standalone();
     public AnvilMenuMixin(@Nullable MenuType<?> pType, int pContainerId, Inventory pPlayerInventory, ContainerLevelAccess pAccess) {

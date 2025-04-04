@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.Inject;
 
-@Mixin(value = ThrownPotion.class,priority = 999999999)
+@Mixin(value = ThrownPotion.class)
 public class ThrownPotionMixin extends ThrowableItemProjectile {
     @Unique
     private boolean increaseSpeed = false;

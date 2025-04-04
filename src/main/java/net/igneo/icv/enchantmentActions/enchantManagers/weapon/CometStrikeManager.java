@@ -38,6 +38,7 @@ public class CometStrikeManager extends WeaponEnchantManager{
 
     @Override
     public void applyPassive() {
+
         super.applyPassive();
         System.out.println("applying buff");
         player.getAttributes().getInstance(Attributes.MOVEMENT_SPEED).addTransientModifier(

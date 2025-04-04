@@ -1,18 +1,21 @@
-package net.igneo.icv.enchantment.weapon;
+package net.igneo.icv.enchantment.trident;
 
+import net.igneo.icv.enchantment.ICVEnchantment;
+import net.igneo.icv.enchantment.weapon.WeaponEnchantment;
 import net.igneo.icv.enchantmentActions.enchantManagers.EnchantmentManager;
+import net.igneo.icv.enchantmentActions.enchantManagers.trident.GeyserManager;
 import net.igneo.icv.enchantmentActions.enchantManagers.weapon.FinesseManager;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
-public class FinesseEnchantment extends WeaponEnchantment {
-    public FinesseEnchantment(Rarity pRarity, EnchantmentCategory pCategory, EquipmentSlot... pApplicableSlots) {
+public class GeyserEnchantment extends ICVEnchantment {
+    public GeyserEnchantment(Rarity pRarity, EnchantmentCategory pCategory, EquipmentSlot... pApplicableSlots) {
         super(pRarity, pCategory, pApplicableSlots);
     }
 
     @Override
     public EnchantmentManager getManager(Player player) {
-        return new FinesseManager(player);
+        return new GeyserManager(player);
     }
 }

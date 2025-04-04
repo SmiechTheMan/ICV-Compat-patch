@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-@Mixin(value = Player.class,priority = 999999999)
+@Mixin(value = Player.class)
 public abstract class PlayerMixin extends LivingEntity{
 
     private int checkTicks = 0;

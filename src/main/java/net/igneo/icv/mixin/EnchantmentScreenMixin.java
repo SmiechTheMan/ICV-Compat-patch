@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.List;
 
-@Mixin(value = EnchantmentScreen.class,priority = 999999999)
+@Mixin(value = EnchantmentScreen.class)
 public class EnchantmentScreenMixin extends AbstractContainerScreen<EnchantmentMenu> {
     @Shadow
     private static final ResourceLocation ENCHANTING_TABLE_LOCATION = new ResourceLocation(ICV.MOD_ID,"textures/gui/container/enchanting_table.png");

@@ -10,6 +10,8 @@ import net.igneo.icv.entity.ICVEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrownTrident;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -18,7 +20,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -50,7 +54,9 @@ public class ICVUtils {
         AtomicReference<T> returnManager= new AtomicReference<>(null);
         player.getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS).ifPresent(enchVar -> {
             for (EnchantmentManager manager : enchVar.getManagers()) {
+                System.out.println("testing manager: " + manager + " for type: " + desiredManager);
                 if (manager != null && manager.getClass().equals(desiredManager)) {
+                    System.out.println("returning the manager");
                     returnManager.set((T) manager);
                 }
             }
@@ -146,5 +152,16 @@ public class ICVUtils {
                 }
             }
         });
+    }
+
+    public static ItemStack getItemForSlot(Player player, int slot) {
+        return switch (slot) {
+            default -> player.getInventory().getArmor(0);
+            case (1) -> player.getInventory().getArmor(1);
+            case (2) -> player.getInventory().getArmor(2);
+            case (3) -> player.getInventory().getArmor(3);
+            case (4) -> player.getMainHandItem();
+            case (5) -> player.getOffhandItem();
+        };
     }
 }

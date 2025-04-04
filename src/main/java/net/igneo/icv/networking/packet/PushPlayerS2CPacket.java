@@ -1,5 +1,6 @@
 package net.igneo.icv.networking.packet;
 
+import net.igneo.icv.init.ICVUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
@@ -18,9 +19,9 @@ public class PushPlayerS2CPacket {
         this.z = addDirection.z;
     }
     public PushPlayerS2CPacket(FriendlyByteBuf buf) {
-        this.x = buf.readInt();
-        this.y = buf.readInt();
-        this.z = buf.readInt();
+        this.x = buf.readDouble();
+        this.y = buf.readDouble();
+        this.z = buf.readDouble();
     }
 
     public void toBytes(FriendlyByteBuf buf) {
@@ -33,7 +34,7 @@ public class PushPlayerS2CPacket {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             Vec3 pushVec = new Vec3(x,y,z);;
-            Minecraft.getInstance().player.setDeltaMovement(pushVec);
+            Minecraft.getInstance().player.addDeltaMovement(pushVec);
         });
         return true;
     }

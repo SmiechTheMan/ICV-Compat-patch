@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.Unique;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mixin(value = EnchantmentMenu.class,priority = 999999999)
+@Mixin(value = EnchantmentMenu.class)
 public class EnchantmentMenuMixin extends AbstractContainerMenu {
     @Unique
     private static List<Enchantment> HELM_ENCHANTS = new ArrayList<Enchantment>();
