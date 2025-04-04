@@ -65,9 +65,15 @@ public class ModEnchantments {
             ENCHANTMENTS.register("kinetic",
                     () -> new KineticEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
+<<<<<<< Updated upstream
     public static RegistryObject<Enchantment> VOLATILE =
             ENCHANTMENTS.register("volatile",
                     () -> new VolatileEnchantment(Enchantment.Rarity.UNCOMMON,
+=======
+    public static RegistryObject<Enchantment> MOLTEN =
+            ENCHANTMENTS.register("molten",
+                    () -> new MoltenEnchantment(Enchantment.Rarity.UNCOMMON,
+>>>>>>> Stashed changes
                             EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
 
 

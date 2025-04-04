@@ -10,12 +10,18 @@ import net.igneo.icv.enchantment.ModEnchantments;
 import net.igneo.icv.entity.ModEntities;
 import net.igneo.icv.entity.chestplate.abyssStone.AbyssStoneRenderer;
 import net.igneo.icv.entity.helmet.blackHole.BlackHoleRenderer;
+<<<<<<< Updated upstream
 import net.igneo.icv.entity.weapon.boostCharge.BoostChargeRenderer;
+=======
+import net.igneo.icv.entity.weapon.FireRing.FireRingEntity;
+import net.igneo.icv.entity.weapon.FireRing.FireRingRenderer;
+>>>>>>> Stashed changes
 import net.igneo.icv.entity.weapon.comet.CometRenderer;
 import net.igneo.icv.entity.helmet.divineLightningRod.DivineLightningRodRenderer;
 import net.igneo.icv.entity.helmet.glacialImpasse.iceSpike.IceSpikeRenderer;
 import net.igneo.icv.entity.helmet.glacialImpasse.iceSpikeSpawner.IceSpikeSpawnerRenderer;
 import net.igneo.icv.entity.chestplate.meteorSummoner.MeteorSummonerRenderer;
+import net.igneo.icv.entity.weapon.ember.EmberRenderer;
 import net.igneo.icv.entity.weapon.snakeBite.SnakeBiteRenderer;
 import net.igneo.icv.entity.boots.soulEmber.SoulEmberRenderer;
 import net.igneo.icv.entity.chestplate.soulOrb.SoulOrbRenderer;
@@ -80,6 +86,8 @@ public class ICV
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             EntityRenderers.register(ModEntities.COMET.get(), CometRenderer::new);
+            EntityRenderers.register(ModEntities.EMBER.get(), EmberRenderer::new);
+            EntityRenderers.register(ModEntities.FIRE_RING.get(), FireRingRenderer::new);
             EntityRenderers.register(ModEntities.BLACK_HOLE.get(), BlackHoleRenderer::new);
             EntityRenderers.register(ModEntities.SNAKE_BITE.get(), SnakeBiteRenderer::new);
             EntityRenderers.register(ModEntities.SOUL_ORB.get(), SoulOrbRenderer::new);

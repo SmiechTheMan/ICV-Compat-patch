@@ -3,12 +3,17 @@ package net.igneo.icv.entity;
 import net.igneo.icv.ICV;
 import net.igneo.icv.entity.chestplate.abyssStone.AbyssStoneEntity;
 import net.igneo.icv.entity.helmet.blackHole.BlackHoleEntity;
+<<<<<<< Updated upstream
 import net.igneo.icv.entity.weapon.boostCharge.BoostChargeEntity;
+=======
+import net.igneo.icv.entity.weapon.FireRing.FireRingEntity;
+>>>>>>> Stashed changes
 import net.igneo.icv.entity.weapon.comet.CometEntity;
 import net.igneo.icv.entity.helmet.divineLightningRod.DivineLightningRodEntity;
 import net.igneo.icv.entity.helmet.glacialImpasse.iceSpike.IceSpikeEntity;
 import net.igneo.icv.entity.helmet.glacialImpasse.iceSpikeSpawner.IceSpikeSpawnerEntity;
 import net.igneo.icv.entity.chestplate.meteorSummoner.MeteorSummonerEntity;
+import net.igneo.icv.entity.weapon.ember.EmberEntity;
 import net.igneo.icv.entity.weapon.snakeBite.SnakeBiteEntity;
 import net.igneo.icv.entity.boots.soulEmber.SoulEmberEntity;
 import net.igneo.icv.entity.chestplate.soulOrb.SoulOrbEntity;
@@ -31,6 +36,12 @@ public class ModEntities {
     public static final RegistryObject<EntityType<CometEntity>> COMET =
             ENTITY_TYPES.register("comet",() -> EntityType.Builder.<CometEntity>of(CometEntity::new, MobCategory.MISC)
                     .sized(0.5f,0.5f).build("comet"));
+    public static final RegistryObject<EntityType<EmberEntity>> EMBER =
+            ENTITY_TYPES.register("ember",() -> EntityType.Builder.<EmberEntity>of(EmberEntity::new, MobCategory.MISC)
+                    .sized(0.5f,0.5f).build("ember"));
+    public static final RegistryObject<EntityType<FireRingEntity>> FIRE_RING =
+            ENTITY_TYPES.register("fire_ring",() -> EntityType.Builder.<FireRingEntity>of(FireRingEntity::new, MobCategory.MISC)
+                    .sized(0.5f,0.5f).build("fire_ring"));
     public static final RegistryObject<EntityType<BlackHoleEntity>> BLACK_HOLE =
             ENTITY_TYPES.register("black_hole",() -> EntityType.Builder.<BlackHoleEntity>of(BlackHoleEntity::new, MobCategory.MISC)
                     .sized(1f,1f).build("black_hole"));
