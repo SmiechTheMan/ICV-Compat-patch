@@ -3,6 +3,7 @@ package net.igneo.icv.entity;
 import net.igneo.icv.ICV;
 import net.igneo.icv.entity.chestplate.abyssStone.AbyssStoneEntity;
 import net.igneo.icv.entity.helmet.blackHole.BlackHoleEntity;
+import net.igneo.icv.entity.weapon.boostCharge.BoostChargeEntity;
 import net.igneo.icv.entity.weapon.comet.CometEntity;
 import net.igneo.icv.entity.helmet.divineLightningRod.DivineLightningRodEntity;
 import net.igneo.icv.entity.helmet.glacialImpasse.iceSpike.IceSpikeEntity;
@@ -72,6 +73,9 @@ public class ModEntities {
     public static final RegistryObject<EntityType<DivineLightningRodEntity>> DIVINE_LIGHTNING_ROD =
       ENTITY_TYPES.register("divine_lightning_rod", () -> EntityType.Builder.<DivineLightningRodEntity>of(DivineLightningRodEntity::new, MobCategory.MISC)
         .sized(1.0f, 1.0f).build("divine_lightning_rod"));
+    public static final RegistryObject<EntityType<BoostChargeEntity>> BOOST_CHARGE =
+            ENTITY_TYPES.register("boost_charge", () -> EntityType.Builder.<BoostChargeEntity>of(BoostChargeEntity::new, MobCategory.MISC)
+                    .sized(0.5f, 0.5f).build("boost_charge"));
 
 
     public static void register(IEventBus eventBus) {

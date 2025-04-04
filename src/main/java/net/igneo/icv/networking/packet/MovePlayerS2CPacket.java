@@ -32,6 +32,8 @@ public class MovePlayerS2CPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
+            double x = (this.x == 0) ? Minecraft.getInstance().player.getDeltaMovement().x : this.x;
+            double z = (this.z == 0) ? Minecraft.getInstance().player.getDeltaMovement().z : this.z;
             Vec3 setVec = new Vec3(x,y,z);;
             Minecraft.getInstance().player.setDeltaMovement(setVec);
         });

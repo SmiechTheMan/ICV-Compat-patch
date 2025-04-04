@@ -65,6 +65,10 @@ public class ModEnchantments {
             ENCHANTMENTS.register("kinetic",
                     () -> new KineticEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
+    public static RegistryObject<Enchantment> VOLATILE =
+            ENCHANTMENTS.register("volatile",
+                    () -> new VolatileEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
 
 
 
