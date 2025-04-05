@@ -207,7 +207,7 @@ public class GlacialImpasseManager extends ArmorEnchantManager implements Entity
     level.addFreshEntity(segment);
     syncClientChild((ServerPlayer) player, segment, this);
     segments.add(segment);
-    originalPositions.put(segment, position); // Store the original position
+    originalPositions.put(segment, position);
   }
   
   @Override
@@ -227,7 +227,7 @@ public class GlacialImpasseManager extends ArmorEnchantManager implements Entity
   
   @Override
   public void onOffCoolDown(Player player) {
-    // Empty implementation
+  
   }
   
   @Override

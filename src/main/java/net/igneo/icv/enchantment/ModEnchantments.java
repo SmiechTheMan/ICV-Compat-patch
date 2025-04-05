@@ -5,7 +5,7 @@ import net.igneo.icv.enchantment.armor.boots.*;
 import net.igneo.icv.enchantment.armor.chestplate.*;
 import net.igneo.icv.enchantment.armor.helmet.*;
 import net.igneo.icv.enchantment.armor.leggings.*;
-import net.igneo.icv.enchantment.trident.GeyserEnchantment;
+import net.igneo.icv.enchantment.trident.*;
 import net.igneo.icv.enchantment.weapon.*;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -29,6 +29,22 @@ public class ModEnchantments {
     public static RegistryObject<Enchantment> GEYSER =
             ENCHANTMENTS.register("geyser",
                     () -> new GeyserEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND));
+    public static RegistryObject<Enchantment> WHIRLPOOL =
+            ENCHANTMENTS.register("whirlpool",
+                    () -> new WhirlpoolEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND));
+    public static RegistryObject<Enchantment> UPWELL =
+            ENCHANTMENTS.register("upwell",
+                    () -> new UpwellEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND));
+    public static RegistryObject<Enchantment> CAVITATION =
+            ENCHANTMENTS.register("cavitation",
+                    () -> new CavitationEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND));
+    public static RegistryObject<Enchantment> UNDERTOW =
+            ENCHANTMENTS.register("undertow",
+                    () -> new UndertowEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.TRIDENT, EquipmentSlot.MAINHAND));
 
 

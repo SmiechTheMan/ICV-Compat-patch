@@ -164,4 +164,11 @@ public class ICVUtils {
             case (5) -> player.getOffhandItem();
         };
     }
+    
+    public static final Vec3 DOWN_VECTOR     = new Vec3(0, -1, 0);
+    public static final Vec3 UP_VECTOR       = new Vec3(0, 1, 0);
+    public static final Vec3 FOWARD_VECTOR   = new Vec3(0, 0, 1);
+    public static final Vec3 BACKWORD_VECTOR = new Vec3(0, 0, -1);
+    public static final Vec3 LEFT_VECTOR     = new Vec3(-1, 0, 0);
+    public static final Vec3 RIGHT_VECTOR    = new Vec3(1, 0, 0);
 }
