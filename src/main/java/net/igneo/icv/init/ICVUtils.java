@@ -1,5 +1,6 @@
 package net.igneo.icv.init;
 
+import com.google.common.collect.Multimap;
 import net.igneo.icv.enchantment.ICVEnchantment;
 import net.igneo.icv.enchantmentActions.EntityTracker;
 import net.igneo.icv.enchantmentActions.Input;
@@ -9,6 +10,10 @@ import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManage
 import net.igneo.icv.entity.ICVEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.ItemStack;
@@ -19,10 +24,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -171,4 +173,16 @@ public class ICVUtils {
     public static final Vec3 BACKWORD_VECTOR = new Vec3(0, 0, -1);
     public static final Vec3 LEFT_VECTOR     = new Vec3(-1, 0, 0);
     public static final Vec3 RIGHT_VECTOR    = new Vec3(1, 0, 0);
+
+    public static double getDamageFromItem(ItemStack item,Entity entity) {
+        Multimap<Attribute, AttributeModifier> modifiers = item.getAttributeModifiers(EquipmentSlot.MAINHAND);
+        Collection<AttributeModifier> damageModifiers = modifiers.get(Attributes.ATTACK_DAMAGE);
+        double baseDamage = 0.0;
+        for (AttributeModifier mod : damageModifiers) {
+            baseDamage += mod.getAmount();
+        }
+        if (entity instanceof Player player) baseDamage += player.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
+
+        return baseDamage;
+    }
 }

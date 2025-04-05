@@ -3,11 +3,8 @@ package net.igneo.icv.entity;
 import net.igneo.icv.ICV;
 import net.igneo.icv.entity.chestplate.abyssStone.AbyssStoneEntity;
 import net.igneo.icv.entity.helmet.blackHole.BlackHoleEntity;
-<<<<<<< Updated upstream
 import net.igneo.icv.entity.weapon.boostCharge.BoostChargeEntity;
-=======
 import net.igneo.icv.entity.weapon.FireRing.FireRingEntity;
->>>>>>> Stashed changes
 import net.igneo.icv.entity.weapon.comet.CometEntity;
 import net.igneo.icv.entity.helmet.divineLightningRod.DivineLightningRodEntity;
 import net.igneo.icv.entity.helmet.glacialImpasse.iceSpike.IceSpikeEntity;

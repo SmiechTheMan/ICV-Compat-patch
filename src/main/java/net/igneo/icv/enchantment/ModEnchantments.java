@@ -81,15 +81,21 @@ public class ModEnchantments {
             ENCHANTMENTS.register("kinetic",
                     () -> new KineticEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
-<<<<<<< Updated upstream
     public static RegistryObject<Enchantment> VOLATILE =
             ENCHANTMENTS.register("volatile",
                     () -> new VolatileEnchantment(Enchantment.Rarity.UNCOMMON,
-=======
+                            EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
     public static RegistryObject<Enchantment> MOLTEN =
             ENCHANTMENTS.register("molten",
                     () -> new MoltenEnchantment(Enchantment.Rarity.UNCOMMON,
->>>>>>> Stashed changes
+                            EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
+    public static RegistryObject<Enchantment> BREAKTHROUGH =
+            ENCHANTMENTS.register("breakthrough",
+                    () -> new BreakthroughEnchantment(Enchantment.Rarity.UNCOMMON,
+                            EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
+    public static RegistryObject<Enchantment> MEATHOOK =
+            ENCHANTMENTS.register("meathooks",
+                    () -> new MeathookEnchantment(Enchantment.Rarity.UNCOMMON,
                             EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
 
 

@@ -3,17 +3,22 @@ package net.igneo.icv.mixin;
 import net.igneo.icv.enchantment.ModEnchantments;
 import net.igneo.icv.enchantment.weapon.WeaponEnchantment;
 import net.igneo.icv.enchantmentActions.PlayerEnchantmentActionsProvider;
+import net.igneo.icv.enchantmentActions.enchantManagers.weapon.BreakthroughManager;
 import net.igneo.icv.enchantmentActions.enchantManagers.weapon.WeaponEnchantManager;
+import net.igneo.icv.init.ICVUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -30,7 +35,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @Mixin(value = Player.class)
 public abstract class PlayerMixin extends LivingEntity{
 
-    private int checkTicks = 0;
+    private double shieldHealth = 30;
 
     protected PlayerMixin(EntityType<? extends LivingEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -38,7 +43,10 @@ public abstract class PlayerMixin extends LivingEntity{
 
     @Shadow
     public void disableShield(boolean pBecauseOfAxe) {
+
     }
+
+    @Shadow protected abstract void playShoulderEntityAmbientSound(@Nullable CompoundTag pEntityCompound);
 
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;resetAttackStrengthTicker()V"))
     public void tick(Player instance) {
@@ -60,5 +68,25 @@ public abstract class PlayerMixin extends LivingEntity{
                 }
             }
         });
+    }
+
+    @Inject(method = "blockUsingShield", at = @At("HEAD"),cancellable = true)
+    protected void blockUsingShield(LivingEntity pEntity, CallbackInfo ci) {
+        super.blockUsingShield(pEntity);
+        double damage = ICVUtils.getDamageFromItem(pEntity.getMainHandItem(), pEntity);
+        damage = (damage < 5) ? 5 : damage;
+        shieldHealth -= damage;
+
+        if (pEntity instanceof Player player) {
+            if (ICVUtils.getManagerForType(player, BreakthroughManager.class) != null) {
+                shieldHealth = 0;
+            }
+        }
+
+        if (shieldHealth <= 0) {
+            shieldHealth = 30;
+            this.disableShield(true);
+        }
+        ci.cancel();
     }
 }
