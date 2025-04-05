@@ -1,8 +1,5 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.armor.helmet;
 
-import com.lowdragmc.photon.client.fx.EntityEffect;
-import com.lowdragmc.photon.client.fx.FX;
-import com.lowdragmc.photon.client.fx.FXHelper;
 import net.igneo.icv.ICV;
 import net.igneo.icv.client.indicators.BlackHoleIndicator;
 import net.igneo.icv.client.indicators.EnchantIndicator;
@@ -44,11 +41,6 @@ public class BlackHoleManager extends ArmorEnchantManager implements EntityTrack
 
     @Override
     public void onOffCoolDown(Player player) {
-        FX fx = FXHelper.getFX(new ResourceLocation(ICV.MOD_ID,"blackholehalo"));
-        if (fx != null) {
-            EntityEffect effect = new EntityEffect(fx,player.level(),player);
-            effect.start();
-        }
     }
 
     @Override

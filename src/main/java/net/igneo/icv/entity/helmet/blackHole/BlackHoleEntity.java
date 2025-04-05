@@ -1,10 +1,6 @@
 package net.igneo.icv.entity.helmet.blackHole;
 
 import com.google.common.collect.ImmutableList;
-import com.lowdragmc.photon.client.fx.BlockEffect;
-import com.lowdragmc.photon.client.fx.EntityEffect;
-import com.lowdragmc.photon.client.fx.FX;
-import com.lowdragmc.photon.client.fx.FXHelper;
 import net.igneo.icv.ICV;
 import net.igneo.icv.entity.ICVEntity;
 import net.minecraft.core.BlockPos;
@@ -39,10 +35,6 @@ public class BlackHoleEntity extends ICVEntity {
 
     public BlackHoleEntity(EntityType<? extends Projectile> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        FX fx = FXHelper.getFX(new ResourceLocation(ICV.MOD_ID,"blackhole"));
-        EntityEffect effect = new EntityEffect(fx,this.level(),this);
-        effect.setAllowMulti(true);
-        effect.start();
     }
 
     @Override
@@ -59,10 +51,6 @@ public class BlackHoleEntity extends ICVEntity {
     public void tick() {
         super.tick();
         if (this.tickCount > 400 || this.getOwner() == null) {
-            FX fx = FXHelper.getFX(new ResourceLocation(ICV.MOD_ID,"blackholedissapate"));
-            BlockEffect effect = new BlockEffect(fx,this.level(),this.blockPosition());
-            effect.setAllowMulti(true);
-            effect.start();
             this.discard();
         }
 

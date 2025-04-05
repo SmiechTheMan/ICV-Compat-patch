@@ -1,8 +1,5 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.armor.boots;
 
-import com.lowdragmc.photon.client.fx.EntityEffect;
-import com.lowdragmc.photon.client.fx.FX;
-import com.lowdragmc.photon.client.fx.FXHelper;
 import net.igneo.icv.ICV;
 import net.igneo.icv.client.indicators.BlackHoleIndicator;
 import net.igneo.icv.client.indicators.EnchantIndicator;

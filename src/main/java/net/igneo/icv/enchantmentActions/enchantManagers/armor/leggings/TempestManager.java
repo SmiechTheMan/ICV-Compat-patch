@@ -1,9 +1,5 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.armor.leggings;
 
-import com.lowdragmc.photon.client.fx.BlockEffect;
-import com.lowdragmc.photon.client.fx.EntityEffect;
-import com.lowdragmc.photon.client.fx.FX;
-import com.lowdragmc.photon.client.fx.FXHelper;
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationRegistry;
 import net.igneo.icv.ICV;
 import net.igneo.icv.client.animation.EnchantAnimationPlayer;

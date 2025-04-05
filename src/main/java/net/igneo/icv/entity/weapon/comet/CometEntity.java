@@ -1,8 +1,5 @@
 package net.igneo.icv.entity.weapon.comet;
 
-import com.lowdragmc.photon.client.fx.EntityEffect;
-import com.lowdragmc.photon.client.fx.FX;
-import com.lowdragmc.photon.client.fx.FXHelper;
 import net.igneo.icv.ICV;
 import net.igneo.icv.entity.ICVEntity;
 import net.igneo.icv.sound.ModSounds;
@@ -34,10 +31,6 @@ public class CometEntity extends ICVEntity {
         super(pEntityType, pLevel);
         this.addDeltaMovement(new Vec3(0.0, 0.23, 0.0));
         if (this.level() instanceof ServerLevel) {
-            FX fx = FXHelper.getFX(new ResourceLocation(ICV.MOD_ID, "comettrail"));
-            EntityEffect effect = new EntityEffect(fx, this.level(), this);
-            effect.setAllowMulti(true);
-            effect.start();
         }
     }
 
@@ -68,10 +61,6 @@ public class CometEntity extends ICVEntity {
     @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
         if (this.level() instanceof ServerLevel) {
-            FX fx = FXHelper.getFX(new ResourceLocation(ICV.MOD_ID, "comethit"));
-            EntityEffect effect = new EntityEffect(fx, this.level(), this);
-            effect.setAllowMulti(true);
-            effect.start();
         }
         hurtTicks = 0;
         hurt += pAmount;

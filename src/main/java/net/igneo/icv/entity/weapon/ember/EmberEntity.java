@@ -1,8 +1,6 @@
 package net.igneo.icv.entity.weapon.ember;
 
-import com.lowdragmc.photon.client.fx.EntityEffect;
-import com.lowdragmc.photon.client.fx.FX;
-import com.lowdragmc.photon.client.fx.FXHelper;
+
 import net.igneo.icv.ICV;
 import net.igneo.icv.entity.ICVEntity;
 import net.igneo.icv.sound.ModSounds;

@@ -179,12 +179,7 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation fg.deobf("curse.maven:parcool-482378:5714134")
 
-    implementation fg.deobf("com.lowdragmc.photon:photon-forge-1.20.1:1.0.7.a") {
-        transitive = false
-    }
-    implementation fg.deobf("com.lowdragmc.ldlib:ldlib-forge-1.20.1:1.0.22") {
-        transitive = false
-    }
+    implementation fg.deobf("curse.maven:lodestone-616457:5848655")
 
     implementation fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:1.0.2-rc1+1.20")
 

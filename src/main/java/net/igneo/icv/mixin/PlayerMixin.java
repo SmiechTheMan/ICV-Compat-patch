@@ -36,6 +36,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public abstract class PlayerMixin extends LivingEntity{
 
     private double shieldHealth = 30;
+    private int checkTicks = 0;
 
     protected PlayerMixin(EntityType<? extends LivingEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -45,8 +46,6 @@ public abstract class PlayerMixin extends LivingEntity{
     public void disableShield(boolean pBecauseOfAxe) {
 
     }
-
-    @Shadow protected abstract void playShoulderEntityAmbientSound(@Nullable CompoundTag pEntityCompound);
 
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;resetAttackStrengthTicker()V"))
     public void tick(Player instance) {

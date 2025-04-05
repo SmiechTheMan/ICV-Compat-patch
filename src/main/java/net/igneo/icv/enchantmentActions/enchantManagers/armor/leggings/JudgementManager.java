@@ -1,9 +1,5 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.armor.leggings;
 
-import com.lowdragmc.photon.client.fx.BlockEffect;
-import com.lowdragmc.photon.client.fx.EntityEffect;
-import com.lowdragmc.photon.client.fx.FX;
-import com.lowdragmc.photon.client.fx.FXHelper;
 import dev.kosmx.playerAnim.api.layered.modifier.AbstractFadeModifier;
 import dev.kosmx.playerAnim.core.util.Ease;
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationRegistry;
@@ -41,10 +37,6 @@ public class JudgementManager extends ArmorEnchantManager {
         if (player.level() instanceof ClientLevel) {
             this.animator.setAnimation(new EnchantAnimationPlayer(PlayerAnimationRegistry.getAnimation(new ResourceLocation(ICV.MOD_ID, "judgement_jump"))));
         } else {
-            FX fx = FXHelper.getFX(new ResourceLocation(ICV.MOD_ID,"judgementtrail"));
-            EntityEffect effect = new EntityEffect(fx,player.level(),player);
-            effect.setAllowMulti(true);
-            effect.start();
         }
         kickPos = this.player.position();
     }
@@ -95,10 +87,6 @@ public class JudgementManager extends ArmorEnchantManager {
                         if (player.level().isClientSide) {
                             animator.setAnimation(new EnchantAnimationPlayer(PlayerAnimationRegistry.getAnimation(new ResourceLocation(ICV.MOD_ID, "judgement_hit"))));
                         } else {
-                            FX fx = FXHelper.getFX(new ResourceLocation(ICV.MOD_ID,"judgementhit"));
-                            BlockEffect effect = new BlockEffect(fx,player.level(), BlockPos.containing(judged.getEyePosition()));
-                            effect.setAllowMulti(true);
-                            effect.start();
                         }
                     }
                 }
