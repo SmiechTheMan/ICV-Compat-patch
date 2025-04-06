@@ -12,6 +12,7 @@ import net.igneo.icv.enchantmentActions.enchantManagers.armor.boots.StasisManage
 import net.igneo.icv.init.Keybindings;
 import net.igneo.icv.networking.ModMessages;
 import net.igneo.icv.networking.packet.*;
+import net.igneo.icv.particle.ModParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.PlayerModel;
@@ -29,6 +30,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
@@ -45,6 +47,17 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.RegistryObject;
+import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
+import team.lodestar.lodestone.systems.easing.Easing;
+import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
+import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
+import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
+import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
+import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
+import team.lodestar.lodestone.systems.particle.world.type.LodestoneWorldParticleType;
+
+import java.awt.*;
 
 import static net.igneo.icv.init.ICVUtils.*;
 
@@ -83,6 +96,8 @@ public class ModEvents {
         if (Keybindings.boots.isDown()) {
             useEnchant(Minecraft.getInstance().player, 0);
             ModMessages.sendToServer(new EnchantUseC2SPacket(0));
+
+            spawnExampleParticles(Minecraft.getInstance().player.level(), Minecraft.getInstance().player.getEyePosition().add(Minecraft.getInstance().player.getLookAngle().scale(5)));
         }
         if (Keybindings.leggings.isDown()) {
             useEnchant(Minecraft.getInstance().player,1);
@@ -208,5 +223,17 @@ public class ModEvents {
                 }
             }
         });
+    }
+
+    public static void spawnExampleParticles(Level level, Vec3 pos) {
+        Color startingColor = new Color(100, 0, 100);
+        Color endingColor = new Color(0, 100, 200);
+        WorldParticleBuilder.create(ModParticles.BLINK_PARTICLE)
+                .setLifetime(10)
+                .setTransparencyData(GenericParticleData.create(1f, 1f).setEasing(Easing.SINE_IN).build())
+                .setSpritePicker(SimpleParticleOptions.ParticleSpritePicker.WITH_AGE)
+                .setScaleData(GenericParticleData.create(0.5F,2,0.1F).build())
+                .setSpinData(SpinParticleData.create(0,0,1).build())
+                .spawn(level, pos.x, pos.y, pos.z);
     }
 }

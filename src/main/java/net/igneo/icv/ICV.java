@@ -29,6 +29,7 @@ import net.igneo.icv.entity.leggings.voidSpike.VoidSpikeRenderer;
 import net.igneo.icv.entity.leggings.wave.WaveRenderer;
 import net.igneo.icv.networking.ModMessages;
 import net.igneo.icv.particle.ModParticles;
+import net.igneo.icv.shader.BlinkShader;
 import net.igneo.icv.sound.ModSounds;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -46,6 +47,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import team.lodestar.lodestone.systems.postprocess.PostProcessHandler;
 
 @Mod(ICV.MOD_ID)
 public class ICV
@@ -82,6 +84,9 @@ public class ICV
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
+            PostProcessHandler.addInstance(BlinkShader.INSTANCE);
+
+
             EntityRenderers.register(ModEntities.COMET.get(), CometRenderer::new);
             EntityRenderers.register(ModEntities.EMBER.get(), EmberRenderer::new);
             EntityRenderers.register(ModEntities.FIRE_RING.get(), FireRingRenderer::new);

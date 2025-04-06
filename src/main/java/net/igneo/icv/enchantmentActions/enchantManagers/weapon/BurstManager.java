@@ -44,11 +44,11 @@ public class BurstManager extends WeaponEnchantManager {
       }
       burstTimer = 0;
       if (target.level() instanceof ServerLevel level) {
-        level.sendParticles(ModParticles.ATTACK_SPEED_PARTICLE.get(),
+        /*level.sendParticles(ModParticles.ATTACK_SPEED_PARTICLE.get(),
                 player.getX(),
                 player.getY() + 1.5f,
                 player.getZ(),
-                5, Math.random(), Math.random(), Math.random(), 0.5f);
+                5, Math.random(), Math.random(), Math.random(), 0.5f);*/
         level.playSound(null, player.blockPosition(),
                 SoundEvents.ARROW_HIT_PLAYER,
                 SoundSource.PLAYERS,
