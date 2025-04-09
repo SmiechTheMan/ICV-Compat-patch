@@ -73,6 +73,11 @@ public class ModMessages {
                 .encoder(PushPlayerS2CPacket::toBytes)
                 .consumerMainThread(PushPlayerS2CPacket::handle)
                 .add();
+        net.messageBuilder(SendBlinkShaderS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SendBlinkShaderS2CPacket::new)
+                .encoder(SendBlinkShaderS2CPacket::toBytes)
+                .consumerMainThread(SendBlinkShaderS2CPacket::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message) {

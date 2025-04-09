@@ -8,7 +8,10 @@ import net.igneo.icv.enchantmentActions.PlayerEnchantmentActionsProvider;
 import net.igneo.icv.enchantmentActions.enchantManagers.EnchantmentManager;
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager;
 import net.igneo.icv.entity.ICVEntity;
+import net.igneo.icv.networking.ModMessages;
 import net.minecraft.client.Minecraft;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -186,5 +189,11 @@ public class ICVUtils {
         if (entity instanceof Player player) baseDamage += player.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
 
         return baseDamage;
+    }
+
+    public static <MSG> void  sendPacketInRange(ServerLevel level, Vec3 pos, float range, MSG message) {
+        for (ServerPlayer player : level.players()) {
+            if (player.distanceToSqr(pos) < range) ModMessages.sendToPlayer(message, player);
+        }
     }
 }

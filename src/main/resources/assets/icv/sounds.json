@@ -192,5 +192,33 @@
     "sounds": [
       "icv:ws_charge"
     ]
+  },
+
+
+  "blink_cooldown": {
+    "subtitles": "sounds.icv.blink_cooldown",
+    "sounds": [
+      "icv:blink_cooldown"
+    ]
+  },
+  "blink_use": {
+    "subtitles": "sounds.icv.blink_use",
+    "sounds": [
+      "icv:blink_use",
+      "icv:blink_use1",
+      "icv:blink_use2",
+      "icv:blink_use3",
+      "icv:blink_use4"
+    ]
+  },
+  "blink_use_wall": {
+    "subtitles": "sounds.icv.blink_use_wall",
+    "sounds": [
+      "icv:blink_use_wall",
+      "icv:blink_use_wall1",
+      "icv:blink_use_wall2",
+      "icv:blink_use_wall3",
+      "icv:blink_use_wall4"
+    ]
   }
 }

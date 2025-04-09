@@ -28,6 +28,7 @@ public class EnchantUseC2SPacket {
         context.enqueueWork(() -> {
             ServerLevel level = context.getSender().serverLevel();
             ServerPlayer player = context.getSender();
+            System.out.println("using on the server");
             useEnchant(player, slot);
         });
         return true;

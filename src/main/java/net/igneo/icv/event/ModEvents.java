@@ -86,14 +86,6 @@ public class ModEvents {
         if (Keybindings.boots.isDown()) {
             useEnchant(Minecraft.getInstance().player, 0);
             ModMessages.sendToServer(new EnchantUseC2SPacket(0));
-
-            Vector3f center = Minecraft.getInstance().player.getEyePosition().add(Minecraft.getInstance().player.getLookAngle().scale(8)).toVector3f();
-            Vector3f color = new Vector3f(0.7F, 0.0F, 1);
-            BlinkFx fx = new BlinkFx(center, color);
-            fx.instTime = 0;
-            fx.storedTime = System.nanoTime();
-            fx.deltaTime = (System.nanoTime() - fx.storedTime) / 1_000_000_000.0f;
-            BlinkPostProcessor.INSTANCE.addFxInstance(fx);
         }
         if (Keybindings.leggings.isDown()) {
             useEnchant(Minecraft.getInstance().player,1);
@@ -221,15 +213,5 @@ public class ModEvents {
         });
     }
 
-    public static void spawnExampleParticles(Level level, Vec3 pos) {
-        Color startingColor = new Color(100, 0, 100);
-        Color endingColor = new Color(0, 100, 200);
-        WorldParticleBuilder.create(ModParticles.BLINK_PARTICLE)
-                .setLifetime(10)
-                .setTransparencyData(GenericParticleData.create(1f, 1f).setEasing(Easing.SINE_IN).build())
-                .setSpritePicker(SimpleParticleOptions.ParticleSpritePicker.WITH_AGE)
-                .setScaleData(GenericParticleData.create(0.5F,2,0.1F).build())
-                .setSpinData(SpinParticleData.create(0,0,1).build())
-                .spawn(level, pos.x, pos.y, pos.z);
-    }
+
 }

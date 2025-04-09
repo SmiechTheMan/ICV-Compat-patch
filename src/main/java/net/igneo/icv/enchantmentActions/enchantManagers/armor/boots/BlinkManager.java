@@ -1,8 +1,16 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.armor.boots;
 
+import net.igneo.icv.client.indicators.BlinkCooldownIndicator;
 import net.igneo.icv.client.indicators.EnchantIndicator;
 import net.igneo.icv.enchantment.EnchantType;
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager;
+import net.igneo.icv.init.ICVUtils;
+import net.igneo.icv.init.LodestoneParticles;
+import net.igneo.icv.init.ParticleShapes;
+import net.igneo.icv.networking.packet.SendBlinkShaderS2CPacket;
+import net.igneo.icv.sound.ModSounds;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.BlockHitResult;
@@ -17,16 +25,21 @@ public class BlinkManager extends ArmorEnchantManager {
   
   @Override
   public void onOffCoolDown(Player player) {
+    if (player.level() instanceof ServerLevel level) {
+      level.playSound(null, player.position().x, player.position().y, player.position().z,
+              ModSounds.BLINK_COOLDOWN.get(),
+              net.minecraft.sounds.SoundSource.PLAYERS, 0.5f, 1.0f);
+    }
   }
   
   @Override
   public EnchantIndicator getIndicator() {
-    return null;
+    return new BlinkCooldownIndicator(this);
   }
   
   @Override
   public boolean canUse() {
-    return stableCheck();
+    return true;
   }
   
   @Override
@@ -35,7 +48,7 @@ public class BlinkManager extends ArmorEnchantManager {
     Vec3 lookVector = player.getLookAngle().normalize();
     Vec3 targetPos = playerPos.add(
       lookVector.x * BLINK_DISTANCE,
-      lookVector.y * BLINK_DISTANCE,
+      (lookVector.y * BLINK_DISTANCE)-1,
       lookVector.z * BLINK_DISTANCE
     );
     
@@ -48,7 +61,8 @@ public class BlinkManager extends ArmorEnchantManager {
         player
       )
     );
-    
+
+    boolean hitWall = false;
     if (result.getType() != BlockHitResult.Type.MISS) {
       Vec3 hitPos = result.getLocation();
       targetPos = hitPos.subtract(
@@ -56,16 +70,42 @@ public class BlinkManager extends ArmorEnchantManager {
         lookVector.y * 2.5f,
         lookVector.z * 0.5f
       );
+      hitWall = true;
     }
     
     player.teleportTo(
       targetPos.x,
-      targetPos.y - player.getEyeHeight(),
+      targetPos.y,
       targetPos.z
     );
-    
-    player.level().playSound(null, player.getX(), player.getY(), player.getZ(),
-      net.minecraft.sounds.SoundEvents.ENDERMAN_TELEPORT,
-      net.minecraft.sounds.SoundSource.PLAYERS, 0.5f, 1.0f);
+    if (player.level() instanceof ServerLevel level) {
+
+      ParticleShapes.renderLine(level, playerPos, targetPos, ParticleTypes.PORTAL, 10);
+
+      LodestoneParticles.blinkParticles(level,targetPos.add(player.getLookAngle().scale(8)));
+      if (hitWall) {
+        level.playSound(null, targetPos.x, targetPos.y, targetPos.z,
+                ModSounds.BLINK_USE_WALL.get(),
+                net.minecraft.sounds.SoundSource.PLAYERS, 0.5f, 1.0f);
+      } else {
+        level.playSound(null, targetPos.x, targetPos.y, targetPos.z,
+                ModSounds.BLINK_USE.get(),
+                net.minecraft.sounds.SoundSource.PLAYERS, 0.5f, 1.0f);
+      }
+      level.playSound(null, playerPos.x, playerPos.y, playerPos.z,
+              net.minecraft.sounds.SoundEvents.ENDERMAN_TELEPORT,
+              net.minecraft.sounds.SoundSource.PLAYERS, 0.5f, 1.0f);
+
+
+      targetPos = new Vec3(targetPos.x, targetPos.y - 0.5, targetPos.z);
+      ICVUtils.sendPacketInRange(level, targetPos, 200, new SendBlinkShaderS2CPacket(targetPos));
+    }
+    for (Vec3 pos : ParticleShapes.renderRingList(player.level(),targetPos,10,1.5F)) {
+      System.out.println(pos);
+      LodestoneParticles.blinkParticles(player.level(), pos);
+    }
   }
+
+    
+
 }
