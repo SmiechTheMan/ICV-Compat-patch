@@ -13,20 +13,15 @@ import net.igneo.icv.init.Keybindings;
 import net.igneo.icv.networking.ModMessages;
 import net.igneo.icv.networking.packet.*;
 import net.igneo.icv.particle.ModParticles;
+import net.igneo.icv.shader.postProcessors.BlinkPostProcessor;
+import net.igneo.icv.shader.shader.BlinkFx;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.PlayerModel;
-import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ThrownTrident;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -34,8 +29,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RenderHandEvent;
-import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
@@ -47,15 +40,12 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.RegistryObject;
-import team.lodestar.lodestone.registry.common.particle.LodestoneParticleRegistry;
+import org.joml.Vector3f;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
 import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
 import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
-import team.lodestar.lodestone.systems.particle.data.color.ColorParticleData;
 import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
-import team.lodestar.lodestone.systems.particle.world.type.LodestoneWorldParticleType;
 
 import java.awt.*;
 
@@ -97,7 +87,13 @@ public class ModEvents {
             useEnchant(Minecraft.getInstance().player, 0);
             ModMessages.sendToServer(new EnchantUseC2SPacket(0));
 
-            spawnExampleParticles(Minecraft.getInstance().player.level(), Minecraft.getInstance().player.getEyePosition().add(Minecraft.getInstance().player.getLookAngle().scale(5)));
+            Vector3f center = Minecraft.getInstance().player.getEyePosition().add(Minecraft.getInstance().player.getLookAngle().scale(8)).toVector3f();
+            Vector3f color = new Vector3f(0.7F, 0.0F, 1);
+            BlinkFx fx = new BlinkFx(center, color);
+            fx.instTime = 0;
+            fx.storedTime = System.nanoTime();
+            fx.deltaTime = (System.nanoTime() - fx.storedTime) / 1_000_000_000.0f;
+            BlinkPostProcessor.INSTANCE.addFxInstance(fx);
         }
         if (Keybindings.leggings.isDown()) {
             useEnchant(Minecraft.getInstance().player,1);
@@ -205,7 +201,7 @@ public class ModEvents {
         event.getEntity().reviveCaps();
         event.getEntity().getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS).ifPresent(enchVar -> {
 
-            //Same deal as above comment, but this time when changing dimensions
+            //Same deal as above comment, but this instTime when changing dimensions
 
         });
     }

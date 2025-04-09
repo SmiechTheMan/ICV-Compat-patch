@@ -11,7 +11,6 @@ import net.igneo.icv.entity.ModEntities;
 import net.igneo.icv.entity.chestplate.abyssStone.AbyssStoneRenderer;
 import net.igneo.icv.entity.helmet.blackHole.BlackHoleRenderer;
 import net.igneo.icv.entity.weapon.boostCharge.BoostChargeRenderer;
-import net.igneo.icv.entity.weapon.FireRing.FireRingEntity;
 import net.igneo.icv.entity.weapon.FireRing.FireRingRenderer;
 import net.igneo.icv.entity.weapon.comet.CometRenderer;
 import net.igneo.icv.entity.helmet.divineLightningRod.DivineLightningRodRenderer;
@@ -29,7 +28,7 @@ import net.igneo.icv.entity.leggings.voidSpike.VoidSpikeRenderer;
 import net.igneo.icv.entity.leggings.wave.WaveRenderer;
 import net.igneo.icv.networking.ModMessages;
 import net.igneo.icv.particle.ModParticles;
-import net.igneo.icv.shader.BlinkShader;
+import net.igneo.icv.shader.postProcessors.BlinkPostProcessor;
 import net.igneo.icv.sound.ModSounds;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -84,7 +83,7 @@ public class ICV
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-            PostProcessHandler.addInstance(BlinkShader.INSTANCE);
+            PostProcessHandler.addInstance(BlinkPostProcessor.INSTANCE);
 
 
             EntityRenderers.register(ModEntities.COMET.get(), CometRenderer::new);
