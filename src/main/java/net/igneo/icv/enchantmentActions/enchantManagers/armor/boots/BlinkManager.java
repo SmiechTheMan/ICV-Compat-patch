@@ -20,7 +20,7 @@ public class BlinkManager extends ArmorEnchantManager {
   private static final double BLINK_DISTANCE = 10.0d;
   
   public BlinkManager(Player player) {
-    super(EnchantType.BOOTS, 300, 10, false, player);
+    super(EnchantType.BOOTS, 300, -20, false, player);
   }
   
   @Override
@@ -70,7 +70,6 @@ public class BlinkManager extends ArmorEnchantManager {
         lookVector.y * 2.5f,
         lookVector.z * 0.5f
       );
-      hitWall = true;
     }
     
     player.teleportTo(
@@ -83,15 +82,9 @@ public class BlinkManager extends ArmorEnchantManager {
       ParticleShapes.renderLine(level, playerPos, targetPos, ParticleTypes.PORTAL, 10);
 
       LodestoneParticles.blinkParticles(level,targetPos.add(player.getLookAngle().scale(8)));
-      if (hitWall) {
-        level.playSound(null, targetPos.x, targetPos.y, targetPos.z,
-                ModSounds.BLINK_USE_WALL.get(),
-                net.minecraft.sounds.SoundSource.PLAYERS, 0.5f, 1.0f);
-      } else {
-        level.playSound(null, targetPos.x, targetPos.y, targetPos.z,
-                ModSounds.BLINK_USE.get(),
-                net.minecraft.sounds.SoundSource.PLAYERS, 0.5f, 1.0f);
-      }
+      level.playSound(null, targetPos.x, targetPos.y, targetPos.z,
+              ModSounds.BLINK_USE_WALL.get(),
+              net.minecraft.sounds.SoundSource.PLAYERS, 0.5f, 1.0f);
       level.playSound(null, playerPos.x, playerPos.y, playerPos.z,
               net.minecraft.sounds.SoundEvents.ENDERMAN_TELEPORT,
               net.minecraft.sounds.SoundSource.PLAYERS, 0.5f, 1.0f);
@@ -100,10 +93,12 @@ public class BlinkManager extends ArmorEnchantManager {
       targetPos = new Vec3(targetPos.x, targetPos.y - 0.5, targetPos.z);
       ICVUtils.sendPacketInRange(level, targetPos, 200, new SendBlinkShaderS2CPacket(targetPos));
     }
-    for (Vec3 pos : ParticleShapes.renderRingList(player.level(),targetPos,10,1.5F)) {
-      System.out.println(pos);
-      LodestoneParticles.blinkParticles(player.level(), pos);
-    }
+    LodestoneParticles.blinkParticles(player.level(), playerPos);
+
+    //for (Vec3 pos : ParticleShapes.renderRingList(player.level(),targetPos,10,1.5F)) {
+    //  System.out.println(pos);
+    //  LodestoneParticles.blinkParticles(player.level(), pos);
+    //}
   }
 
     

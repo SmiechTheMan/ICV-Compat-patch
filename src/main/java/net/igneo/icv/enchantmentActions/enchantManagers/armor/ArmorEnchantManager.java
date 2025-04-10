@@ -73,7 +73,9 @@ public abstract class ArmorEnchantManager extends EnchantmentManager {
     }
 
     public void targetDamaged() {
-        addCoolDown(coolDownDamageBonus);
+        if (!isOffCoolDown()) {
+            addCoolDown(coolDownDamageBonus);
+        }
     }
 
     @Override
