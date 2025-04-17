@@ -25,7 +25,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @Mixin(value = TridentItem.class)
 public class TridentItemMixin {
-
+    
     @Inject(method = "releaseUsing" , at= @At("HEAD"), cancellable = true)
     public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving, int pTimeLeft, CallbackInfo ci) {
         if (pEntityLiving instanceof Player player) {
@@ -41,7 +41,7 @@ public class TridentItemMixin {
         }
         ci.cancel();
     }
-
+    
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
     private void use(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
         ItemStack pStack = player.getItemInHand(hand);
@@ -51,7 +51,7 @@ public class TridentItemMixin {
         } else {
             ThrownTrident throwntrident = new ThrownTrident(level, player, pStack);
             throwntrident.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.5F, 1.0F);
-
+            
             level.addFreshEntity(throwntrident);
             level.playSound((Player) null, throwntrident, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0F, 1.0F);
             pStack.getTag().putInt("tridentID",throwntrident.getId());

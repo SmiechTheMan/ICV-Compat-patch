@@ -20,7 +20,9 @@ public class IceSpikeSpawnerEntity extends ICVEntity {
   @Override
   public void tick() {
     super.tick();
-    
+    if (this.getOwner() == null) {
+      return;
+    }
     this.setDeltaMovement(this.getOwner().getViewVector(1.0f).scale(0.3f));
     
     if (lifetime < 200) {

@@ -8,6 +8,7 @@ import net.igneo.icv.config.ICVClientConfigs;
 import net.igneo.icv.config.ICVCommonConfigs;
 import net.igneo.icv.enchantment.ModEnchantments;
 import net.igneo.icv.entity.ModEntities;
+import net.igneo.icv.entity.ModEntityRenderers;
 import net.igneo.icv.entity.chestplate.abyssStone.AbyssStoneRenderer;
 import net.igneo.icv.entity.helmet.blackHole.BlackHoleRenderer;
 import net.igneo.icv.entity.weapon.boostCharge.BoostChargeRenderer;
@@ -28,6 +29,7 @@ import net.igneo.icv.entity.leggings.voidSpike.VoidSpikeRenderer;
 import net.igneo.icv.entity.leggings.wave.WaveRenderer;
 import net.igneo.icv.networking.ModMessages;
 import net.igneo.icv.particle.ModParticles;
+import net.igneo.icv.shader.ModShaders;
 import net.igneo.icv.shader.postProcessors.BlinkPostProcessor;
 import net.igneo.icv.sound.ModSounds;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -83,27 +85,8 @@ public class ICV
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-            PostProcessHandler.addInstance(BlinkPostProcessor.INSTANCE);
-
-
-            EntityRenderers.register(ModEntities.COMET.get(), CometRenderer::new);
-            EntityRenderers.register(ModEntities.EMBER.get(), EmberRenderer::new);
-            EntityRenderers.register(ModEntities.FIRE_RING.get(), FireRingRenderer::new);
-            EntityRenderers.register(ModEntities.BLACK_HOLE.get(), BlackHoleRenderer::new);
-            EntityRenderers.register(ModEntities.SNAKE_BITE.get(), SnakeBiteRenderer::new);
-            EntityRenderers.register(ModEntities.SOUL_ORB.get(), SoulOrbRenderer::new);
-            EntityRenderers.register(ModEntities.SOUL_SPIDER.get(), SoulSpiderRenderer::new);
-            EntityRenderers.register(ModEntities.SURF_WAVE.get(), SurfWaveRenderer::new);
-            EntityRenderers.register(ModEntities.STONE_PILLAR.get(), StonePillarRenderer::new);
-            EntityRenderers.register(ModEntities.SOUL_EMBER.get(), SoulEmberRenderer::new);
-            EntityRenderers.register(ModEntities.ABYSS_STONE.get(), AbyssStoneRenderer::new);
-            EntityRenderers.register(ModEntities.WAVE.get(), WaveRenderer::new);
-            EntityRenderers.register(ModEntities.VOID_SPIKE.get(), VoidSpikeRenderer::new);
-            EntityRenderers.register(ModEntities.METEOR_SUMMONER.get(), MeteorSummonerRenderer::new);
-            EntityRenderers.register(ModEntities.ICE_SPIKE.get(), IceSpikeRenderer::new);
-            EntityRenderers.register(ModEntities.ICE_SPIKE_SPAWNER.get(), IceSpikeSpawnerRenderer::new);
-            EntityRenderers.register(ModEntities.DIVINE_LIGHTNING_ROD.get(), DivineLightningRodRenderer::new);
-            EntityRenderers.register(ModEntities.BOOST_CHARGE.get(), BoostChargeRenderer::new);
+            ModShaders.register();
+            ModEntityRenderers.register();
 
             PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
                     new ResourceLocation(MOD_ID, "enchant_animator"),

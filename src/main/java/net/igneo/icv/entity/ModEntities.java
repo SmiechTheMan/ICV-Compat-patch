@@ -74,7 +74,7 @@ public class ModEntities {
                     .sized(1f,1f).build("meteor_summoner"));
     public static final RegistryObject<EntityType<IceSpikeEntity>> ICE_SPIKE =
       ENTITY_TYPES.register("ice_spike", () -> EntityType.Builder.<IceSpikeEntity>of(IceSpikeEntity::new, MobCategory.MISC)
-        .sized(1.0f, 1.0f).build("ice_spike"));
+        .sized(1.0f, 4.0f).build("ice_spike"));
     public static final RegistryObject<EntityType<IceSpikeSpawnerEntity>> ICE_SPIKE_SPAWNER =
       ENTITY_TYPES.register("ice_spike_spawner", () -> EntityType.Builder.<IceSpikeSpawnerEntity>of(IceSpikeSpawnerEntity::new, MobCategory.MISC)
         .sized(0.0f, 0.0f).build("ice_spike_spawner"));
