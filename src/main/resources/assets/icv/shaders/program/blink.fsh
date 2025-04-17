@@ -51,7 +51,7 @@ void main() {
         vec3 color = fetch3(DataBuffer, index + 3);
 
         //converting the worldpos of center into usable texcoord
-        vec2 centerCoord = worldPosToTexCoord(center,invViewMat,invProjMat,cameraPos);
+        vec2 centerCoord = worldPosToTexCoord(center, invViewMat, invProjMat, cameraPos);
 
         //getting the aspect ratio to lie to the screen about where the center is so that a sphere is rendered instead of an oval
         float aspect = InSize.x / InSize.y;
@@ -60,8 +60,8 @@ void main() {
         float distance = length(scaledTexCoord - scaledCenter);
 
         //collecting my per-instance time variable to scale the radius for the in-and-out motion of the effect
-        float instTime = fetch(DataBuffer,index+6);
-        float t = pow(abs(((sin(3.1415*instTime*2))) + 0.1),2);
+        float instTime = fetch(DataBuffer, index+6);
+        float t = pow(abs(((sin(3.1415*instTime*2))) + 0.1), 2);
         float radius = (1 / length(center - cameraPos))*t;
 
         if (!skip && distance <= radius) {

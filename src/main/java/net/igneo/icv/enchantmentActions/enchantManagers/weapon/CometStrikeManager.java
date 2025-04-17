@@ -15,28 +15,29 @@ import net.minecraft.world.entity.player.Player;
 
 import java.util.UUID;
 
-public class CometStrikeManager extends WeaponEnchantManager{
+public class CometStrikeManager extends WeaponEnchantManager {
     private BlockPos cometSpawn;
     public static final UUID COMET_SPEED_MODIFIER_UUID = UUID.fromString("8a23719c-852d-47fc-bb41-8527955288d4");
+    
     public CometStrikeManager(Player player) {
         super(EnchantType.WEAPON, player, new ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross"));
     }
-
+    
     @Override
     public void onEquip() {
         super.onEquip();
         applyPassive();
     }
-
+    
     @Override
     public void onRemove() {
         super.onRemove();
         removePassive();
     }
-
+    
     @Override
     public void applyPassive() {
-
+        
         super.applyPassive();
         System.out.println("applying buff");
         player.getAttributes().getInstance(Attributes.MOVEMENT_SPEED).addTransientModifier(
@@ -45,12 +46,12 @@ public class CometStrikeManager extends WeaponEnchantManager{
                         0.02F,
                         AttributeModifier.Operation.ADDITION));
     }
-
+    
     @Override
     public void removePassive() {
         player.getAttributes().getInstance(Attributes.MOVEMENT_SPEED).removeModifier(COMET_SPEED_MODIFIER_UUID);
     }
-
+    
     public void spawnComet() {
         if (player.level() instanceof ServerLevel level) {
             if (cometSpawn == null) {
@@ -73,13 +74,13 @@ public class CometStrikeManager extends WeaponEnchantManager{
             if (activeTicks > 30) {
                 ModEntities.COMET.get().spawn(level, cometSpawn, MobSpawnType.COMMAND);
                 //level.sendParticles(ParticleTypes.END_ROD, cometSpawn.getX() + 0.5, cometSpawn.getY() + 0.5, cometSpawn.getZ() + 0.5, 15, 0, 0, 0, 0.1);
-                level.playSound(null, cometSpawn, ModSounds.COMET_SPAWN.get(), SoundSource.PLAYERS, 0.5F,1);
+                level.playSound(null, cometSpawn, ModSounds.COMET_SPAWN.get(), SoundSource.PLAYERS, 0.5F, 1);
                 active = false;
                 cometSpawn = null;
             }
         }
     }
-
+    
     @Override
     public void tick() {
         super.tick();

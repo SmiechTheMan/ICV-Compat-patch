@@ -8,12 +8,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 public class BlinkEnchantment extends ICVEnchantment {
-  public BlinkEnchantment(Rarity pRarity, EnchantmentCategory pCategory, EquipmentSlot... pApplicableSlots) {
-    super(pRarity, pCategory, pApplicableSlots);
-  }
-  
-  @Override
-  public EnchantmentManager getManager(Player player) {
-    return new BlinkManager(player);
-  }
+    public BlinkEnchantment(Rarity pRarity, EnchantmentCategory pCategory, EquipmentSlot... pApplicableSlots) {
+        super(pRarity, pCategory, pApplicableSlots);
+    }
+    
+    @Override
+    public EnchantmentManager getManager(Player player) {
+        return new BlinkManager(player);
+    }
 }

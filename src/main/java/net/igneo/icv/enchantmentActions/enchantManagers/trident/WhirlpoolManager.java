@@ -12,33 +12,33 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 public class WhirlpoolManager extends TridentEnchantManager {
-  private boolean canPull = true;
-  
-  public WhirlpoolManager(Player player) {
-    super(EnchantType.TRIDENT, player);
-  }
-  
-  @Override
-  public void onHitBlock(BlockHitResult result, ThrownTrident trident) {
-    doPull(trident);
-  }
-  
-  private void doPull(ThrownTrident trident) {
-    if (!canPull) {
-      return;
+    private boolean canPull = true;
+    
+    public WhirlpoolManager(Player player) {
+        super(EnchantType.TRIDENT, player);
     }
-    for (Entity entity : ICVUtils.collectEntitiesBox(player.level(), trident.position(), 3.5f)) {
-      if (entity == trident || entity == player) {
-        continue;
-      }
-      if (entity instanceof ServerPlayer player) {
-        Vec3 pullVector = ICVUtils.DOWN_VECTOR;
-        player.addDeltaMovement(pullVector);
-        ModMessages.sendToPlayer(new PushPlayerS2CPacket(ICVUtils.DOWN_VECTOR), player);
-      } else {
-        entity.addDeltaMovement(ICVUtils.DOWN_VECTOR);
-      }
+    
+    @Override
+    public void onHitBlock(BlockHitResult result, ThrownTrident trident) {
+        doPull(trident);
     }
-    canPull = false;
-  }
+    
+    private void doPull(ThrownTrident trident) {
+        if (!canPull) {
+            return;
+        }
+        for (Entity entity : ICVUtils.collectEntitiesBox(player.level(), trident.position(), 3.5f)) {
+            if (entity == trident || entity == player) {
+                continue;
+            }
+            if (entity instanceof ServerPlayer player) {
+                Vec3 pullVector = ICVUtils.DOWN_VECTOR;
+                player.addDeltaMovement(pullVector);
+                ModMessages.sendToPlayer(new PushPlayerS2CPacket(ICVUtils.DOWN_VECTOR), player);
+            } else {
+                entity.addDeltaMovement(ICVUtils.DOWN_VECTOR);
+            }
+        }
+        canPull = false;
+    }
 }

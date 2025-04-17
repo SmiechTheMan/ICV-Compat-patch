@@ -7,11 +7,11 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
-public class FinesseManager extends WeaponEnchantManager{
+public class FinesseManager extends WeaponEnchantManager {
     public FinesseManager(Player player) {
         super(EnchantType.WEAPON, player, new ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross"));
     }
-
+    
     @Override
     public void onAttack(Entity entity) {
         Vec3 redirect = player.getDeltaMovement().reverse();
@@ -23,20 +23,20 @@ public class FinesseManager extends WeaponEnchantManager{
         double d0 = redirect.x * scale;
         double d1 = redirect.y * Yscale;
         double d2 = redirect.z * scale;
-
+        
         if (d0 > 2) d0 = 2;
         if (d0 < -2) d0 = -2;
-
+        
         if (d1 > 1) d1 = 1;
         if (d1 < -1) d1 = -1;
-
+        
         if (d2 > 2) d2 = 2;
         if (d2 < -2) d2 = -2;
-
-        redirect = new Vec3(d0,d1,d2);
+        
+        redirect = new Vec3(d0, d1, d2);
         player.setDeltaMovement(redirect);
     }
-
+    
     @Override
     public void activate() {
         super.activate();
@@ -45,16 +45,16 @@ public class FinesseManager extends WeaponEnchantManager{
         double y = 0.25;
         double z = Math.cos(yaw);
         double scale = 2;
-
-        Vec3 flatDirection = new Vec3(x*scale, y, z*scale);
+        
+        Vec3 flatDirection = new Vec3(x * scale, y, z * scale);
         player.setDeltaMovement(flatDirection);
     }
-
+    
     @Override
     public float getDamageBonus() {
         System.out.println(target);
         return 20;
     }
-
-
+    
+    
 }

@@ -9,7 +9,8 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import static net.igneo.icv.init.TrigMath.*;
+import static net.igneo.icv.init.TrigMath.radiansToInternalAngle;
+import static net.igneo.icv.init.TrigMath.sincos;
 
 public class ParticleShapes {
     public static void renderLine(ServerLevel level, Vec3 start, Vec3 end, ParticleOptions particle, int points) {

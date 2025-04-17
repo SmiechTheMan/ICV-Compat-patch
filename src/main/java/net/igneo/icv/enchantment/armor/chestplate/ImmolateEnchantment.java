@@ -8,12 +8,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 public class ImmolateEnchantment extends ICVEnchantment {
-  public ImmolateEnchantment(Rarity pRarity, EnchantmentCategory pCategory, EquipmentSlot... pApplicableSlots) {
-    super(pRarity, pCategory, pApplicableSlots);
-  }
-  
-  @Override
-  public EnchantmentManager getManager(Player player) {
-    return new ImmolateManager(player);
-  }
+    public ImmolateEnchantment(Rarity pRarity, EnchantmentCategory pCategory, EquipmentSlot... pApplicableSlots) {
+        super(pRarity, pCategory, pApplicableSlots);
+    }
+    
+    @Override
+    public EnchantmentManager getManager(Player player) {
+        return new ImmolateManager(player);
+    }
 }

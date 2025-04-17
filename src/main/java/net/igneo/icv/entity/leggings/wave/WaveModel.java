@@ -8,16 +8,17 @@ public class WaveModel extends GeoModel<WaveEntity> {
     private final ResourceLocation model = new ResourceLocation(ICV.MOD_ID, "geo/placeholder.geo.json");
     private final ResourceLocation texture = new ResourceLocation(ICV.MOD_ID, "textures/entity/placeholder.png");
     private final ResourceLocation animations = new ResourceLocation(ICV.MOD_ID, "animations/placeholder.animation.json");
+    
     @Override
     public ResourceLocation getModelResource(WaveEntity surfWaveEntity) {
         return model;
     }
-
+    
     @Override
     public ResourceLocation getTextureResource(WaveEntity surfWaveEntity) {
         return texture;
     }
-
+    
     @Override
     public ResourceLocation getAnimationResource(WaveEntity surfWaveEntity) {
         return animations;

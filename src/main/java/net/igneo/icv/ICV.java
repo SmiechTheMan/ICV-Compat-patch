@@ -9,31 +9,11 @@ import net.igneo.icv.config.ICVCommonConfigs;
 import net.igneo.icv.enchantment.ModEnchantments;
 import net.igneo.icv.entity.ModEntities;
 import net.igneo.icv.entity.ModEntityRenderers;
-import net.igneo.icv.entity.chestplate.abyssStone.AbyssStoneRenderer;
-import net.igneo.icv.entity.helmet.blackHole.BlackHoleRenderer;
-import net.igneo.icv.entity.weapon.boostCharge.BoostChargeRenderer;
-import net.igneo.icv.entity.weapon.FireRing.FireRingRenderer;
-import net.igneo.icv.entity.weapon.comet.CometRenderer;
-import net.igneo.icv.entity.helmet.divineLightningRod.DivineLightningRodRenderer;
-import net.igneo.icv.entity.helmet.glacialImpasse.iceSpike.IceSpikeRenderer;
-import net.igneo.icv.entity.helmet.glacialImpasse.iceSpikeSpawner.IceSpikeSpawnerRenderer;
-import net.igneo.icv.entity.chestplate.meteorSummoner.MeteorSummonerRenderer;
-import net.igneo.icv.entity.weapon.ember.EmberRenderer;
-import net.igneo.icv.entity.weapon.snakeBite.SnakeBiteRenderer;
-import net.igneo.icv.entity.boots.soulEmber.SoulEmberRenderer;
-import net.igneo.icv.entity.chestplate.soulOrb.SoulOrbRenderer;
-import net.igneo.icv.entity.chestplate.soulSpider.SoulSpiderRenderer;
-import net.igneo.icv.entity.boots.stonePillar.StonePillarRenderer;
-import net.igneo.icv.entity.boots.surfWave.SurfWaveRenderer;
-import net.igneo.icv.entity.leggings.voidSpike.VoidSpikeRenderer;
-import net.igneo.icv.entity.leggings.wave.WaveRenderer;
 import net.igneo.icv.networking.ModMessages;
 import net.igneo.icv.particle.ModParticles;
 import net.igneo.icv.shader.ModShaders;
-import net.igneo.icv.shader.postProcessors.BlinkPostProcessor;
 import net.igneo.icv.sound.ModSounds;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
@@ -48,56 +28,50 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import team.lodestar.lodestone.systems.postprocess.PostProcessHandler;
 
-@Mod(ICV.MOD_ID)
-public class ICV
-{
+@Mod (ICV.MOD_ID)
+public class ICV {
     public static final String MOD_ID = "icv";
     public static final Logger LOGGER = LogManager.getLogger("icv");
-
+    
     public ICV() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
         modEventBus.addListener(this::commonSetup);
-
+        
         MinecraftForge.EVENT_BUS.register(this);
-
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ICVClientConfigs.SPEC,"icv-client.toml");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ICVCommonConfigs.SPEC,"icv-common.toml");
-
+        
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ICVClientConfigs.SPEC, "icv-client.toml");
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ICVCommonConfigs.SPEC, "icv-common.toml");
+        
         ModEnchantments.register(modEventBus);
-
         ModParticles.register(modEventBus);
-
         ModSounds.register(modEventBus);
-
         ModEntities.register(modEventBus);
     }
-    private void commonSetup(final FMLCommonSetupEvent event)
-    {
+    
+    private void commonSetup(final FMLCommonSetupEvent event) {
         ModMessages.register();
     }
-
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents
-    {
+    
+    @Mod.EventBusSubscriber (modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class ClientModEvents {
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event)
-        {
+        public static void onClientSetup(FMLClientSetupEvent event) {
             ModShaders.register();
             ModEntityRenderers.register();
-
+            
             PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
                     new ResourceLocation(MOD_ID, "enchant_animator"),
                     42,
                     ICV::registerPlayerAnimation);
         }
+        
         @SubscribeEvent
         public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
             event.registerAboveAll("enchantments", EnchantmentHudOverlay.HUD_ENCHANTMENTS);
         }
     }
+    
     public static IAnimation registerPlayerAnimation(AbstractClientPlayer player) {
         //This will be invoked for every new player
         return new ModifierLayer<>();

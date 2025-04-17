@@ -11,7 +11,7 @@ public class StasisEnchantment extends ICVEnchantment {
     public StasisEnchantment(Rarity pRarity, EnchantmentCategory pCategory, EquipmentSlot... pApplicableSlots) {
         super(pRarity, pCategory, pApplicableSlots);
     }
-
+    
     @Override
     public EnchantmentManager getManager(Player player) {
         return new StasisManager(player);

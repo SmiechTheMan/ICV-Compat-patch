@@ -16,71 +16,71 @@ import net.minecraft.world.entity.player.Player;
 
 
 public class ViperManager extends WeaponEnchantManager implements EntityTracker {
-
-  ICVEntity child;
-  boolean nullCheck = false;
-
-  public ViperManager(Player player) {
-    super(EnchantType.WEAPON, player, new ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross"));
-  }
-  
-  @Override
-  public void activate() {
-    super.activate();
-    if (player.level() instanceof ServerLevel level) {
-      child = ModEntities.SNAKE_BITE.get().create(player.level());
-      child.setOwner(player);
-      child.setPos(player.getEyePosition().subtract(0,1,0));
-      child.setDeltaMovement(ICVUtils.getFlatDirection(player.getYRot(),1,0));
-      level.addFreshEntity(child);
-      syncClientChild((ServerPlayer) player,child,this);
-      nullCheck = true;
+    
+    ICVEntity child;
+    boolean nullCheck = false;
+    
+    public ViperManager(Player player) {
+        super(EnchantType.WEAPON, player, new ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross"));
     }
-  }
-
-  @Override
-  public float getDamageBonus() {
-    if (target == null) {
-      return 0;
-    } else if (target instanceof LivingEntity entity) {
-      if (!entity.getActiveEffects().isEmpty()) {
-        for (MobEffectInstance instance : entity.getActiveEffects()) {
-          MobEffect effect = instance.getEffect();
-          if (!effect.isBeneficial()) {
-            int duration = instance.getDuration() - 20;
-            entity.removeEffect(effect);
-            if (duration > 0) {
-              entity.addEffect(new MobEffectInstance(effect,duration,instance.getAmplifier(),instance.isAmbient(),instance.isVisible()));
-            }
-          }
+    
+    @Override
+    public void activate() {
+        super.activate();
+        if (player.level() instanceof ServerLevel level) {
+            child = ModEntities.SNAKE_BITE.get().create(player.level());
+            child.setOwner(player);
+            child.setPos(player.getEyePosition().subtract(0, 1, 0));
+            child.setDeltaMovement(ICVUtils.getFlatDirection(player.getYRot(), 1, 0));
+            level.addFreshEntity(child);
+            syncClientChild((ServerPlayer) player, child, this);
+            nullCheck = true;
         }
-        return 4;
-      }
     }
-    return 0;
-  }
-
-  @Override
-  public boolean canUse() {
-    return super.canUse() && child == null;
-  }
-
-  @Override
-  public ICVEntity getChild() {
-    return child;
-  }
-
-  @Override
-  public void setChild(ICVEntity entity) {
-    child = entity;
-  }
-
-  @Override
-  public void tick() {
-    super.tick();
-    if (nullCheck && player instanceof ServerPlayer serverPlayer && child == null) {
-      syncClientChild(serverPlayer,null,this);
-      nullCheck = false;
+    
+    @Override
+    public float getDamageBonus() {
+        if (target == null) {
+            return 0;
+        } else if (target instanceof LivingEntity entity) {
+            if (!entity.getActiveEffects().isEmpty()) {
+                for (MobEffectInstance instance : entity.getActiveEffects()) {
+                    MobEffect effect = instance.getEffect();
+                    if (!effect.isBeneficial()) {
+                        int duration = instance.getDuration() - 20;
+                        entity.removeEffect(effect);
+                        if (duration > 0) {
+                            entity.addEffect(new MobEffectInstance(effect, duration, instance.getAmplifier(), instance.isAmbient(), instance.isVisible()));
+                        }
+                    }
+                }
+                return 4;
+            }
+        }
+        return 0;
     }
-  }
+    
+    @Override
+    public boolean canUse() {
+        return super.canUse() && child == null;
+    }
+    
+    @Override
+    public ICVEntity getChild() {
+        return child;
+    }
+    
+    @Override
+    public void setChild(ICVEntity entity) {
+        child = entity;
+    }
+    
+    @Override
+    public void tick() {
+        super.tick();
+        if (nullCheck && player instanceof ServerPlayer serverPlayer && child == null) {
+            syncClientChild(serverPlayer, null, this);
+            nullCheck = false;
+        }
+    }
 }

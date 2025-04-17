@@ -1,18 +1,12 @@
 package net.igneo.icv.init;
 
-import net.igneo.icv.init.ICVUtils;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.Vec3;
-
 public class TrigMath {
     private static final double SECOND_ORDER_COEFFICIENT = 0.00000000109111226653103698;
-
+    
     private static double quasiCos2(double x) {
         return 1.0d - SECOND_ORDER_COEFFICIENT * x * x;
     }
-
+    
     public static double[] sincos(int intAngle) {
         int shifter = (intAngle ^ (intAngle << 1)) & 0xC000;
         double x = ((intAngle + shifter) << 17) >> 16;
@@ -34,9 +28,9 @@ public class TrigMath {
             cosx = -cosx;
         }
         
-        return new double[] {sinx, cosx};
+        return new double[]{sinx, cosx};
     }
-
+    
     public static double tan(int intAngle) {
         double[] result = sincos(intAngle);
         double sin = result[0];
@@ -48,10 +42,10 @@ public class TrigMath {
         
         return sin / cos;
     }
-
+    
     public static int radiansToInternalAngle(double radians) {
         return (int) ((radians % (2 * Math.PI)) * 32768 / (2 * Math.PI)) & 0xFFFF;
     }
     
-
+    
 }

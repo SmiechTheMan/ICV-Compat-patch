@@ -11,7 +11,7 @@ public class CurbStompEnchantment extends ICVEnchantment {
     public CurbStompEnchantment(Rarity pRarity, EnchantmentCategory pCategory, EquipmentSlot... pApplicableSlots) {
         super(pRarity, pCategory, pApplicableSlots);
     }
-
+    
     @Override
     public EnchantmentManager getManager(Player player) {
         return new CurbStompManager(player);

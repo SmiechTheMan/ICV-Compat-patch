@@ -15,18 +15,16 @@ import net.igneo.icv.networking.packet.AnimatedSyncC2SPacket;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public abstract class EnchantmentManager {
-    @OnlyIn(Dist.CLIENT)
+    @OnlyIn (Dist.CLIENT)
     public ModifierLayer<IAnimation> animator;
     public int activeTicks = 0;
     public boolean active = false;
+    
     protected EnchantmentManager(EnchantType setSlot, Player player) {
         this.type = setSlot;
         this.player = player;
@@ -37,24 +35,29 @@ public abstract class EnchantmentManager {
             this.animator = (ModifierLayer<IAnimation>) PlayerAnimationAccess.getPlayerAssociatedData((AbstractClientPlayer) player).get(new ResourceLocation(ICV.MOD_ID, "enchant_animator"));
         }
     }
+    
     public PlayerEnchantmentActions enchVar;
     public Player player;
     private final EnchantType type;
-
+    
     public EnchantType getType() {
         return type;
     }
+    
     public void use() {
         this.activate();
     }
-
+    
     public abstract boolean canUse();
-
+    
     public abstract void activate();
-
-    public void onRemove() {};
-    public void onEquip() {};
-
+    
+    public void onRemove() {
+    }
+    
+    public void onEquip() {
+    }
+    
     public void tick() {
         if (active) {
             ++activeTicks;
@@ -67,8 +70,8 @@ public abstract class EnchantmentManager {
                 ModMessages.sendToServer(new AnimatedSyncC2SPacket(false));
             }
         }
-    };
-
+    }
+    
     public boolean stableCheck() {
         return player.onGround() &&
                 !enchVar.animated &&
@@ -76,5 +79,5 @@ public abstract class EnchantmentManager {
                 !Parkourability.get(player).get(Dodge.class).isDoing() &&
                 !Parkourability.get(player).get(Slide.class).isDoing();
     }
-
+    
 }

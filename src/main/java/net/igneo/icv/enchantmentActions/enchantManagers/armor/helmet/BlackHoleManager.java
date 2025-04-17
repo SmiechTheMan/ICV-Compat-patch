@@ -1,6 +1,5 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.armor.helmet;
 
-import net.igneo.icv.ICV;
 import net.igneo.icv.client.indicators.BlackHoleIndicator;
 import net.igneo.icv.client.indicators.EnchantIndicator;
 import net.igneo.icv.enchantment.EnchantType;
@@ -8,7 +7,6 @@ import net.igneo.icv.enchantmentActions.EntityTracker;
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager;
 import net.igneo.icv.entity.ICVEntity;
 import net.igneo.icv.entity.ModEntities;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -16,11 +14,11 @@ import net.minecraft.world.phys.Vec3;
 
 public class BlackHoleManager extends ArmorEnchantManager implements EntityTracker {
     public BlackHoleManager(Player player) {
-        super(EnchantType.HELMET,900,-30,true,player);
+        super(EnchantType.HELMET, 900, -30, true, player);
     }
-
+    
     public ICVEntity child = null;
-
+    
     @Override
     public void tick() {
         super.tick();
@@ -28,26 +26,26 @@ public class BlackHoleManager extends ArmorEnchantManager implements EntityTrack
             child = null;
         }
     }
-
+    
     @Override
     public boolean canUse() {
         return child == null;
     }
-
+    
     @Override
     public EnchantIndicator getIndicator() {
         return new BlackHoleIndicator(this);
     }
-
+    
     @Override
     public void onOffCoolDown(Player player) {
     }
-
+    
     @Override
     public boolean shouldTickCooldown() {
         return child == null;
     }
-
+    
     @Override
     public void activate() {
         if (player.level() instanceof ServerLevel) {
@@ -56,10 +54,10 @@ public class BlackHoleManager extends ArmorEnchantManager implements EntityTrack
             child.setPos(player.getEyePosition());
             child.setDeltaMovement(player.getLookAngle().scale(0.4));
             player.level().addFreshEntity(child);
-            syncClientChild((ServerPlayer) player,child,this);
+            syncClientChild((ServerPlayer) player, child, this);
         }
     }
-
+    
     @Override
     public void dualActivate() {
         if (child != null && player.level() instanceof ServerLevel) {
@@ -71,17 +69,17 @@ public class BlackHoleManager extends ArmorEnchantManager implements EntityTrack
             }
         }
     }
-
+    
     @Override
     public void onRemove() {
         if (this.child != null) this.child.discard();
     }
-
+    
     @Override
     public ICVEntity getChild() {
         return child;
     }
-
+    
     @Override
     public void setChild(ICVEntity entity) {
         child = entity;

@@ -10,7 +10,7 @@ public class FinesseEnchantment extends WeaponEnchantment {
     public FinesseEnchantment(Rarity pRarity, EnchantmentCategory pCategory, EquipmentSlot... pApplicableSlots) {
         super(pRarity, pCategory, pApplicableSlots);
     }
-
+    
     @Override
     public EnchantmentManager getManager(Player player) {
         return new FinesseManager(player);

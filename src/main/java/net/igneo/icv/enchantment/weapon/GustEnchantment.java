@@ -10,12 +10,12 @@ public class GustEnchantment extends WeaponEnchantment {
     public GustEnchantment(Rarity pRarity, EnchantmentCategory pCategory, EquipmentSlot... pApplicableSlots) {
         super(pRarity, pCategory, pApplicableSlots);
     }
-
+    
     @Override
     public EnchantmentManager getManager(Player player) {
         return new GustManager(player);
     }
-
+    
     @Override
     public boolean performBonusCheck() {
         return true;

@@ -1,7 +1,6 @@
 package net.igneo.icv.enchantment.weapon;
 
 import net.igneo.icv.enchantmentActions.enchantManagers.EnchantmentManager;
-import net.igneo.icv.enchantmentActions.enchantManagers.weapon.BreakthroughManager;
 import net.igneo.icv.enchantmentActions.enchantManagers.weapon.MeathookManager;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -11,6 +10,7 @@ public class MeathookEnchantment extends WeaponEnchantment {
     public MeathookEnchantment(Rarity pRarity, EnchantmentCategory pCategory, EquipmentSlot... pApplicableSlots) {
         super(pRarity, pCategory, pApplicableSlots);
     }
+    
     @Override
     public EnchantmentManager getManager(Player player) {
         return new MeathookManager(player);

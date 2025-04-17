@@ -4,22 +4,15 @@ import net.igneo.icv.config.ICVCommonConfigs;
 import net.igneo.icv.enchantment.ModEnchantments;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
-import org.apache.commons.lang3.mutable.MutableInt;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.injection.Inject;
 
-import static net.minecraft.world.item.enchantment.EnchantmentHelper.getItemEnchantmentLevel;
-
-@Mixin(value = EnchantmentHelper.class)
+@Mixin (value = EnchantmentHelper.class)
 public class EnchantmentHelperMixin {
     /**
      * @author Igneo220
@@ -28,8 +21,7 @@ public class EnchantmentHelperMixin {
     @Overwrite
     public static int getKnockbackBonus(LivingEntity pPlayer) {
         int trimCount = 0;
-        if (pPlayer instanceof Player && ICVCommonConfigs.TRIM_EFFECTS.get()) {
-            Player player = (Player) pPlayer;
+        if (pPlayer instanceof Player player && ICVCommonConfigs.TRIM_EFFECTS.get()) {
             for (int j = 0; j < 4; ++j) {
                 if (!player.getInventory().getArmor(j).toString().contains("air") && player.getInventory().getArmor(j).serializeNBT().toString().contains("tag")) {
                     if (player.getInventory().getArmor(j).getTag().getAllKeys().contains("Trim")) {
@@ -43,6 +35,7 @@ public class EnchantmentHelperMixin {
         }
         return trimCount;
     }
+    
     /**
      * @author Igneo220
      * @reason Enchantment no longer exists, replacing with trims
@@ -135,7 +128,7 @@ public class EnchantmentHelperMixin {
         }
         return protInt;
     }
-
+    
     /**
      * @author Igneo220
      * @reason Enchantment no longer exists, replacing with trims
@@ -143,8 +136,7 @@ public class EnchantmentHelperMixin {
     @Overwrite
     public static int getDepthStrider(LivingEntity pEntity) {
         int trimCount = 0;
-        if (pEntity instanceof Player && ICVCommonConfigs.TRIM_EFFECTS.get()) {
-            Player player = (Player) pEntity;
+        if (pEntity instanceof Player player && ICVCommonConfigs.TRIM_EFFECTS.get()) {
             for (int j = 0; j < 4; ++j) {
                 if (!player.getInventory().getArmor(j).toString().contains("air") && player.getInventory().getArmor(j).serializeNBT().toString().contains("tag")) {
                     if (player.getInventory().getArmor(j).getTag().getAllKeys().contains("Trim")) {
@@ -158,6 +150,7 @@ public class EnchantmentHelperMixin {
         }
         return trimCount;
     }
+    
     /**
      * @author Igneo220
      * @reason Enchantment no longer exists, replacing with trims
@@ -165,8 +158,7 @@ public class EnchantmentHelperMixin {
     @Overwrite
     public static int getRespiration(LivingEntity pEntity) {
         int trimCount = 0;
-        if (pEntity instanceof Player && ICVCommonConfigs.TRIM_EFFECTS.get()) {
-            Player player = (Player) pEntity;
+        if (pEntity instanceof Player player && ICVCommonConfigs.TRIM_EFFECTS.get()) {
             for (int j = 0; j < 4; ++j) {
                 if (!player.getInventory().getArmor(j).toString().contains("air") && player.getInventory().getArmor(j).serializeNBT().toString().contains("tag")) {
                     if (player.getInventory().getArmor(j).getTag().getAllKeys().contains("Trim")) {
@@ -180,7 +172,7 @@ public class EnchantmentHelperMixin {
         }
         return trimCount;
     }
-
+    
     /**
      * @author Igneo
      * @reason wont exist anymore
@@ -189,14 +181,14 @@ public class EnchantmentHelperMixin {
     public static int getLoyalty(ItemStack pStack) {
         return 3;
     }
-
+    
     /**
      * @author Igneo220
      * @reason removing efficiency adding brute touch
      */
     @Overwrite
     public static int getBlockEfficiency(LivingEntity pEntity) {
-        if (EnchantmentHelper.getEnchantmentLevel(ModEnchantments.BRUTE_TOUCH.get(),pEntity) == 1) {
+        if (EnchantmentHelper.getEnchantmentLevel(ModEnchantments.BRUTE_TOUCH.get(), pEntity) == 1) {
             return 5;
         } else {
             return 0;

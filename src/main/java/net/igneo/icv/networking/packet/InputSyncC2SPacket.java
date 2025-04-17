@@ -10,21 +10,22 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.function.Supplier;
 
 public class InputSyncC2SPacket {
-    private int ID;
+    private final int ID;
+    
     public InputSyncC2SPacket(int ID) {
         this.ID = ID;
     }
-
+    
     public InputSyncC2SPacket(FriendlyByteBuf buf) {
         ID = buf.readInt();
     }
-
+    
     public void toBytes(FriendlyByteBuf buf) {
         buf.writeInt(ID);
     }
-
+    
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
-        NetworkEvent.Context context = (NetworkEvent.Context)supplier.get();
+        NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             ServerLevel level = player.serverLevel();

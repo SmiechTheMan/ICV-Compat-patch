@@ -12,19 +12,20 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class PlayerEnchantmentActionsProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-
-    public static Capability<PlayerEnchantmentActions> PLAYER_ENCHANTMENT_ACTIONS = CapabilityManager.get(new CapabilityToken<PlayerEnchantmentActions>() {});
-
+    
+    public static Capability<PlayerEnchantmentActions> PLAYER_ENCHANTMENT_ACTIONS = CapabilityManager.get(new CapabilityToken<PlayerEnchantmentActions>() {
+    });
+    
     private PlayerEnchantmentActions enchNBT = null;
     private final LazyOptional<PlayerEnchantmentActions> optional = LazyOptional.of(this::createEnchantmentActions);
-
+    
     private PlayerEnchantmentActions createEnchantmentActions() {
         if (this.enchNBT == null) {
             this.enchNBT = new PlayerEnchantmentActions();
         }
         return this.enchNBT;
     }
-
+    
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         if (cap == PLAYER_ENCHANTMENT_ACTIONS) {
@@ -32,14 +33,14 @@ public class PlayerEnchantmentActionsProvider implements ICapabilityProvider, IN
         }
         return LazyOptional.empty();
     }
-
+    
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
         createEnchantmentActions().saveNBTData(nbt);
         return nbt;
     }
-
+    
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         createEnchantmentActions().loadNBTData(nbt);

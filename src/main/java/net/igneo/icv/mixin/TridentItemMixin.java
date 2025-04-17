@@ -21,12 +21,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.concurrent.atomic.AtomicReference;
-
-@Mixin(value = TridentItem.class)
+@Mixin (value = TridentItem.class)
 public class TridentItemMixin {
     
-    @Inject(method = "releaseUsing" , at= @At("HEAD"), cancellable = true)
+    @Inject (method = "releaseUsing", at = @At ("HEAD"), cancellable = true)
     public void releaseUsing(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving, int pTimeLeft, CallbackInfo ci) {
         if (pEntityLiving instanceof Player player) {
             for (Enchantment enchantment : pStack.getAllEnchantments().keySet()) {
@@ -42,7 +40,7 @@ public class TridentItemMixin {
         ci.cancel();
     }
     
-    @Inject(method = "use", at = @At("HEAD"), cancellable = true)
+    @Inject (method = "use", at = @At ("HEAD"), cancellable = true)
     private void use(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
         ItemStack pStack = player.getItemInHand(hand);
         ThrownTrident trident = (ThrownTrident) level.getEntity(pStack.getTag().getInt("tridentID"));
@@ -53,8 +51,8 @@ public class TridentItemMixin {
             throwntrident.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.5F, 1.0F);
             
             level.addFreshEntity(throwntrident);
-            level.playSound((Player) null, throwntrident, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0F, 1.0F);
-            pStack.getTag().putInt("tridentID",throwntrident.getId());
+            level.playSound(null, throwntrident, SoundEvents.TRIDENT_THROW, SoundSource.PLAYERS, 1.0F, 1.0F);
+            pStack.getTag().putInt("tridentID", throwntrident.getId());
             cir.setReturnValue(InteractionResultHolder.success(pStack));
         }
         cir.cancel();

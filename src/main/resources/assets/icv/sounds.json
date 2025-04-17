@@ -193,8 +193,6 @@
       "icv:ws_charge"
     ]
   },
-
-
   "blink_cooldown": {
     "subtitles": "sounds.icv.blink_cooldown",
     "sounds": [

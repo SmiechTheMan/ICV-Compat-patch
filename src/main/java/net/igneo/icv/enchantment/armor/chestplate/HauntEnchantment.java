@@ -11,11 +11,11 @@ public class HauntEnchantment extends ICVEnchantment {
     public HauntEnchantment(Rarity pRarity, EnchantmentCategory pCategory, EquipmentSlot... pApplicableSlots) {
         super(pRarity, pCategory, pApplicableSlots);
     }
-
+    
     @Override
     public EnchantmentManager getManager(Player player) {
         return new HauntManager(player);
     }
-
-
+    
+    
 }

@@ -8,12 +8,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 public class DivineSmiteEnchantment extends ICVEnchantment {
-  public DivineSmiteEnchantment(Rarity pRarity, EnchantmentCategory pCategory, EquipmentSlot... pApplicableSlots) {
-    super(pRarity, pCategory, pApplicableSlots);
-  }
-  
-  @Override
-  public EnchantmentManager getManager(Player player) {
-    return new DivineSmiteManager(player);
-  }
+    public DivineSmiteEnchantment(Rarity pRarity, EnchantmentCategory pCategory, EquipmentSlot... pApplicableSlots) {
+        super(pRarity, pCategory, pApplicableSlots);
+    }
+    
+    @Override
+    public EnchantmentManager getManager(Player player) {
+        return new DivineSmiteManager(player);
+    }
 }

@@ -25,9 +25,9 @@ public abstract class WeaponEnchantment extends ICVEnchantment {
     protected WeaponEnchantment(Rarity pRarity, EnchantmentCategory pCategory, EquipmentSlot[] pApplicableSlots) {
         super(pRarity, pCategory, pApplicableSlots);
     }
-
+    
     public ServerLevel currentLevel;
-
+    
     @Override
     public void doPostAttack(LivingEntity pAttacker, Entity pTarget, int pLevel) {
         if (!pAttacker.level().isClientSide) {
@@ -45,11 +45,11 @@ public abstract class WeaponEnchantment extends ICVEnchantment {
             }
         }
     }
-
+    
     @Override
     public float getDamageBonus(int power, MobType mobType, ItemStack enchantedItem) {
         AtomicReference<Float> bonus = new AtomicReference<>((float) 0);
-        AtomicReference<Boolean> shouldBreak = new AtomicReference<>((boolean) false);
+        AtomicReference<Boolean> shouldBreak = new AtomicReference<>(false);
         if (performBonusCheck() && currentLevel != null) {
             for (ServerPlayer player : currentLevel.players()) {
                 player.getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS).ifPresent(enchVar -> {
@@ -71,11 +71,11 @@ public abstract class WeaponEnchantment extends ICVEnchantment {
         System.out.println(bonus.get());
         return bonus.get();
     }
-
+    
     public boolean performBonusCheck() {
         return false;
     }
-
+    
     public static ServerLevel getServerLevel(ResourceKey<Level> dimension) {
         MinecraftServer server = ServerLifecycleHooks.getCurrentServer(); // Gets the current server
         if (server != null) {

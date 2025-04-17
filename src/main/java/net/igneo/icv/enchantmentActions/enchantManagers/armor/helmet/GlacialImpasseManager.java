@@ -26,7 +26,7 @@ public class GlacialImpasseManager extends ArmorEnchantManager implements Entity
         lifetime = 0;
         iceSpikeSpawner = ModEntities.ICE_SPIKE_SPAWNER.get().create(player.level());
         if (!(player.level() instanceof ServerLevel)) {
-          return;
+            return;
         }
         iceSpikeSpawner.setOwner(player);
         iceSpikeSpawner.setPos(player.getEyePosition().add(player.getViewVector(1.0f).normalize()));
@@ -70,7 +70,6 @@ public class GlacialImpasseManager extends ArmorEnchantManager implements Entity
             iceSpikes = null;
         }
     }
-
     
     
     @Override

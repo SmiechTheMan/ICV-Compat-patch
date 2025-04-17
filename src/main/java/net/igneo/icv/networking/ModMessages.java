@@ -4,21 +4,21 @@ import net.igneo.icv.networking.packet.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.NetworkRegistry.ChannelBuilder;
+import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 public class ModMessages {
     private static SimpleChannel INSTANCE;
     private static int packetId = 0;
-
+    
     public ModMessages() {
     }
-
+    
     private static int id() {
         return packetId++;
     }
-
+    
     public static void register() {
         SimpleChannel net = ChannelBuilder.named(new ResourceLocation("icv", "messages")).networkProtocolVersion(() -> {
             return "1.0";
@@ -79,11 +79,11 @@ public class ModMessages {
                 .consumerMainThread(SendBlinkShaderS2CPacket::handle)
                 .add();
     }
-
+    
     public static <MSG> void sendToServer(MSG message) {
         INSTANCE.sendToServer(message);
     }
-
+    
     public static <MSG> void sendToPlayer(MSG message, ServerPlayer player) {
         INSTANCE.send(PacketDistributor.PLAYER.with(() -> {
             return player;

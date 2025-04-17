@@ -2,7 +2,6 @@ package net.igneo.icv.particle;
 
 import net.igneo.icv.ICV;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -12,12 +11,13 @@ import team.lodestar.lodestone.systems.particle.world.type.LodestoneWorldParticl
 public class ModParticles {
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES =
             DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, ICV.MOD_ID);
-
-    public static final RegistryObject<LodestoneWorldParticleType> BLINK_PARTICLE =
-            PARTICLE_TYPES.register("blink_particle", LodestoneWorldParticleType::new);
-
-
-
+    
+    private static RegistryObject<LodestoneWorldParticleType> registerParticle(String name) {
+        return PARTICLE_TYPES.register(name, LodestoneWorldParticleType::new);
+    }
+    
+    public static final RegistryObject<LodestoneWorldParticleType> BLINK_PARTICLE = registerParticle("blink_particle");
+    
     public static void register(IEventBus eventbus) {
         PARTICLE_TYPES.register(eventbus);
     }

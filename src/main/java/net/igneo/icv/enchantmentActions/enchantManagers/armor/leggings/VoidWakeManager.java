@@ -19,25 +19,27 @@ public class VoidWakeManager extends ArmorEnchantManager {
     public VoidWakeManager(Player player) {
         super(EnchantType.LEGGINGS, 300, -10, true, player);
     }
+    
     private int storedtick = 0;
     private boolean removing;
-    private ArrayList<VoidSpikeEntity> spikes = new ArrayList<>();
+    private final ArrayList<VoidSpikeEntity> spikes = new ArrayList<>();
+    
     @Override
     public void activate() {
         System.out.println("activating on the " + player.level());
         active = true;
     }
-
+    
     @Override
     public void onOffCoolDown(Player player) {
-
+    
     }
-
+    
     @Override
     public EnchantIndicator getIndicator() {
         return new StasisCooldownIndicator(this);
     }
-
+    
     @Override
     public void tick() {
         super.tick();
@@ -53,7 +55,7 @@ public class VoidWakeManager extends ArmorEnchantManager {
                 } else {
                     System.out.println("removing variable");
                     if (!spikes.isEmpty()) {
-                        spikes.get(spikes.size()-1).discard();
+                        spikes.get(spikes.size() - 1).discard();
                         storedtick = activeTicks;
                     } else {
                         active = false;
@@ -61,13 +63,13 @@ public class VoidWakeManager extends ArmorEnchantManager {
                     }
                 }
             }
-
+            
             if (activeTicks > 300) {
                 removing = true;
             }
         }
     }
-
+    
     @Override
     public void dualActivate() {
         super.dualActivate();
@@ -85,19 +87,19 @@ public class VoidWakeManager extends ArmorEnchantManager {
                 System.out.println(hitResult.getType());
                 System.out.println(position);
                 Vec3 pushVec = position.subtract(entity.position()).normalize().scale(3);
-                entity.setDeltaMovement(new Vec3(pushVec.x,position.y - entity.position().y + 0.3,pushVec.z));
+                entity.setDeltaMovement(new Vec3(pushVec.x, position.y - entity.position().y + 0.3, pushVec.z));
                 entity.launched = true;
             }
         }
         active = false;
         resetCoolDown();
     }
-
+    
     @Override
     public boolean canUse() {
         return !active;
     }
-
+    
     @Override
     public void resetCoolDown() {
         super.resetCoolDown();

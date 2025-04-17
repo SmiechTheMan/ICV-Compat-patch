@@ -1,9 +1,7 @@
 package net.igneo.icv.entity.weapon.comet;
 
-import net.igneo.icv.ICV;
 import net.igneo.icv.entity.ICVEntity;
 import net.igneo.icv.sound.ModSounds;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -27,13 +25,14 @@ public class CometEntity extends ICVEntity {
     public int hurtTicks;
     public Vec3 hurtPos;
     public boolean peaked = false;
+    
     public CometEntity(EntityType<? extends Projectile> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.addDeltaMovement(new Vec3(0.0, 0.23, 0.0));
         if (this.level() instanceof ServerLevel) {
         }
     }
-
+    
     @Override
     protected <E extends GeoEntity> PlayState animController(AnimationState<E> event) {
         if (hurt > 0 && hurtTicks < 5) {
@@ -42,11 +41,12 @@ public class CometEntity extends ICVEntity {
             return event.setAndContinue(IDLE_ANIM);
         }
     }
-
+    
     @Override
     public boolean hasFriction() {
         return false;
     }
+    
     @Override
     public double getGravity() {
         double gravity = -0.0000;
@@ -58,6 +58,7 @@ public class CometEntity extends ICVEntity {
         }
         return hurt == 0 ? gravity : -0.02;
     }
+    
     @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
         if (this.level() instanceof ServerLevel) {
@@ -80,27 +81,28 @@ public class CometEntity extends ICVEntity {
         }
         return true;
     }
+    
     @Override
     public boolean isPickable() {
         return true;
     }
-
+    
     @Override
     protected void onHit(HitResult pResult) {
         super.onHit(pResult);
-        for (Entity entity : this.level().getEntities(null,this.getBoundingBox().inflate(4))) {
+        for (Entity entity : this.level().getEntities(null, this.getBoundingBox().inflate(4))) {
             if (entity != this) {
-                entity.hurt(this.damageSources().explosion(this,null), (float) (hurt * 1.2F));
+                entity.hurt(this.damageSources().explosion(this, null), (float) (hurt * 1.2F));
             }
         }
         this.discard();
     }
-
+    
     @Override
     public void tick() {
-        ProjectileUtil.rotateTowardsMovement(this,1);
+        ProjectileUtil.rotateTowardsMovement(this, 1);
         super.tick();
-        HitResult hitresult = ProjectileUtil.getHitResultOnMoveVector(this,this::canHitEntity);
+        HitResult hitresult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
         if (hitresult.getType() != HitResult.Type.MISS && !ForgeEventFactory.onProjectileImpact(this, hitresult) || verticalCollision) {
             this.onHit(hitresult);
         }

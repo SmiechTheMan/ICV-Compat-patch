@@ -10,7 +10,7 @@ public enum EnchantType {
     CROSSBOW,
     SHIELD,
     TRIDENT;
-
+    
     public static boolean applicableSlot(EnchantType type, int slot) {
         switch (type) {
             case BOOTS: {
@@ -25,7 +25,7 @@ public enum EnchantType {
             case HELMET: {
                 return slot == 3;
             }
-            case WEAPON,TRIDENT: {
+            case WEAPON, TRIDENT: {
                 return slot == 4 || slot == 5;
             }
         }

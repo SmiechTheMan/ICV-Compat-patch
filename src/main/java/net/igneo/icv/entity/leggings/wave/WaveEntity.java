@@ -12,21 +12,23 @@ public class WaveEntity extends ICVEntity {
     public WaveEntity(EntityType<? extends Projectile> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
+    
     private int lifetime = 0;
     private Vec3 storedMotion = Vec3.ZERO;
+    
     public void setTrajectory(Vec3 vec) {
         storedMotion = vec;
     }
-
+    
     @Override
     public float getStepHeight() {
         return 1.5F;
     }
-
+    
     @Override
     public void tick() {
         super.tick();
-        for (Entity entity : this.level().getEntities(null,this.getBoundingBox().inflate(3))) {
+        for (Entity entity : this.level().getEntities(null, this.getBoundingBox().inflate(3))) {
             if (!(entity instanceof WaveEntity) && !(entity instanceof SurfWaveEntity)) {
                 entity.addDeltaMovement(storedMotion);
             }
@@ -38,7 +40,7 @@ public class WaveEntity extends ICVEntity {
             this.discard();
         }
     }
-
+    
     @Override
     protected boolean canAddPassenger(Entity pPassenger) {
         return pPassenger == this.getOwner();

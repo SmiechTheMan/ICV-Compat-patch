@@ -1,7 +1,6 @@
 package net.igneo.icv.client.indicators;
 
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager;
-import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 
 import static net.igneo.icv.client.EnchantmentHudOverlay.animTime;
@@ -15,8 +14,9 @@ public abstract class EnchantIndicator {
     public int slot;
     public ResourceLocation image;
     private int frame = 0;
-    private int loopFrame;
+    private final int loopFrame;
     public ArmorEnchantManager manager;
+    
     EnchantIndicator(int totalFrames, int chargeFrames, int loopFrame, int slot, ResourceLocation image, ArmorEnchantManager manager) {
         this.totalFrames = totalFrames;
         this.chargeFrames = chargeFrames;
@@ -25,11 +25,11 @@ public abstract class EnchantIndicator {
         this.loopFrame = loopFrame;
         this.manager = manager;
     }
-
+    
     public int getHeight() {
         return this.totalFrames * 16;
     }
-
+    
     public int getFrame() {
         if (frame < chargeFrames || this.manager.getCoolDown() > 0) {
             double framePercent = (double) this.manager.getCoolDown() / this.manager.maxCoolDown;
@@ -47,7 +47,7 @@ public abstract class EnchantIndicator {
         }
         return frame;
     }
-
+    
     public boolean shouldRender() {
         return !this.manager.canUse() || frame <= totalFrames;
     }

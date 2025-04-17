@@ -3,7 +3,7 @@ package net.igneo.icv.event;
 import com.alrex.parcool.common.action.impl.Dodge;
 import com.alrex.parcool.common.capability.Parkourability;
 import net.igneo.icv.ICV;
-import net.igneo.icv.enchantment.*;
+import net.igneo.icv.enchantment.ModEnchantments;
 import net.igneo.icv.enchantmentActions.Input;
 import net.igneo.icv.enchantmentActions.PlayerEnchantmentActions;
 import net.igneo.icv.enchantmentActions.PlayerEnchantmentActionsProvider;
@@ -11,10 +11,10 @@ import net.igneo.icv.enchantmentActions.enchantManagers.EnchantmentManager;
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.boots.StasisManager;
 import net.igneo.icv.init.Keybindings;
 import net.igneo.icv.networking.ModMessages;
-import net.igneo.icv.networking.packet.*;
-import net.igneo.icv.particle.ModParticles;
-import net.igneo.icv.shader.postProcessors.BlinkPostProcessor;
-import net.igneo.icv.shader.shader.BlinkFx;
+import net.igneo.icv.networking.packet.EnchantHitS2CPacket;
+import net.igneo.icv.networking.packet.EnchantUseC2SPacket;
+import net.igneo.icv.networking.packet.EquipmentUpdateS2CPacket;
+import net.igneo.icv.networking.packet.InputSyncC2SPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -23,9 +23,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
@@ -40,30 +38,22 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.joml.Vector3f;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.particle.SimpleParticleOptions;
-import team.lodestar.lodestone.systems.particle.builder.WorldParticleBuilder;
-import team.lodestar.lodestone.systems.particle.data.GenericParticleData;
-import team.lodestar.lodestone.systems.particle.data.spin.SpinParticleData;
-
-import java.awt.*;
 
 import static net.igneo.icv.init.ICVUtils.*;
 
-@Mod.EventBusSubscriber(modid = ICV.MOD_ID)
+@Mod.EventBusSubscriber (modid = ICV.MOD_ID)
 public class ModEvents {
-
+    
     private static int storedInput;
-
+    
     @SubscribeEvent
     public static void equipEvent(LivingEquipmentChangeEvent event) {
         if (event.getEntity() instanceof Player player) {
             ModMessages.sendToPlayer(new EquipmentUpdateS2CPacket(event.getSlot().getFilterFlag()), (ServerPlayer) player);
-            updateManager(player,event.getSlot().getFilterFlag());
+            updateManager(player, event.getSlot().getFilterFlag());
         }
     }
-
+    
     @SubscribeEvent
     public static void onItemUseEvent(PlayerInteractEvent.RightClickItem event) {
         event.getEntity().getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS).ifPresent(enchVar -> {
@@ -78,28 +68,28 @@ public class ModEvents {
             }
         });
     }
-
-
-    @OnlyIn(Dist.CLIENT)
+    
+    
+    @OnlyIn (Dist.CLIENT)
     @SubscribeEvent
-    public static void onKeyInputEvent(InputEvent.Key event){
+    public static void onKeyInputEvent(InputEvent.Key event) {
         if (Keybindings.boots.isDown()) {
             useEnchant(Minecraft.getInstance().player, 0);
             ModMessages.sendToServer(new EnchantUseC2SPacket(0));
         }
         if (Keybindings.leggings.isDown()) {
-            useEnchant(Minecraft.getInstance().player,1);
+            useEnchant(Minecraft.getInstance().player, 1);
             ModMessages.sendToServer(new EnchantUseC2SPacket(1));
         }
         if (Keybindings.chestplate.isDown()) {
-            useEnchant(Minecraft.getInstance().player,2);
+            useEnchant(Minecraft.getInstance().player, 2);
             ModMessages.sendToServer(new EnchantUseC2SPacket(2));
         }
         if (Keybindings.helmet.isDown()) {
-            useEnchant(Minecraft.getInstance().player,3);
+            useEnchant(Minecraft.getInstance().player, 3);
             ModMessages.sendToServer(new EnchantUseC2SPacket(3));
         }
-
+        
         int keyID = 0;
         if (Minecraft.getInstance().options.keyDown.isDown()) keyID = 4;
         if (Minecraft.getInstance().options.keyLeft.isDown()) {
@@ -125,33 +115,33 @@ public class ModEvents {
             ModMessages.sendToServer(new InputSyncC2SPacket(keyID));
             int finalKeyID = keyID;
             Minecraft.getInstance().player.getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS).ifPresent(enchVar -> {
-               enchVar.input = Input.getInput(finalKeyID);
+                enchVar.input = Input.getInput(finalKeyID);
             });
         }
     }
-
+    
     @SubscribeEvent
     public static void blockBreakEvent(BlockEvent.BreakEvent event) {
         if (EnchantmentHelper.getEnchantments(event.getPlayer().getMainHandItem()).containsKey(ModEnchantments.BRUTE_TOUCH.get())) {
-            event.getLevel().setBlock(event.getPos(),Blocks.AIR.defaultBlockState(),2);
+            event.getLevel().setBlock(event.getPos(), Blocks.AIR.defaultBlockState(), 2);
             event.getPlayer().getMainHandItem().setDamageValue(event.getPlayer().getMainHandItem().getDamageValue() + 1);
             event.setCanceled(true);
         }
     }
-
+    
     @SubscribeEvent
     public static void hurtEvent(AttackEntityEvent event) {
         if (!(event.getTarget() instanceof LivingEntity)) {
             event.getEntity().getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS).ifPresent(enchVar -> {
                 if (enchVar.getManager(0) instanceof StasisManager manager) {
                     if (manager.entityData.containsKey(event.getTarget())) {
-                        manager.addMovement(event.getTarget(),event.getEntity().getLookAngle().normalize().scale(0.2));
+                        manager.addMovement(event.getTarget(), event.getEntity().getLookAngle().normalize().scale(0.2));
                     }
                 }
             });
         }
     }
-
+    
     @SubscribeEvent
     public static void livingHurtEvent(LivingHurtEvent event) {
         if (event.getSource().getEntity() instanceof Player player) {
@@ -167,36 +157,40 @@ public class ModEvents {
             });
         }
     }
+    
     @SubscribeEvent
     public static void onAttachCapabilitiesPlayer(AttachCapabilitiesEvent<Entity> event) {
-        if(event.getObject() instanceof Player) {
-            if(!event.getObject().getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS).isPresent()) {
+        if (event.getObject() instanceof Player) {
+            if (!event.getObject().getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS).isPresent()) {
                 event.addCapability(new ResourceLocation(ICV.MOD_ID, "properties"), new PlayerEnchantmentActionsProvider());
             }
         }
     }
+    
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event) {
         event.getOriginal().reviveCaps();
         event.getOriginal().getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS).ifPresent(oldStore -> {
             event.getEntity().getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS).ifPresent(newStore -> {
                 newStore.copyFrom(oldStore);
-
+                
                 //Save NBT Data for enchantments if death-persistent logic is necessary to squish bugs
-
+                
             });
         });
         event.getOriginal().invalidateCaps();
     }
+    
     @SubscribeEvent
     public static void onPlayerChangeDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         event.getEntity().reviveCaps();
         event.getEntity().getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS).ifPresent(enchVar -> {
-
+            
             //Same deal as above comment, but this instTime when changing dimensions
-
+            
         });
     }
+    
     @SubscribeEvent
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
         event.register(PlayerEnchantmentActions.class);
@@ -212,6 +206,6 @@ public class ModEvents {
             }
         });
     }
-
-
+    
+    
 }

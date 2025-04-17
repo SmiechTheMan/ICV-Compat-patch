@@ -61,7 +61,7 @@ public class UndertowManager extends TridentEnchantManager {
                 player.getDeltaMovement().x + (xDiff / distance),
                 player.getDeltaMovement().y + (yDiff / distance),
                 player.getDeltaMovement().z + (zDiff / distance)
-                );
+        );
         
         if (distance < 3.0d) {
             active = false;

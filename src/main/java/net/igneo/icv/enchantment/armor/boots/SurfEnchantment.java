@@ -11,7 +11,7 @@ public class SurfEnchantment extends ICVEnchantment {
     public SurfEnchantment(Rarity pRarity, EnchantmentCategory pCategory, EquipmentSlot... pApplicableSlots) {
         super(pRarity, pCategory, pApplicableSlots);
     }
-
+    
     @Override
     public EnchantmentManager getManager(Player player) {
         return new SurfManager(player);

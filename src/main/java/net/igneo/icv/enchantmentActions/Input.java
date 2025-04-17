@@ -9,10 +9,9 @@ public enum Input {
     BACKWARD_LEFT,
     LEFT,
     FORWARD_LEFT;
-
+    
     public static Input getInput(int type) {
         return switch (type) {
-            default -> Input.FORWARD;
             case (1) -> Input.FORWARD_RIGHT;
             case (2) -> Input.RIGHT;
             case (3) -> Input.BACKWARD_RIGHT;
@@ -20,17 +19,18 @@ public enum Input {
             case (5) -> Input.BACKWARD_LEFT;
             case (6) -> Input.LEFT;
             case (7) -> Input.FORWARD_LEFT;
+            default -> Input.FORWARD;
         };
     }
-
+    
     public static Input flattenInput(Input input) {
         return switch (input) {
+            case FORWARD_RIGHT, BACKWARD_RIGHT -> Input.RIGHT;
+            case FORWARD_LEFT, BACKWARD_LEFT -> Input.LEFT;
             default -> input;
-            case FORWARD_RIGHT,BACKWARD_RIGHT -> Input.RIGHT;
-            case FORWARD_LEFT,BACKWARD_LEFT -> Input.LEFT;
         };
     }
-
+    
     public static int getRotation(Input input) {
         return switch (input) {
             case FORWARD -> 0;

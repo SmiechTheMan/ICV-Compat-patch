@@ -13,20 +13,21 @@ import net.minecraft.world.level.Level;
 public class SoulOrbEntity extends ICVEntity {
     private SoulSpiderEntity child = null;
     int lifeTime = 0;
+    
     public SoulOrbEntity(EntityType<? extends Projectile> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
-
+    
     @Override
     public double getGravity() {
         return 0;
     }
-
+    
     @Override
     public double getAirFriction() {
         return 0.2;
     }
-
+    
     @Override
     public void tick() {
         super.tick();
@@ -43,7 +44,7 @@ public class SoulOrbEntity extends ICVEntity {
             level().addFreshEntity(child);
         }
     }
-
+    
     @Override
     public void remove(RemovalReason pReason) {
         child.discard();

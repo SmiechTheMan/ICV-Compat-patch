@@ -10,6 +10,7 @@ public class BurstEnchantment extends WeaponEnchantment {
     public BurstEnchantment(Rarity pRarity, EnchantmentCategory pCategory, EquipmentSlot... pApplicableSlots) {
         super(pRarity, pCategory, pApplicableSlots);
     }
+    
     @Override
     public EnchantmentManager getManager(Player player) {
         return new BurstManager(player);

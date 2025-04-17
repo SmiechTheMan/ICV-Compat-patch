@@ -1,15 +1,13 @@
 package net.igneo.icv.init;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import net.igneo.icv.ICV;
 import net.minecraft.client.KeyMapping;
-import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import org.lwjgl.glfw.GLFW;
 
 public class Keybindings {
     private static final String ICV_CATEGORY = "key.categories.icv.enchantments";
-
+    
     public static final KeyMapping helmet = new KeyMapping(
             "key.icv.helmet",
             KeyConflictContext.IN_GAME,

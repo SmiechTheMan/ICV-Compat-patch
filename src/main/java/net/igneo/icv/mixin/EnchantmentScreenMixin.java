@@ -5,38 +5,31 @@ import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.igneo.icv.ICV;
-import net.igneo.icv.event.ModEvents;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.gui.screens.inventory.EnchantmentNames;
 import net.minecraft.client.gui.screens.inventory.EnchantmentScreen;
 import net.minecraft.client.model.BookModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.EnchantmentMenu;
 import net.minecraft.world.item.enchantment.Enchantment;
-import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.List;
 
-@Mixin(value = EnchantmentScreen.class)
+@Mixin (value = EnchantmentScreen.class)
 public class EnchantmentScreenMixin extends AbstractContainerScreen<EnchantmentMenu> {
     @Shadow
-    private static final ResourceLocation ENCHANTING_TABLE_LOCATION = new ResourceLocation(ICV.MOD_ID,"textures/gui/container/enchanting_table.png");
+    private static final ResourceLocation ENCHANTING_TABLE_LOCATION = new ResourceLocation(ICV.MOD_ID, "textures/gui/container/enchanting_table.png");
     @Shadow
     private static final ResourceLocation ENCHANTING_BOOK_LOCATION = new ResourceLocation("textures/entity/enchanting_table_book.png");
     @Shadow
@@ -53,10 +46,11 @@ public class EnchantmentScreenMixin extends AbstractContainerScreen<EnchantmentM
     public float open;
     @Shadow
     public float oOpen;
+    
     public EnchantmentScreenMixin(EnchantmentMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
     }
-
+    
     @Override
     public boolean mouseScrolled(double pMouseX, double pMouseY, double pDelta) {
         if (-pDelta > 0) {
@@ -66,7 +60,7 @@ public class EnchantmentScreenMixin extends AbstractContainerScreen<EnchantmentM
         }
         return super.mouseScrolled(pMouseX, pMouseY, pDelta);
     }
-
+    
     /**
      * @author Igneo220
      * @reason enchantment revamp
@@ -75,20 +69,20 @@ public class EnchantmentScreenMixin extends AbstractContainerScreen<EnchantmentM
     public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
         int i = (this.width - this.imageWidth) / 2;
         int j = (this.height - this.imageHeight) / 2;
-
-        for(int k = 0; k < 3; ++k) {
-            double d0 = pMouseX - (double)(i + 60);
-            double d1 = pMouseY - (double)(j + 14 + 19 * k);
+        
+        for (int k = 0; k < 3; ++k) {
+            double d0 = pMouseX - (double) (i + 60);
+            double d1 = pMouseY - (double) (j + 14 + 19 * k);
             int l = k;
             if (d0 >= 0.0D && d1 >= 0.0D && d0 < 108.0D && d1 < 19.0D && this.menu.clickMenuButton(this.minecraft.player, l)) {
                 this.minecraft.gameMode.handleInventoryButtonClick((this.menu).containerId, l);
                 return true;
             }
         }
-
+        
         return super.mouseClicked(pMouseX, pMouseY, pButton);
     }
-
+    
     /**
      * @author Igneo220
      * @reason changing enchantment table
@@ -104,8 +98,8 @@ public class EnchantmentScreenMixin extends AbstractContainerScreen<EnchantmentM
         //erm, not sure
         //EnchantmentNames.getInstance().initSeed((long)this.menu.getEnchantmentSeed());
         int k = this.menu.getGoldCount();
-
-        for(int l = 0; l < 3; ++l) {
+        
+        for (int l = 0; l < 3; ++l) {
             int i1 = i + 60;
             int j1 = i1 + 20;
             int k1 = 1;
@@ -138,23 +132,23 @@ public class EnchantmentScreenMixin extends AbstractContainerScreen<EnchantmentM
                     pGuiGraphics.blit(ENCHANTING_TABLE_LOCATION, i1 + 1, j + 15 + 19 * l, 16 * l, 223, 16, 16);
                     //formattedtext = FormattedText.EMPTY;
                     //pGuiGraphics.drawWordWrap(this.font, formattedtext, j1, (j + 16 + 19 * l) + 3, l1, 999999999);
-                    pGuiGraphics.drawString(this.font,formattedtext.getString(),j1,(j + 16 + 19 * l) + 3,-587202561,true);
+                    pGuiGraphics.drawString(this.font, formattedtext.getString(), j1, (j + 16 + 19 * l) + 3, -587202561, true);
                     i2 = 8453920;
                 }
-
+                
                 //pGuiGraphics.drawString(this.font, s, j1 + 86 - this.font.width(s), j + 16 + 19 * l + 7, i2);
             }
         }
-
+        
     }
-
+    
     @Shadow
     private void renderBook(GuiGraphics pGuiGraphics, int pX, int pY, float pPartialTick) {
         float f = Mth.lerp(pPartialTick, this.oOpen, this.open);
         float f1 = Mth.lerp(pPartialTick, this.oFlip, this.flip);
         Lighting.setupForEntityInInventory();
         pGuiGraphics.pose().pushPose();
-        pGuiGraphics.pose().translate((float)pX + 33.0F, (float)pY + 31.0F, 100.0F);
+        pGuiGraphics.pose().translate((float) pX + 33.0F, (float) pY + 31.0F, 100.0F);
         float f2 = 40.0F;
         pGuiGraphics.pose().scale(-40.0F, 40.0F, 40.0F);
         pGuiGraphics.pose().mulPose(Axis.XP.rotationDegrees(25.0F));
@@ -171,8 +165,8 @@ public class EnchantmentScreenMixin extends AbstractContainerScreen<EnchantmentM
         pGuiGraphics.pose().popPose();
         Lighting.setupFor3DItems();
     }
-
-
+    
+    
     /**
      * @author Igneo220
      * @reason changing enchantment table
@@ -185,13 +179,13 @@ public class EnchantmentScreenMixin extends AbstractContainerScreen<EnchantmentM
         this.renderTooltip(pGuiGraphics, pMouseX, pMouseY);
         boolean flag = this.minecraft.player.getAbilities().instabuild;
         int i = this.menu.getGoldCount();
-
-        for(int j = 0; j < 3; ++j) {
+        
+        for (int j = 0; j < 3; ++j) {
             int k = (this.menu).costs[j];
             Enchantment enchantment = Enchantment.byId((this.menu).enchantClue[j]);
             int l = (this.menu).levelClue[j];
             int i1 = j + 1;
-            if (this.isHovering(60, 14 + 19 * j, 108, 17, (double)pMouseX, (double)pMouseY) && k > 0) {
+            if (this.isHovering(60, 14 + 19 * j, 108, 17, pMouseX, pMouseY) && k > 0) {
                 List<Component> list = Lists.newArrayList();
                 //NECESSARY FOR HOVER TEXT
                 if (enchantment != null) {
@@ -215,7 +209,7 @@ public class EnchantmentScreenMixin extends AbstractContainerScreen<EnchantmentM
                         } else {
                             mutablecomponent = Component.translatable("container.enchant.lapis.many", i1);
                         }
-
+                        
                         //list.add(mutablecomponent.withStyle(i >= i1 ? ChatFormatting.GRAY : ChatFormatting.RED));
                         MutableComponent mutablecomponent1;
                         if (i1 == 1) {
@@ -223,11 +217,11 @@ public class EnchantmentScreenMixin extends AbstractContainerScreen<EnchantmentM
                         } else {
                             mutablecomponent1 = Component.translatable("container.enchant.level.many", i1);
                         }
-
+                        
                         //list.add(mutablecomponent1.withStyle(ChatFormatting.GRAY));
                     }
                 }
-
+                
                 //hello, I am the floater thingie
                 //i say the stuff
                 FormattedText formattedtext = (Component.translatable("%s", enchantment == null ? "" : enchantment.getFullname((this.menu).levelClue[l])).withStyle(ChatFormatting.BLACK));
@@ -235,6 +229,6 @@ public class EnchantmentScreenMixin extends AbstractContainerScreen<EnchantmentM
                 break;
             }
         }
-
+        
     }
 }

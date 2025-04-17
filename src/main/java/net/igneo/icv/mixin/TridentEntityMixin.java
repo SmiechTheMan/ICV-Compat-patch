@@ -4,7 +4,6 @@ import net.igneo.icv.enchantment.ICVEnchantment;
 import net.igneo.icv.enchantmentActions.PlayerEnchantmentActionsProvider;
 import net.igneo.icv.enchantmentActions.enchantManagers.EnchantmentManager;
 import net.igneo.icv.enchantmentActions.enchantManagers.trident.TridentEnchantManager;
-import net.igneo.icv.init.ICVUtils;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -25,18 +24,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Arrays;
 
-@Mixin(value = ThrownTrident.class)
+@Mixin (value = ThrownTrident.class)
 public abstract class TridentEntityMixin extends AbstractArrow {
     private TridentEnchantManager manager;
-    private ThrownTrident instance = (ThrownTrident) (Object) this;
-
-    @Shadow private ItemStack tridentItem;
-
+    private final ThrownTrident instance = (ThrownTrident) (Object) this;
+    
+    @Shadow
+    private ItemStack tridentItem;
+    
     protected TridentEntityMixin(EntityType<? extends AbstractArrow> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
-
-    @Inject(method = "tick" , at= @At("TAIL"))
+    
+    @Inject (method = "tick", at = @At ("TAIL"))
     public void tick(CallbackInfo ci) {
         if (manager == null) {
             for (Enchantment enchantment : tridentItem.getAllEnchantments().keySet()) {
@@ -62,42 +62,43 @@ public abstract class TridentEntityMixin extends AbstractArrow {
             }
         }
     }
-
-
-    @Inject(method = "tryPickup", at = @At("HEAD"), cancellable = true)
+    
+    
+    @Inject (method = "tryPickup", at = @At ("HEAD"), cancellable = true)
     protected void tryPickup(Player pPlayer, CallbackInfoReturnable<Boolean> cir) {
         System.out.println("gamer");
         instance.discard();
         cir.setReturnValue(false);
     }
-
-    @Inject(method = "onHitEntity", at = @At("HEAD"), cancellable = true)
+    
+    @Inject (method = "onHitEntity", at = @At ("HEAD"), cancellable = true)
     protected void onHitEntity(EntityHitResult pResult, CallbackInfo ci) {
         if (manager != null) {
-            manager.onHitEntity(pResult,instance);
+            manager.onHitEntity(pResult, instance);
             if (manager.overrideOnHitEntity()) ci.cancel();
         }
     }
+    
     @Unique
     @Override
     protected void onHit(HitResult pResult) {
         if (manager != null) {
-            manager.onHit(pResult,instance);
-            if (!manager.overrideOnHit()) super.onHit(pResult);;
+            manager.onHit(pResult, instance);
+            if (!manager.overrideOnHit()) super.onHit(pResult);
         } else {
             super.onHit(pResult);
         }
     }
-
+    
     @Unique
     @Override
     protected void onHitBlock(BlockHitResult pResult) {
         if (manager != null) {
-            manager.onHitBlock(pResult,instance);
+            manager.onHitBlock(pResult, instance);
             if (!manager.overrideOnHitBlock()) super.onHitBlock(pResult);
         } else {
             super.onHitBlock(pResult);
         }
     }
-
+    
 }

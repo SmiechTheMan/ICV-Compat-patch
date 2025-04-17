@@ -1,6 +1,5 @@
 package net.igneo.icv.mixin;
 
-import net.igneo.icv.networking.ModMessages;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -37,26 +36,26 @@ import org.spongepowered.asm.mixin.Unique;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mixin(value = EnchantmentMenu.class)
+@Mixin (value = EnchantmentMenu.class)
 public class EnchantmentMenuMixin extends AbstractContainerMenu {
     @Unique
-    private static List<Enchantment> HELM_ENCHANTS = new ArrayList<Enchantment>();
+    private static final List<Enchantment> HELM_ENCHANTS = new ArrayList<Enchantment>();
     @Unique
-    private static List<Enchantment> CHEST_ENCHANTS = new ArrayList<Enchantment>();
+    private static final List<Enchantment> CHEST_ENCHANTS = new ArrayList<Enchantment>();
     @Unique
-    private static List<Enchantment> LEG_ENCHANTS = new ArrayList<Enchantment>();
+    private static final List<Enchantment> LEG_ENCHANTS = new ArrayList<Enchantment>();
     @Unique
-    private static List<Enchantment> BOOT_ENCHANTS = new ArrayList<Enchantment>();
+    private static final List<Enchantment> BOOT_ENCHANTS = new ArrayList<Enchantment>();
     @Unique
-    private static List<Enchantment> WEAPON_ENCHANTS = new ArrayList<Enchantment>();
+    private static final List<Enchantment> WEAPON_ENCHANTS = new ArrayList<Enchantment>();
     @Unique
-    private static List<Enchantment> BOW_ENCHANTS = new ArrayList<Enchantment>();
+    private static final List<Enchantment> BOW_ENCHANTS = new ArrayList<Enchantment>();
     @Unique
-    private static List<Enchantment> CROSSBOW_ENCHANTS = new ArrayList<Enchantment>();
+    private static final List<Enchantment> CROSSBOW_ENCHANTS = new ArrayList<Enchantment>();
     @Unique
-    private static List<Enchantment> TRIDENT_ENCHANTS = new ArrayList<Enchantment>();
+    private static final List<Enchantment> TRIDENT_ENCHANTS = new ArrayList<Enchantment>();
     @Unique
-    private static List<Enchantment> TOOL_ENCHANTS = new ArrayList<Enchantment>();
+    private static final List<Enchantment> TOOL_ENCHANTS = new ArrayList<Enchantment>();
     @Shadow
     private final RandomSource random = RandomSource.create();
     @Shadow
@@ -65,7 +64,7 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
     public final int[] enchantClue = new int[]{-1, -1, -1};
     @Shadow
     public final int[] levelClue = new int[]{-1, -1, -1};
-
+    
     private int localEnchShift = 0;
     private int localLength = 0;
     private ServerPlayer player = null;
@@ -84,23 +83,26 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
     private final ContainerLevelAccess access;
     @Shadow
     public int[] costs = new int[3];
-    @OnlyIn(Dist.CLIENT)
+    
+    @OnlyIn (Dist.CLIENT)
     protected EnchantmentMenuMixin(int pContainerId, Inventory pPlayerInventory, ContainerLevelAccess pAccess) {
         super(MenuType.ENCHANTMENT, pContainerId);
         //super(MenuType.ENCHANTMENT, pContainerId);
         access = pAccess;
     }
-
-    @Override @Shadow
+    
+    @Override
+    @Shadow
     public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
         return null;
     }
-
-    @Override @Shadow
+    
+    @Override
+    @Shadow
     public boolean stillValid(Player pPlayer) {
         return false;
     }
-
+    
     /**
      * @author Igneo220
      * @reason Rewriting enchantment table
@@ -118,7 +120,7 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
             } else {
                 this.access.execute((level, tablePos) -> {
                     ItemStack itemstack2 = itemstack;
-                    List<EnchantmentInstance> list = this.getChiselEnchantmentList(level,tablePos,itemstack);
+                    List<EnchantmentInstance> list = this.getChiselEnchantmentList(level, tablePos, itemstack);
                     if (!list.isEmpty()) {
                         pPlayer.onEnchantmentPerformed(itemstack, 1);
                         boolean flag = itemstack.is(Items.BOOK);
@@ -128,37 +130,37 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
                             if (compoundtag != null) {
                                 itemstack2.setTag(compoundtag.copy());
                             }
-
+                            
                             this.enchantSlots.setItem(0, itemstack2);
                         }
-
+                        
                         for (int j = 0; j < list.size(); ++j) {
                             EnchantmentInstance enchantmentinstance = list.get(pId);
                             if (flag) {
                                 EnchantedBookItem.addEnchantment(itemstack2, enchantmentinstance);
                             } else {
-                                itemstack2.enchant(enchantmentinstance.enchantment,1);
+                                itemstack2.enchant(enchantmentinstance.enchantment, 1);
                             }
                         }
-
+                        
                         if (!pPlayer.getAbilities().instabuild) {
                             itemstack1.shrink(1);
                             if (itemstack1.isEmpty()) {
                                 this.enchantSlots.setItem(1, ItemStack.EMPTY);
                             }
                         }
-
+                        
                         pPlayer.awardStat(Stats.ENCHANT_ITEM);
                         if (pPlayer instanceof ServerPlayer) {
-                            CriteriaTriggers.ENCHANTED_ITEM.trigger((ServerPlayer)pPlayer, itemstack2, 1);
+                            CriteriaTriggers.ENCHANTED_ITEM.trigger((ServerPlayer) pPlayer, itemstack2, 1);
                         }
-
+                        
                         this.enchantSlots.setChanged();
                         this.enchantmentSeed.set(pPlayer.getEnchantmentSeed());
                         this.slotsChanged(this.enchantSlots);
-                        level.playSound((Player)null, tablePos, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.1F + 0.9F);
+                        level.playSound(null, tablePos, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0F, level.random.nextFloat() * 0.1F + 0.9F);
                     }
-
+                    
                 });
                 return true;
             }
@@ -182,6 +184,7 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
             return false;
         }
     }
+    
     /**
      * @author Igneo220
      * @reason Rewriting enchantment system
@@ -197,14 +200,14 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
             if (!itemstack.isEmpty() && itemstack.isEnchantable() && checkValid(itemstack)) {
                 this.access.execute((level, tablePos) -> {
                     float j = 0;
-                    for(int k = 0; k < 3; ++k) {
+                    for (int k = 0; k < 3; ++k) {
                         this.costs[k] = 1;
-                      }
-
-                    for(int l = 0; l < 3; ++l) {
-                        List<EnchantmentInstance> list = this.getChiselEnchantmentList(level,tablePos,itemstack);
+                    }
+                    
+                    for (int l = 0; l < 3; ++l) {
+                        List<EnchantmentInstance> list = this.getChiselEnchantmentList(level, tablePos, itemstack);
                         if (list != null && !list.isEmpty()) {
-                            if(l < list.size()) {
+                            if (l < list.size()) {
                                 EnchantmentInstance enchantmentinstance = list.get(l + this.localEnchShift);
                                 this.enchantClue[l] = BuiltInRegistries.ENCHANTMENT.getId(enchantmentinstance.enchantment);
                                 this.levelClue[l] = enchantmentinstance.level;
@@ -212,7 +215,7 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
                                 this.enchantClue[l] = -1;
                             }
                         } else {
-                            for(int i = 0; i < 3; ++i) {
+                            for (int i = 0; i < 3; ++i) {
                                 this.costs[i] = 0;
                                 this.enchantClue[i] = -1;
                                 this.levelClue[i] = -1;
@@ -221,11 +224,11 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
                             this.localLength = 0;
                         }
                     }
-
+                    
                     this.broadcastChanges();
                 });
             } else {
-                for(int i = 0; i < 3; ++i) {
+                for (int i = 0; i < 3; ++i) {
                     this.costs[i] = 0;
                     this.enchantClue[i] = -1;
                     this.levelClue[i] = -1;
@@ -234,9 +237,9 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
                 this.localLength = 0;
             }
         }
-
+        
     }
-
+    
     private boolean checkValid(ItemStack pStack) {
         boolean valid = false;
         if (LivingEntity.getEquipmentSlotForItem(pStack).equals(EquipmentSlot.MAINHAND)) {
@@ -272,7 +275,7 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
         }
         return valid;
     }
-
+    
     /**
      * @author Igneo220
      * @reason rewriting enchantment table
@@ -289,19 +292,19 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
             this.clearContainer(pPlayer, this.enchantSlots);
         });
     }
-
+    
     @Unique
     public List<EnchantmentInstance> getChiselEnchantmentList(Level level, BlockPos tablePos, ItemStack enchItem) {
         //this.random.setSeed((long) (this.enchantmentSeed.get() + pEnchantSlot));
         List<EnchantmentInstance> list = new ArrayList<EnchantmentInstance>();
-        for(BlockPos blockpos : EnchantmentTableBlock.BOOKSHELF_OFFSETS) {
+        for (BlockPos blockpos : EnchantmentTableBlock.BOOKSHELF_OFFSETS) {
             if (level.getBlockState(tablePos.offset(blockpos)).getBlock().equals(Blocks.CHISELED_BOOKSHELF)) {
                 ChiseledBookShelfBlockEntity bookShelf = (ChiseledBookShelfBlockEntity) level.getBlockEntity(tablePos.offset(blockpos));
                 int i = 5;
                 while (i > -1) {
                     if (!bookShelf.getItem(i).isEmpty()) {
                         for (Enchantment enchantment : EnchantmentHelper.getEnchantments(bookShelf.getItem(i)).keySet()) {
-                            if (checkValidEquipmentSlot(enchItem,enchantment)) {
+                            if (checkValidEquipmentSlot(enchItem, enchantment)) {
                                 boolean add = true;
                                 for (EnchantmentInstance enchantment1 : list) {
                                     if (enchantment1.enchantment.equals(enchantment)) {
@@ -325,14 +328,16 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
         this.localLength = list.size();
         return list;
     }
+    
     private boolean checkValidEquipmentSlot(ItemStack pStack, Enchantment enchantment) {
-        if (pStack.isEnchantable()  && checkValid(pStack)) {
+        if (pStack.isEnchantable() && checkValid(pStack)) {
             if (LivingEntity.getEquipmentSlotForItem(pStack).equals(EquipmentSlot.MAINHAND)) {
                 if (pStack.getItem().equals(Items.BOW)) {
                     boolean add = false;
                     for (Enchantment checkEnchant : BOW_ENCHANTS) {
                         if (enchantment == checkEnchant) {
                             add = true;
+                            break;
                         }
                     }
                     return add;
@@ -341,6 +346,7 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
                     for (Enchantment checkEnchant : CROSSBOW_ENCHANTS) {
                         if (enchantment == checkEnchant) {
                             add = true;
+                            break;
                         }
                     }
                     return add;
@@ -349,6 +355,7 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
                     for (Enchantment checkEnchant : TRIDENT_ENCHANTS) {
                         if (enchantment == checkEnchant) {
                             add = true;
+                            break;
                         }
                     }
                     return add;
@@ -365,6 +372,7 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
                     for (Enchantment checkEnchant : WEAPON_ENCHANTS) {
                         if (enchantment == checkEnchant) {
                             add = true;
+                            break;
                         }
                     }
                     return add;
@@ -375,6 +383,7 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
                     for (Enchantment checkEnchant : TOOL_ENCHANTS) {
                         if (enchantment == checkEnchant) {
                             add = true;
+                            break;
                         }
                     }
                     return add;
@@ -384,6 +393,7 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
                 for (Enchantment checkEnchant : HELM_ENCHANTS) {
                     if (enchantment == checkEnchant) {
                         add = true;
+                        break;
                     }
                 }
                 return add;
@@ -392,6 +402,7 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
                 for (Enchantment checkEnchant : CHEST_ENCHANTS) {
                     if (enchantment == checkEnchant) {
                         add = true;
+                        break;
                     }
                 }
                 return add;
@@ -400,6 +411,7 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
                 for (Enchantment checkEnchant : LEG_ENCHANTS) {
                     if (enchantment == checkEnchant) {
                         add = true;
+                        break;
                     }
                 }
                 return add;
@@ -408,6 +420,7 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
                 for (Enchantment checkEnchant : BOOT_ENCHANTS) {
                     if (enchantment == checkEnchant) {
                         add = true;
+                        break;
                     }
                 }
                 return add;
@@ -415,7 +428,7 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
         }
         return false;
     }
-
+    
     @Unique
     private void updateEnchantmentLists() {
         /*
