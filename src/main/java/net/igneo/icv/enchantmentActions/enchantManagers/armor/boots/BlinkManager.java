@@ -20,7 +20,7 @@ public class BlinkManager extends ArmorEnchantManager {
   private static final double BLINK_DISTANCE = 10.0d;
   
   public BlinkManager(Player player) {
-    super(EnchantType.BOOTS, 300, -20, false, player);
+    super(EnchantType.BOOTS, 300, -30, false, player);
   }
   
   @Override

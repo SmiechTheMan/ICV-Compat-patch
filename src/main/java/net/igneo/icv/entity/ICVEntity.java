@@ -106,4 +106,17 @@ public abstract class ICVEntity extends Projectile implements GeoEntity {
 
         this.move(MoverType.SELF, this.getDeltaMovement().scale(1.5));
     }
+
+    public void faceDirection(Vec3 dir) {
+        double dx = dir.x;
+        double dy = dir.y;
+        double dz = dir.z;
+
+        float yaw = (float)(Math.toDegrees(Math.atan2(-dx, dz)));
+
+        this.setYRot(yaw);
+        this.setYBodyRot(yaw);
+        this.setRot(0,yaw);
+        this.setYHeadRot(yaw);
+    }
 }

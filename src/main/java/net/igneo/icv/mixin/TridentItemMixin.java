@@ -47,7 +47,7 @@ public class TridentItemMixin {
         ItemStack pStack = player.getItemInHand(hand);
         ThrownTrident trident = (ThrownTrident) level.getEntity(pStack.getTag().getInt("tridentID"));
         if (!(trident == null || !trident.isAddedToWorld())) {
-            // cir.setReturnValue(InteractionResultHolder.fail(pStack));
+            cir.setReturnValue(InteractionResultHolder.success(pStack));
         } else {
             ThrownTrident throwntrident = new ThrownTrident(level, player, pStack);
             throwntrident.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.5F, 1.0F);
