@@ -25,5 +25,6 @@ public class ModEventBusClientEvents {
     @SubscribeEvent
     public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
         Minecraft.getInstance().particleEngine.register(ModParticles.BLINK_PARTICLE.get(), LodestoneWorldParticleType.Factory::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.WAVE_PARTICLE.get(), LodestoneWorldParticleType.Factory::new);
     }
 }

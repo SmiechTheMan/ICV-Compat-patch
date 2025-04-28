@@ -218,5 +218,31 @@
       "icv:blink_use_wall3",
       "icv:blink_use_wall4"
     ]
+  },
+  "surf_idle": {
+    "sounds": [
+      {
+        "name": "icv:surf_idle",
+        "stream": true
+      }
+    ]
+  },
+  "surf_cooldown": {
+    "subtitles": "sounds.icv.surf_cooldown",
+    "sounds": [
+      "icv:surf_cooldown"
+    ]
+  },
+  "surf_use": {
+    "subtitles": "sounds.icv.surf_use",
+    "sounds": [
+      "icv:surf_use"
+    ]
+  },
+  "surf_pickup": {
+    "subtitles": "sounds.icv.surf_pickup",
+    "sounds": [
+      "icv:surf_pickup"
+    ]
   }
 }

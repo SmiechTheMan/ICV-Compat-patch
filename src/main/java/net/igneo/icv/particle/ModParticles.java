@@ -15,9 +15,13 @@ public class ModParticles {
     private static RegistryObject<LodestoneWorldParticleType> registerParticle(String name) {
         return PARTICLE_TYPES.register(name, LodestoneWorldParticleType::new);
     }
-    
-    public static final RegistryObject<LodestoneWorldParticleType> BLINK_PARTICLE = registerParticle("blink_particle");
-    
+
+    public static final RegistryObject<LodestoneWorldParticleType> BLINK_PARTICLE =
+            PARTICLE_TYPES.register("blink_particle", LodestoneWorldParticleType::new);
+    public static final RegistryObject<LodestoneWorldParticleType> WAVE_PARTICLE =
+            PARTICLE_TYPES.register("wave_particle", LodestoneWorldParticleType::new);
+
+
     public static void register(IEventBus eventbus) {
         PARTICLE_TYPES.register(eventbus);
     }

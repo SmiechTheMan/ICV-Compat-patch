@@ -111,8 +111,5 @@ public abstract class ICVEntity extends Projectile implements GeoEntity {
         float yaw = (float) (Math.toDegrees(Math.atan2(-dx, dz)));
         
         this.setYRot(yaw);
-        this.setYBodyRot(yaw);
-        this.setRot(0, yaw);
-        this.setYHeadRot(yaw);
     }
 }

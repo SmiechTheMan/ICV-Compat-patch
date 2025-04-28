@@ -21,7 +21,13 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> BLINK_COOLDOWN = registerSoundEvents("blink_cooldown");
     public static final RegistryObject<SoundEvent> BLINK_USE = registerSoundEvents("blink_use");
     public static final RegistryObject<SoundEvent> BLINK_USE_WALL = registerSoundEvents("blink_use_wall");
-    
+
+
+    public static final RegistryObject<SoundEvent> SURF_IDLE = registerSoundEvents("surf_idle");
+    public static final RegistryObject<SoundEvent> SURF_USE = registerSoundEvents("surf_use");
+    public static final RegistryObject<SoundEvent> SURF_COOLDOWN = registerSoundEvents("surf_cooldown");
+    public static final RegistryObject<SoundEvent> SURF_PICKUP = registerSoundEvents("surf_pickup");
+
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(ICV.MOD_ID, name)));
     }

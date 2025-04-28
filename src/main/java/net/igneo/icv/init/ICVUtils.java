@@ -1,6 +1,7 @@
 package net.igneo.icv.init;
 
 import com.google.common.collect.Multimap;
+import net.igneo.icv.ICV;
 import net.igneo.icv.enchantment.ICVEnchantment;
 import net.igneo.icv.enchantmentActions.EntityTracker;
 import net.igneo.icv.enchantmentActions.Input;

@@ -34,6 +34,7 @@ public class PlayerEnchantmentActions {
     public void setManager(EnchantmentManager manager, int slot) {
         if (manager == null || EnchantType.applicableSlot(manager.getType(), slot)) {
             if (this.managers[slot] != null) {
+                if (manager != null && this.managers[slot].getClass() == manager.getClass()) return;
                 this.managers[slot].onRemove();
             }
             this.managers[slot] = manager;
@@ -57,9 +58,9 @@ public class PlayerEnchantmentActions {
     
     @OnlyIn (Dist.CLIENT)
     public EnchantIndicator[] indicators = new EnchantIndicator[4];
-    
-    public Input input;
-    
+
+    public Input input = Input.FORWARD;
+
     public void copyFrom(PlayerEnchantmentActions source) {
     }
     

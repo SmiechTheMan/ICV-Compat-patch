@@ -185,9 +185,9 @@ public class ModEvents {
     public static void onPlayerChangeDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         event.getEntity().reviveCaps();
         event.getEntity().getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS).ifPresent(enchVar -> {
-            
-            //Same deal as above comment, but this instTime when changing dimensions
-            
+
+            //Same deal as above comment, but this time when changing dimensions
+
         });
     }
     
