@@ -58,6 +58,7 @@ public class SurfWaveEntity extends ICVEntity {
             }
             for (Entity entity : this.level().getEntities(null,this.getBoundingBox().inflate(3.5))){
                 if (entity != this.getOwner() && !(entity instanceof WaveEntity) && !(entity instanceof SurfWaveEntity)) {
+                    LodestoneParticles.waveParticlesBright(this.level(),entity.position(),Vec3.ZERO);
                     entity.addDeltaMovement(storedMotion.scale(1.2));
                 }
                 if (!entities.contains(entity)) {

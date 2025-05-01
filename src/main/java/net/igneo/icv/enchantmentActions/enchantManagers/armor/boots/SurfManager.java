@@ -33,7 +33,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class SurfManager extends ArmorEnchantManager implements EntityTracker {
     public SurfManager(Player player) {
-        super(EnchantType.BOOTS, 300, -30, true, player);
+        super(EnchantType.BOOTS, 450, -10, true, player);
     }
     
     public ICVEntity child = null;
