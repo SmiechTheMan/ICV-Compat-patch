@@ -1,11 +1,11 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.armor.chestplate
 
+import net.igneo.icv.Utils.getFlatInputDirection
 import net.igneo.icv.client.indicators.EnchantIndicator
 import net.igneo.icv.client.indicators.StasisCooldownIndicator
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.Input.Companion.flattenInput
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager
-import net.igneo.icv.init.ICVUtils
 import net.minecraft.core.Direction
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.player.Player
@@ -53,7 +53,7 @@ class PlanarShiftManager(player: Player?) :
         println(shiftRot)
         println(rot)
         println(
-            ICVUtils.getFlatInputDirection(
+            getFlatInputDirection(
                 rot, flattenInput(
                     enchVar!!.input
                 ), 10f, 0.0
@@ -63,7 +63,7 @@ class PlanarShiftManager(player: Player?) :
         for (entity in player.level().getEntities(null, AABB(position!!.subtract(scale), position!!.add(scale)))) {
             entity.setPos(
                 entity.position().add(
-                    ICVUtils.getFlatInputDirection(
+                    getFlatInputDirection(
                         rot, flattenInput(
                             enchVar!!.input
                         ), 10f, 0.0

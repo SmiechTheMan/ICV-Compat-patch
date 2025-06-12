@@ -25,13 +25,12 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
     @Shadow
     public Input input;
     
-    @Shadow
-    protected abstract boolean hasEnoughFoodToStartSprinting();
-    
     public LocalPlayerMixin(ClientLevel pClientLevel, GameProfile pGameProfile) {
         super(pClientLevel, pGameProfile);
     }
     
+    @Shadow
+    protected abstract boolean hasEnoughFoodToStartSprinting();
     
     private boolean canStartSprintingmine() {
         return this.hasEnoughImpulseToStartSprinting() && !this.isUsingItem() && (!this.isPassenger() || this.vehicleCanSprint(this.getVehicle())) && !this.isFallFlying();

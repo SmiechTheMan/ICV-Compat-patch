@@ -26,7 +26,7 @@ class InputSyncC2SPacket {
         val context = supplier.get()
         context.enqueueWork {
             val player = context.sender
-            val level = player!!.serverLevel()
+            player!!.serverLevel()
             player.getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS)
                 .ifPresent { enchVar: PlayerEnchantmentActions ->
                     enchVar.input = getInput(iD)

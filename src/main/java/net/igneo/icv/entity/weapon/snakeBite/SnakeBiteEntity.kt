@@ -1,8 +1,8 @@
 package net.igneo.icv.entity.weapon.snakeBite
 
+import net.igneo.icv.Utils.getManagerForType
 import net.igneo.icv.enchantmentActions.enchantManagers.weapon.ViperManager
 import net.igneo.icv.entity.ICVEntity
-import net.igneo.icv.init.ICVUtils.GetManagerForType.getManagerForType
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.EntityType

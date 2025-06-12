@@ -5,8 +5,8 @@ import net.igneo.icv.client.indicators.StasisCooldownIndicator
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.EntityTracker
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager
+import net.igneo.icv.entity.ABYSS_STONE
 import net.igneo.icv.entity.ICVEntity
-import net.igneo.icv.entity.ModEntities
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
@@ -27,7 +27,7 @@ class AbyssOmenManager(player: Player?) :
         if (player.level() !is ServerLevel) {
             return
         }
-        child = ModEntities.ABYSS_STONE.get().create(player.level())
+        child = ABYSS_STONE.get().create(player.level())
         child!!.owner = player
 
         val hitResult = player.pick(5.0, 0f, false)

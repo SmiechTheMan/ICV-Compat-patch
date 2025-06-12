@@ -1,10 +1,10 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.armor.chestplate
 
+import net.igneo.icv.Utils.getFlatInputDirection
 import net.igneo.icv.client.indicators.EnchantIndicator
 import net.igneo.icv.client.indicators.StasisCooldownIndicator
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager
-import net.igneo.icv.init.ICVUtils
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec3
@@ -16,7 +16,7 @@ class MilkyChrysalisManager(player: Player?) :
 
     override fun activate() {
         println("activating")
-        player.deltaMovement = ICVUtils.getFlatInputDirection(player.yRot, enchVar!!.input, 1.2f, 1.0)
+        player.deltaMovement = getFlatInputDirection(player.yRot, enchVar!!.input, 1.2f, 1.0)
         player.startFallFlying()
         active = true
     }

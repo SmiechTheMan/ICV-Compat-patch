@@ -1,10 +1,10 @@
 package net.igneo.icv.entity.chestplate.soulOrb
 
+import net.igneo.icv.Utils.getManagerForType
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.chestplate.HauntManager
 import net.igneo.icv.entity.ICVEntity
-import net.igneo.icv.entity.ModEntities
+import net.igneo.icv.entity.SOUL_SPIDER
 import net.igneo.icv.entity.chestplate.soulSpider.SoulSpiderEntity
-import net.igneo.icv.init.ICVUtils.GetManagerForType.getManagerForType
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.Projectile
@@ -29,7 +29,7 @@ class SoulOrbEntity(pEntityType: EntityType<out Projectile?>?, pLevel: Level?) :
             ++lifeTime
         }
         if (child == null) {
-            child = ModEntities.SOUL_SPIDER.get().create(this.level())
+            child = SOUL_SPIDER.get().create(this.level())
             child!!.owner = this.owner
             child!!.setPos(this.position())
             child!!.setOrb(this)

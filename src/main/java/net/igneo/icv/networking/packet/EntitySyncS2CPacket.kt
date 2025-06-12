@@ -1,6 +1,6 @@
 package net.igneo.icv.networking.packet
 
-import net.igneo.icv.init.ICVUtils.syncClientEntity
+import net.igneo.icv.Utils.syncClientEntity
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraftforge.network.NetworkEvent
 import java.util.function.Supplier

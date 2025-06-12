@@ -2,9 +2,9 @@ package net.igneo.icv.enchantmentActions.enchantManagers.weapon
 
 import net.igneo.icv.ICV
 import net.igneo.icv.enchantment.EnchantType
-import net.igneo.icv.networking.ModMessages
 import net.igneo.icv.networking.packet.MovePlayerS2CPacket
-import net.igneo.icv.sound.ModSounds
+import net.igneo.icv.networking.sendToPlayer
+import net.igneo.icv.sound.GUST
 import net.minecraft.core.particles.ParticleOptions
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.resources.ResourceLocation
@@ -34,7 +34,7 @@ class GustManager(player: Player?) :
         if (player.level() !is ServerLevel) {
             return
         }
-        level.playSound(null, player.blockPosition(), ModSounds.GUST.get(), SoundSource.PLAYERS, 0.5f, 1.2f)
+        level.playSound(null, player.blockPosition(), GUST.get(), SoundSource.PLAYERS, 0.5f, 1.2f)
 
         val radius = 5.0
         val halfAngleDegrees = 45.0
@@ -44,7 +44,8 @@ class GustManager(player: Player?) :
 
         renderConeHitbox(level as ServerLevel, player, playerLook, radius, halfAngleDegrees)
 
-        val nearbyEntities: List<Entity> = level.getEntities(player,
+        val nearbyEntities: List<Entity> = level.getEntities(
+            player,
             player.boundingBox.inflate(radius)
         ) { entity: Entity -> entity !== player }
 
@@ -68,14 +69,14 @@ class GustManager(player: Player?) :
             entity.hurtMarked = true
 
             if (entity is ServerPlayer) {
-                ModMessages.sendToPlayer(MovePlayerS2CPacket(Vec3(0.0, 1.0, 0.0)), entity)
+                sendToPlayer(MovePlayerS2CPacket(Vec3(0.0, 1.0, 0.0)), entity)
             }
 
             level.sendParticles(
                 ParticleTypes.CLOUD, entity.x, entity.y, entity.z,
                 5, 0.3, 0.3, 0.3, 0.05
             )
-            level.playSound(null, entity.blockPosition(), ModSounds.GUST.get(), SoundSource.PLAYERS, 1.0f, 1.0f)
+            level.playSound(null, entity.blockPosition(), GUST.get(), SoundSource.PLAYERS, 1.0f, 1.0f)
         }
     }
 

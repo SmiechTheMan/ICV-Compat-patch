@@ -3,7 +3,6 @@ package net.igneo.icv.mixin;
 import net.igneo.icv.enchantment.ICVEnchantment;
 import net.igneo.icv.enchantmentActions.PlayerEnchantmentActionsProvider;
 import net.igneo.icv.enchantmentActions.enchantManagers.trident.TridentEnchantManager;
-import net.igneo.icv.init.ICVUtils;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -21,6 +20,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import static net.igneo.icv.Utils.EnchantmentUtilsKt.getManagerForType;
+
 @Mixin (value = TridentItem.class)
 public class TridentItemMixin {
     
@@ -30,7 +31,7 @@ public class TridentItemMixin {
             for (Enchantment enchantment : pStack.getAllEnchantments().keySet()) {
                 if (enchantment instanceof ICVEnchantment enchant) {
                     player.getCapability(PlayerEnchantmentActionsProvider.Companion.getPLAYER_ENCHANTMENT_ACTIONS()).ifPresent(enchVar -> {
-                        if (ICVUtils.GetManagerForType.getManagerForType(player, enchant.getManager(player).getClass()) instanceof TridentEnchantManager manager) {
+                        if (getManagerForType(player, enchant.getManager(player).getClass()) instanceof TridentEnchantManager manager) {
                             manager.onRelease();
                         }
                     });

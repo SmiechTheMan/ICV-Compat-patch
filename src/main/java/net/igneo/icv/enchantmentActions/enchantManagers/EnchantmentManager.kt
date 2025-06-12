@@ -10,8 +10,8 @@ import net.igneo.icv.ICV
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.PlayerEnchantmentActions
 import net.igneo.icv.enchantmentActions.PlayerEnchantmentActionsProvider
-import net.igneo.icv.networking.ModMessages
 import net.igneo.icv.networking.packet.AnimatedSyncC2SPacket
+import net.igneo.icv.networking.sendToServer
 import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.resources.ResourceLocation
@@ -63,7 +63,7 @@ abstract class EnchantmentManager protected constructor(val type: EnchantType, v
         if (player.level().isClientSide) {
             if (!animator!!.isActive && enchVar!!.animated) {
                 enchVar?.animated = false
-                ModMessages.sendToServer(AnimatedSyncC2SPacket(false))
+                sendToServer(AnimatedSyncC2SPacket(false))
             }
         }
     }

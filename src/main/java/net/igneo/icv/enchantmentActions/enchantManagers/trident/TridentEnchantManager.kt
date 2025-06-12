@@ -1,8 +1,9 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.trident
 
+import net.igneo.icv.Utils.getItemForSlot
+import net.igneo.icv.Utils.getSlotForType
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.enchantManagers.EnchantmentManager
-import net.igneo.icv.init.ICVUtils
 import net.minecraft.client.Minecraft
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.ThrownTrident
@@ -19,8 +20,8 @@ abstract class TridentEnchantManager protected constructor(setSlot: EnchantType,
 
 
     init {
-        val slot = ICVUtils.getSlotForType(player!!, this.javaClass)
-        this.tridentItem = ICVUtils.getItemForSlot(player, slot)
+        val slot = getSlotForType(player!!, this.javaClass)
+        this.tridentItem = getItemForSlot(player, slot)
     }
 
     fun onHit(result: HitResult?, trident: ThrownTrident?) {
@@ -59,10 +60,6 @@ abstract class TridentEnchantManager protected constructor(setSlot: EnchantType,
         }
         trident = null
         return false
-    }
-
-    override fun tick() {
-        super.tick()
     }
 
     override fun use() {

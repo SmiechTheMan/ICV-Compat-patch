@@ -1,14 +1,15 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.armor.boots
 
+import net.igneo.icv.Utils.sendPacketInRange
 import net.igneo.icv.client.indicators.BlinkCooldownIndicator
 import net.igneo.icv.client.indicators.EnchantIndicator
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager
-import net.igneo.icv.init.ICVUtils.sendPacketInRange
-import net.igneo.icv.init.LodestoneParticles
-import net.igneo.icv.init.ParticleShapes
 import net.igneo.icv.networking.packet.SendBlinkShaderS2CPacket
-import net.igneo.icv.sound.ModSounds
+import net.igneo.icv.particle.blinkParticles
+import net.igneo.icv.particle.renderLine
+import net.igneo.icv.sound.BLINK_COOLDOWN
+import net.igneo.icv.sound.BLINK_USE_WALL
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundEvents
@@ -29,7 +30,7 @@ class BlinkManager(player: Player?) :
         if (player.level() is ServerLevel) {
             level.playSound(
                 null, player.position().x, player.position().y, player.position().z,
-                ModSounds.BLINK_COOLDOWN.get(),
+                BLINK_COOLDOWN.get(),
                 SoundSource.PLAYERS, 0.5f, 1.0f
             )
         }
@@ -75,12 +76,12 @@ class BlinkManager(player: Player?) :
 
         val level = player.level() as ServerLevel
         if (player.level() is ServerLevel) {
-            ParticleShapes.renderLine(level, playerPos, targetPos, ParticleTypes.PORTAL, 10)
+            renderLine(level, playerPos, targetPos, ParticleTypes.PORTAL, 10)
 
-            LodestoneParticles.blinkParticles(level, targetPos.add(player.lookAngle.scale(8.0)))
+            blinkParticles(level, targetPos.add(player.lookAngle.scale(8.0)))
             level.playSound(
                 null, targetPos.x, targetPos.y, targetPos.z,
-                ModSounds.BLINK_USE_WALL.get(),
+                BLINK_USE_WALL.get(),
                 SoundSource.PLAYERS, 0.5f, 1.0f
             )
             level.playSound(
@@ -92,7 +93,7 @@ class BlinkManager(player: Player?) :
             targetPos = Vec3(targetPos.x, targetPos.y - 0.5, targetPos.z)
             sendPacketInRange(level, targetPos, 200f, SendBlinkShaderS2CPacket(targetPos))
         }
-        LodestoneParticles.blinkParticles(player.level(), playerPos)
+        blinkParticles(player.level(), playerPos)
 
         //for (Vec3 pos : ParticleShapes.renderRingList(player.level(),targetPos,10,1.5F)) {
         //  System.out.println(pos);

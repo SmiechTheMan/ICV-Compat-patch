@@ -20,6 +20,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin (value = LivingEntity.class, priority = 999999999)
 public abstract class LivingEntityMixin extends Entity {
+    @Shadow
+    protected static final EntityDataAccessor<Byte> DATA_LIVING_ENTITY_FLAGS = SynchedEntityData.defineId(LivingEntity.class, EntityDataSerializers.BYTE);
+    @Shadow
+    protected ItemStack useItem = ItemStack.EMPTY;
+    @Shadow
+    protected int useItemRemaining;
+    
     public LivingEntityMixin(EntityType<?> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
@@ -36,13 +43,6 @@ public abstract class LivingEntityMixin extends Entity {
     
     @Shadow
     public abstract boolean hurt(DamageSource pSource, float pAmount);
-    
-    @Shadow
-    protected static final EntityDataAccessor<Byte> DATA_LIVING_ENTITY_FLAGS = SynchedEntityData.defineId(LivingEntity.class, EntityDataSerializers.BYTE);
-    @Shadow
-    protected ItemStack useItem = ItemStack.EMPTY;
-    @Shadow
-    protected int useItemRemaining;
     
     @Shadow
     public boolean isUsingItem() {

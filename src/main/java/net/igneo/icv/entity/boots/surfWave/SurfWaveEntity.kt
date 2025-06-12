@@ -1,16 +1,16 @@
 package net.igneo.icv.entity.boots.surfWave
 
+import net.igneo.icv.Utils.getFlatDirection
+import net.igneo.icv.Utils.getFlatInputDirection
 import net.igneo.icv.enchantmentActions.Input
 import net.igneo.icv.enchantmentActions.PlayerEnchantmentActions
 import net.igneo.icv.enchantmentActions.PlayerEnchantmentActionsProvider
 import net.igneo.icv.entity.ICVEntity
 import net.igneo.icv.entity.leggings.wave.WaveEntity
-import net.igneo.icv.init.ICVUtils.getFlatDirection
-import net.igneo.icv.init.ICVUtils.getFlatInputDirection
-import net.igneo.icv.init.LodestoneParticles.waveParticles
-import net.igneo.icv.init.LodestoneParticles.waveParticlesBright
-import net.igneo.icv.init.ParticleShapes.renderLineList
-import net.igneo.icv.sound.ModSounds
+import net.igneo.icv.particle.renderLineList
+import net.igneo.icv.particle.waveParticles
+import net.igneo.icv.particle.waveParticlesBright
+import net.igneo.icv.sound.SURF_PICKUP
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
@@ -64,7 +64,7 @@ class SurfWaveEntity(pEntityType: EntityType<out Projectile?>, pLevel: Level) :
                 level().playSound(
                     null, position().x, position().y,
                     position().z,
-                    ModSounds.SURF_PICKUP.get(),
+                    SURF_PICKUP.get(),
                     SoundSource.PLAYERS, 0.5f, 1.0f
                 )
                 entities.add(entity)

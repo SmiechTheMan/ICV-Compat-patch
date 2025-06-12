@@ -1,13 +1,13 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.armor.boots
 
+import net.igneo.icv.Utils.getFlatDirection
 import net.igneo.icv.client.indicators.EnchantIndicator
 import net.igneo.icv.client.indicators.StasisCooldownIndicator
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.Input.Companion.getInput
 import net.igneo.icv.enchantmentActions.Input.Companion.getRotation
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager
-import net.igneo.icv.entity.ModEntities
-import net.igneo.icv.init.ICVUtils
+import net.igneo.icv.entity.STONE_PILLAR
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.BlockHitResult
@@ -35,8 +35,8 @@ class StoneCallerManager(player: Player?) :
 
             for (i in 8 downTo 1) {
                 val rot = getRotation(getInput(i)).toFloat()
-                val entity = ModEntities.STONE_PILLAR.get().create(level)
-                entity!!.setPos(position.add(ICVUtils.getFlatDirection(rot, 3f, 0.0)))
+                val entity = STONE_PILLAR.get().create(level)
+                entity!!.setPos(position.add(getFlatDirection(rot, 3f, 0.0)))
                 level.addFreshEntity(entity)
             }
         }

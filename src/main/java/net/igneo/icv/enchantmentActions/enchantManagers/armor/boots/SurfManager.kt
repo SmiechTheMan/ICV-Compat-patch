@@ -9,11 +9,13 @@ import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.EntityTracker
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager
 import net.igneo.icv.entity.ICVEntity
-import net.igneo.icv.entity.ModEntities
+import net.igneo.icv.entity.SURF_WAVE
 import net.igneo.icv.entity.boots.surfWave.SurfWaveEntity
-import net.igneo.icv.init.LodestoneParticles
-import net.igneo.icv.init.ParticleShapes
-import net.igneo.icv.sound.ModSounds
+import net.igneo.icv.particle.renderSphereList
+import net.igneo.icv.particle.waveParticlesBright
+import net.igneo.icv.sound.SURF_COOLDOWN
+import net.igneo.icv.sound.SURF_IDLE
+import net.igneo.icv.sound.SURF_USE
 import net.igneo.icv.sound.tickable.FollowingSound
 import net.minecraft.client.Minecraft
 import net.minecraft.client.player.LocalPlayer
@@ -65,7 +67,7 @@ class SurfManager(player: Player?) :
         if (player.level() is ServerLevel) {
             level.playSound(
                 null, player.position().x, player.position().y, player.position().z,
-                ModSounds.SURF_COOLDOWN.get(),
+                SURF_COOLDOWN.get(),
                 SoundSource.PLAYERS, 0.5f, 1.0f
             )
         }
@@ -78,21 +80,41 @@ class SurfManager(player: Player?) :
     override fun activate() {
         player.forcedPose = Pose.STANDING
         if (player.level() is ServerLevel) {
-            child = ModEntities.SURF_WAVE.get().create(player.level())
+            child = SURF_WAVE.get().create(player.level())
             child!!.owner = player
             child!!.setPos(player.eyePosition)
             player.level().addFreshEntity(child)
             syncClientChild(player as ServerPlayer, child, this)
             (player as ServerPlayer).level().playSound(
-                null, (player as ServerPlayer).position().x, (player as ServerPlayer).position().y, (player as ServerPlayer).position().z,
-                ModSounds.SURF_USE.get(),
-                SoundSource.PLAYERS, 0.5f, 1.0f
+                null,
+                (player as ServerPlayer).position().x,
+                (player as ServerPlayer).position().y,
+                (player as ServerPlayer).position().z,
+                SURF_USE.get(),
+                SoundSource.PLAYERS,
+                0.5f,
+                1.0f
             )
-            Minecraft.getInstance().soundManager.play(FollowingSound(ModSounds.SURF_IDLE.get(), child as SurfWaveEntity))
+            Minecraft.getInstance().soundManager.play(
+                FollowingSound(
+                    SURF_IDLE.get(),
+                    child as SurfWaveEntity
+                )
+            )
             syncClientChild(player as ServerPlayer, child, this)
         } else if (player is LocalPlayer) {
-            for (pos in ParticleShapes.renderSphereList((player as LocalPlayer).level(), (player as LocalPlayer).eyePosition, 10, 10, 1f)) {
-                LodestoneParticles.waveParticlesBright((player as LocalPlayer).level(), pos, pos.subtract((player as LocalPlayer).position()).scale(2.0))
+            for (pos in renderSphereList(
+                (player as LocalPlayer).level(),
+                (player as LocalPlayer).eyePosition,
+                10,
+                10,
+                1f
+            )) {
+                waveParticlesBright(
+                    (player as LocalPlayer).level(),
+                    pos,
+                    pos.subtract((player as LocalPlayer).position()).scale(2.0)
+                )
             }
             currentAnim =
                 EnchantAnimationPlayer(PlayerAnimationRegistry.getAnimation(ResourceLocation(ICV.MOD_ID, "surfanim"))!!)

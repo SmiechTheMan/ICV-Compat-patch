@@ -1,10 +1,10 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.armor.helmet
 
+import net.igneo.icv.Utils.collectEntitiesBox
 import net.igneo.icv.client.indicators.EnchantIndicator
 import net.igneo.icv.client.indicators.StasisCooldownIndicator
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager
-import net.igneo.icv.init.ICVUtils
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec3
 
@@ -36,7 +36,7 @@ class RiftRipperManager(player: Player?) :
 
         player.setPos(oldPlayerPosition)
 
-        val entities = oldPlayerPosition?.let { ICVUtils.collectEntitiesBox(player.level(), it, TELEPORT_RADIUS) }
+        val entities = oldPlayerPosition?.let { collectEntitiesBox(player.level(), it, TELEPORT_RADIUS) }
 
         for (entity in entities!!) {
             newPlayerPosition?.let { entity.setPos(it) }

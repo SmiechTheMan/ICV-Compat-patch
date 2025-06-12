@@ -2,8 +2,8 @@ package net.igneo.icv.enchantmentActions.enchantManagers.weapon
 
 import net.igneo.icv.ICV
 import net.igneo.icv.enchantment.EnchantType
-import net.igneo.icv.networking.ModMessages
 import net.igneo.icv.networking.packet.PushPlayerS2CPacket
+import net.igneo.icv.networking.sendToPlayer
 import net.minecraft.core.particles.ParticleOptions
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.resources.ResourceLocation
@@ -63,7 +63,8 @@ class TungstenCoreManager(player: Player?) :
 
             renderRadius(level as ServerLevel, player.position(), radius)
 
-            val nearbyEntities: List<Entity> = level.getEntities(player,
+            val nearbyEntities: List<Entity> = level.getEntities(
+                player,
                 player.boundingBox.inflate(radius.toDouble())
             ) { entity: Entity -> entity !== player }
 
@@ -75,7 +76,7 @@ class TungstenCoreManager(player: Player?) :
                 entity.hurtMarked = true
 
                 if (entity is ServerPlayer) {
-                    ModMessages.sendToPlayer(PushPlayerS2CPacket(pushVelocity), entity)
+                    sendToPlayer(PushPlayerS2CPacket(pushVelocity), entity)
                 }
             }
         }

@@ -1,7 +1,7 @@
 package net.igneo.icv.client.indicators
 
 import net.igneo.icv.ICV
-import net.igneo.icv.client.EnchantmentHudOverlay.animTime
+import net.igneo.icv.client.animTime
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager
 import net.minecraft.resources.ResourceLocation
 import kotlin.math.abs

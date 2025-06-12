@@ -8,25 +8,23 @@ import net.minecraftforge.registries.ForgeRegistries
 import net.minecraftforge.registries.RegistryObject
 import team.lodestar.lodestone.systems.particle.world.type.LodestoneWorldParticleType
 
-object ModParticles {
-    val PARTICLE_TYPES: DeferredRegister<ParticleType<*>> =
-        DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, ICV.MOD_ID)
+val PARTICLE_TYPES: DeferredRegister<ParticleType<*>> =
+    DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, ICV.MOD_ID)
 
-    private fun registerParticle(name: String): RegistryObject<LodestoneWorldParticleType> {
-        return PARTICLE_TYPES.register(
-            name
-        ) { LodestoneWorldParticleType() }
-    }
-
-    val BLINK_PARTICLE: RegistryObject<LodestoneWorldParticleType> = PARTICLE_TYPES.register(
-        "blink_particle"
+private fun registerParticle(name: String): RegistryObject<LodestoneWorldParticleType> {
+    return PARTICLE_TYPES.register(
+        name
     ) { LodestoneWorldParticleType() }
-    val WAVE_PARTICLE: RegistryObject<LodestoneWorldParticleType> = PARTICLE_TYPES.register(
-        "wave_particle"
-    ) { LodestoneWorldParticleType() }
+}
+
+val BLINK_PARTICLE: RegistryObject<LodestoneWorldParticleType> = PARTICLE_TYPES.register(
+    "blink_particle"
+) { LodestoneWorldParticleType() }
+val WAVE_PARTICLE: RegistryObject<LodestoneWorldParticleType> = PARTICLE_TYPES.register(
+    "wave_particle"
+) { LodestoneWorldParticleType() }
 
 
-    fun register(eventbus: IEventBus?) {
-        PARTICLE_TYPES.register(eventbus)
-    }
+fun registerParticles(eventbus: IEventBus?) {
+    PARTICLE_TYPES.register(eventbus)
 }

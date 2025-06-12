@@ -1,7 +1,7 @@
 package net.igneo.icv.entity.boots.soulEmber
 
+import net.igneo.icv.Utils.getFlatDirection
 import net.igneo.icv.entity.ICVEntity
-import net.igneo.icv.init.ICVUtils.getFlatDirection
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType

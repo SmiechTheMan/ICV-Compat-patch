@@ -4,7 +4,7 @@ import net.igneo.icv.client.indicators.EnchantIndicator
 import net.igneo.icv.client.indicators.StasisCooldownIndicator
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager
-import net.igneo.icv.entity.ModEntities
+import net.igneo.icv.entity.VOID_SPIKE
 import net.igneo.icv.entity.leggings.voidSpike.VoidSpikeEntity
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.player.Player
@@ -36,7 +36,7 @@ class VoidWakeManager(player: Player?) :
             val level = player.level()
             if (activeTicks > storedtick + (if (removing) 10 else 20) && player.level() is ServerLevel) {
                 if (!removing) {
-                    val entity = ModEntities.VOID_SPIKE.get().create(level)
+                    val entity = VOID_SPIKE.get().create(level)
                     entity!!.setPos(player.position())
                     entity.owner = player
                     level.addFreshEntity(entity)

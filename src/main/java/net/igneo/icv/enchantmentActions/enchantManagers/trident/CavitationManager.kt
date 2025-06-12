@@ -1,9 +1,9 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.trident
 
+import net.igneo.icv.Utils.collectEntitiesBox
 import net.igneo.icv.enchantment.EnchantType
-import net.igneo.icv.init.ICVUtils
-import net.igneo.icv.networking.ModMessages
 import net.igneo.icv.networking.packet.PushPlayerS2CPacket
+import net.igneo.icv.networking.sendToPlayer
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.ThrownTrident
@@ -21,7 +21,7 @@ class CavitationManager(player: Player?) :
     }
 
     private fun pullTowards(trident: ThrownTrident?) {
-        val nearybyEntities = ICVUtils.collectEntitiesBox(player.level(), trident!!.position(), 3.5)
+        val nearybyEntities = collectEntitiesBox(player.level(), trident!!.position(), 3.5)
 
         for (entity in nearybyEntities) {
             if (entity === player) {
@@ -34,7 +34,7 @@ class CavitationManager(player: Player?) :
             entity.hurtMarked = true
 
             if (entity is ServerPlayer) {
-                ModMessages.sendToPlayer(PushPlayerS2CPacket(pullVeloctiy), player as ServerPlayer)
+                sendToPlayer(PushPlayerS2CPacket(pullVeloctiy), player as ServerPlayer)
             }
         }
     }

@@ -1,151 +1,64 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.armor.chestplate
 
+import net.igneo.icv.Utils.raycastGround
 import net.igneo.icv.client.indicators.EnchantIndicator
 import net.igneo.icv.client.indicators.StasisCooldownIndicator
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager
-import net.igneo.icv.init.ICVUtils
+import net.igneo.icv.particle.renderSphere
+import net.minecraft.core.BlockPos
+import net.minecraft.core.Vec3i
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.server.level.ServerLevel
-import net.minecraft.sounds.SoundEvents
-import net.minecraft.sounds.SoundSource
-import net.minecraft.world.entity.Entity
-import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.level.Level
+import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
-import java.util.*
+
+private val raycastHits = mutableMapOf<Int, BlockPos>()
 
 class ImmolateManager(player: Player?) :
-    ArmorEnchantManager(EnchantType.CHESTPLATE, 300, -10, false, player) {
-    private val markedEntities = HashMap<UUID, Entity>()
-
-    override val indicator: EnchantIndicator
-        get() = StasisCooldownIndicator(this)
-
-    override fun activate() {
-        val level = player.level()
-        if (player.level() !is ServerLevel) {
-            return
-        }
-        level.playSound(
-            null, player.x, player.y, player.z,
-            SoundEvents.BLAZE_SHOOT, SoundSource.PLAYERS, 1.0f, 0.8f
-        )
-
-        val entities = ICVUtils.collectEntitiesBox(player.level(), player.position(), IMMOLATE_RADIUS)
-
-        for (entity in entities) {
-            if (entity === player) {
-                continue
-            }
-
-            entity.setSecondsOnFire(10)
-            entity.addTag(IMMOLATE_TAG)
-
-            markedEntities[entity.uuid] = entity
-        }
-    }
+    ArmorEnchantManager(EnchantType.CHESTPLATE, 300, -10, true, player) {
+    private val world: Level = player!!.level()
+    private val start: Vec3 = player!!.position()
+    private val direction: Vec3 = player!!.lookAngle
 
     override fun onOffCoolDown(player: Player?) {
         TODO("Not yet implemented")
     }
 
-    override fun tick() {
-        super.tick()
+    override val indicator: EnchantIndicator
+        get() = StasisCooldownIndicator(this)
 
-        val level = player.level() as ServerLevel
-        if (player.level() !is ServerLevel) {
-            return
-        }
+    override fun activate() {
 
-        val iterator = markedEntities.keys.iterator()
+        storeRaycastHit(world, start, direction, 10.0, 0)
 
-        while (iterator.hasNext()) {
-            val id = iterator.next()
-            val entity = markedEntities[id]
+        active = true
+    }
 
-            if (entity == null || !entity.isAddedToWorld) {
-                if (entity is ItemEntity) {
-                    createKnockbackEffect(level, entity.position())
-                }
-                iterator.remove()
-                continue
-            }
-
-            if (!entity.isAlive) {
-                if (entity.tags.contains(IMMOLATE_TAG)) {
-                    createKnockbackEffect(level, entity.position())
-                }
-                iterator.remove()
-                continue
-            }
-
-            if (!entity.isOnFire) {
-                entity.removeTag(IMMOLATE_TAG)
-                iterator.remove()
-                continue
-            }
-
-            if (level.gameTime % 10 == 0L) {
-                level.sendParticles(
-                    ParticleTypes.FLAME,
-                    entity.x, entity.y + 0.5f, entity.z,
-                    3, 0.2, 0.2, 0.2, 0.01
-                )
+    override fun dualActivate() {
+        val keys = listOf(0, 1, 2)
+        if (raycastHits.size <= 3) {
+            storeRaycastHit(world, start, direction, 10.0, 1)
+            storeRaycastHit(world, start, direction, 10.0, 2)
+        } else {
+            for (key in keys) {
+                val hit = raycastHits[key]
+                renderSphere(world as ServerLevel, hit!!.center, ParticleTypes.FLAME, 16, 16, 4f)
             }
         }
     }
 
-    private fun createKnockbackEffect(level: ServerLevel, position: Vec3) {
-        level.playSound(
-            null, position.x, position.y, position.z,
-            SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 1.0f, 1.0f
-        )
+    private fun storeRaycastHit(world: Level, start: Vec3, direction: Vec3, maxDistance: Double, key: Int) {
+        val result = raycastGround(world, start, direction, maxDistance)
 
-        level.sendParticles(
-            ParticleTypes.EXPLOSION_EMITTER,
-            position.x, position.y, position.z,
-            1, 0.0, 0.0, 0.0, 0.0
-        )
-
-        level.sendParticles(
-            ParticleTypes.LARGE_SMOKE,
-            position.x, position.y, position.z,
-            15, 0.5, 0.5, 0.5, 0.1
-        )
-
-        val nearbyEntities = ICVUtils.collectEntitiesBox(player.level(), position, IMMOLATE_RADIUS)
-
-        for (nearbyEntity in nearbyEntities) {
-            nearbyEntity.hurt(level.damageSources().explosion(player, null), 1f)
-
-            val knockbackDir = nearbyEntity.position().subtract(position).normalize()
-
-            var knockbackStrength = 1.5
-
-            if (!player.onGround()) {
-                knockbackStrength = 0.8
-            }
-
-            nearbyEntity.deltaMovement = nearbyEntity.deltaMovement.add(
-                knockbackDir.x * knockbackStrength,
-                0.7,
-                knockbackDir.z * knockbackStrength
-            )
-
-            nearbyEntity.setSecondsOnFire(10)
-            nearbyEntity.addTag(IMMOLATE_TAG)
-
-            nearbyEntity.hasImpulse = true
+        if (result != null && result.type == HitResult.Type.BLOCK) {
+            val hitPos = BlockPos(result.location as Vec3i)
+            raycastHits[key] = hitPos
+            println("Stored hit '$key' at: $hitPos")
+        } else {
+            println("No block hit for key: $key")
         }
-    }
-
-    override fun canUse(): Boolean {
-        return stableCheck()
-    }
-
-    companion object {
-        private const val IMMOLATE_RADIUS = 5.0
-        private const val IMMOLATE_TAG = "Immolate_Fire"
     }
 }

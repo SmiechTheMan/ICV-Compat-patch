@@ -1,9 +1,9 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.weapon
 
 import net.igneo.icv.ICV
+import net.igneo.icv.Utils.collectEntitiesBox
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.entity.ICVEntity
-import net.igneo.icv.init.ICVUtils
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Player
 
@@ -17,7 +17,7 @@ class BreakthroughManager(player: Player?) :
         super.activate()
         var closestEntity: ICVEntity? = null
         var lowestDistance = 99999.0
-        for (e in ICVUtils.collectEntitiesBox(
+        for (e in collectEntitiesBox(
             player.level(),
             player.position().add(player.lookAngle.scale(0.3)),
             2.0

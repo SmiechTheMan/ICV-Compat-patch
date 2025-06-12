@@ -1,10 +1,10 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.armor.leggings
 
+import net.igneo.icv.Utils.getFlatDirection
 import net.igneo.icv.client.indicators.EnchantIndicator
 import net.igneo.icv.client.indicators.StasisCooldownIndicator
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager
-import net.igneo.icv.init.ICVUtils
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 
@@ -17,7 +17,7 @@ class GaleManager(player: Player?) :
             if (entity is LivingEntity) {
                 scale = 4f
             }
-            entity.deltaMovement = ICVUtils.getFlatDirection(player.yRot, scale, 0.5)
+            entity.deltaMovement = getFlatDirection(player.yRot, scale, 0.5)
         }
         resetCoolDown()
     }

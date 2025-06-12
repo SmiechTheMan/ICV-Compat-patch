@@ -4,7 +4,6 @@ import net.igneo.icv.enchantment.WeaponEnchantment;
 import net.igneo.icv.enchantmentActions.PlayerEnchantmentActionsProvider;
 import net.igneo.icv.enchantmentActions.enchantManagers.weapon.BreakthroughManager;
 import net.igneo.icv.enchantmentActions.enchantManagers.weapon.WeaponEnchantManager;
-import net.igneo.icv.init.ICVUtils;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -19,11 +18,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import static net.igneo.icv.Utils.EnchantmentUtilsKt.getManagerForType;
+import static net.igneo.icv.Utils.EntityUtilsKt.getDamageFromItem;
+
 @Mixin (value = Player.class)
 public abstract class PlayerMixin extends LivingEntity {
     
-    private double shieldHealth = 30;
     private final int checkTicks = 0;
+    private double shieldHealth = 30;
     
     protected PlayerMixin(EntityType<? extends LivingEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -59,12 +61,12 @@ public abstract class PlayerMixin extends LivingEntity {
     @Inject (method = "blockUsingShield", at = @At ("HEAD"), cancellable = true)
     protected void blockUsingShield(LivingEntity pEntity, CallbackInfo ci) {
         super.blockUsingShield(pEntity);
-        double damage = ICVUtils.getDamageFromItem(pEntity.getMainHandItem(), pEntity);
+        double damage = getDamageFromItem(pEntity.getMainHandItem(), pEntity);
         damage = (damage < 5) ? 5 : damage;
         shieldHealth -= damage;
         
         if (pEntity instanceof Player player) {
-            if (ICVUtils.GetManagerForType.getManagerForType(player, BreakthroughManager.class) != null) {
+            if (getManagerForType(player, BreakthroughManager.class) != null) {
                 shieldHealth = 0;
             }
         }

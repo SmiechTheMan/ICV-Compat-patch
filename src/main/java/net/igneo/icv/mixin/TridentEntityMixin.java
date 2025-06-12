@@ -26,9 +26,8 @@ import java.util.Arrays;
 
 @Mixin (value = ThrownTrident.class)
 public abstract class TridentEntityMixin extends AbstractArrow {
-    private TridentEnchantManager manager;
     private final ThrownTrident instance = (ThrownTrident) (Object) this;
-    
+    private TridentEnchantManager manager;
     @Shadow
     private ItemStack tridentItem;
     

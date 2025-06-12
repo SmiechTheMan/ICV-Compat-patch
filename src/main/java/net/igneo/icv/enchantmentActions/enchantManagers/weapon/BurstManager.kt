@@ -2,9 +2,8 @@ package net.igneo.icv.enchantmentActions.enchantManagers.weapon
 
 import net.igneo.icv.ICV
 import net.igneo.icv.enchantment.EnchantType
-import net.igneo.icv.enchantmentActions.PlayerEnchantmentActions
 import net.igneo.icv.enchantmentActions.PlayerEnchantmentActionsProvider
-import net.igneo.icv.sound.ModSounds
+import net.igneo.icv.sound.GUST
 import net.minecraft.core.particles.ParticleOptions
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.resources.ResourceLocation
@@ -71,7 +70,7 @@ class BurstManager(player: Player?) :
 
         val level = target!!.level()
         if (player.level() is ServerLevel) {
-            level.playSound(null, player.blockPosition(), ModSounds.GUST.get(), SoundSource.PLAYERS, 0.5f, 1.2f)
+            level.playSound(null, player.blockPosition(), GUST.get(), SoundSource.PLAYERS, 0.5f, 1.2f)
 
             val radius = 2.0
             val pushStrength = 2.5f
@@ -81,7 +80,8 @@ class BurstManager(player: Player?) :
 
             renderRadius(level as ServerLevel, player.position(), radius * burstBoostDecay)
 
-            val nearbyEntities: List<Entity> = level.getEntities(player,
+            val nearbyEntities: List<Entity> = level.getEntities(
+                player,
                 player.boundingBox.inflate(radius * burstBoostDecay)
             ) { entity: Entity -> entity !== player }
 

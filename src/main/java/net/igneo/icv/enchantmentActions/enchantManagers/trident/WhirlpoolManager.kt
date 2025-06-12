@@ -1,9 +1,10 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.trident
 
+import net.igneo.icv.Utils.DOWN_VECTOR
+import net.igneo.icv.Utils.collectEntitiesBox
 import net.igneo.icv.enchantment.EnchantType
-import net.igneo.icv.init.ICVUtils
-import net.igneo.icv.networking.ModMessages
 import net.igneo.icv.networking.packet.PushPlayerS2CPacket
+import net.igneo.icv.networking.sendToPlayer
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.ThrownTrident
@@ -22,16 +23,16 @@ class WhirlpoolManager(player: Player?) :
         if (!canPull) {
             return
         }
-        for (entity in ICVUtils.collectEntitiesBox(player.level(), trident.position(), 3.5)) {
+        for (entity in collectEntitiesBox(player.level(), trident.position(), 3.5)) {
             if (entity === trident || entity === player) {
                 continue
             }
+            val pullVector = DOWN_VECTOR
             if (entity is ServerPlayer) {
-                val pullVector = ICVUtils.DOWN_VECTOR
                 entity.addDeltaMovement(pullVector)
-                ModMessages.sendToPlayer(PushPlayerS2CPacket(ICVUtils.DOWN_VECTOR), entity)
+                sendToPlayer(PushPlayerS2CPacket(pullVector), entity)
             } else {
-                entity.addDeltaMovement(ICVUtils.DOWN_VECTOR)
+                entity.addDeltaMovement(pullVector)
             }
         }
         canPull = false

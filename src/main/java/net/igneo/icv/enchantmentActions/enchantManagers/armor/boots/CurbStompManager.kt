@@ -1,10 +1,10 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.armor.boots
 
+import net.igneo.icv.Utils.collectEntitiesBox
 import net.igneo.icv.client.indicators.BlackHoleIndicator
 import net.igneo.icv.client.indicators.EnchantIndicator
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager
-import net.igneo.icv.init.ICVUtils
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 
@@ -47,7 +47,7 @@ class CurbStompManager(player: Player?) :
             player.setDeltaMovement(0.0, -1.0, 0.0)
         }
         if (primed && player.onGround()) {
-            for (e in ICVUtils.collectEntitiesBox(player.level(), player.position(), 3.0)) {
+            for (e in collectEntitiesBox(player.level(), player.position(), 3.0)) {
                 if (e !== player && e is LivingEntity) {
                     e.hurt(
                         player.damageSources().playerAttack(player),

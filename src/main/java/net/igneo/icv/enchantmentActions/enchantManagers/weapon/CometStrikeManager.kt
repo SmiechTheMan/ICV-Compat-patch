@@ -2,8 +2,8 @@ package net.igneo.icv.enchantmentActions.enchantManagers.weapon
 
 import net.igneo.icv.ICV
 import net.igneo.icv.enchantment.EnchantType
-import net.igneo.icv.entity.ModEntities
-import net.igneo.icv.sound.ModSounds
+import net.igneo.icv.entity.COMET
+import net.igneo.icv.sound.COMET_SPAWN
 import net.minecraft.core.BlockPos
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
@@ -71,8 +71,8 @@ class CometStrikeManager(player: Player?) :
                 cometSpawn = BlockPos(player.blockX + x, player.blockY, player.blockZ + z)
             }
             if (activeTicks > 30) {
-                ModEntities.COMET.get().spawn(level as ServerLevel, cometSpawn, MobSpawnType.COMMAND)
-                level.playSound(null, cometSpawn, ModSounds.COMET_SPAWN.get(), SoundSource.PLAYERS, 0.5f, 1f)
+                COMET.get().spawn(level as ServerLevel, cometSpawn, MobSpawnType.COMMAND)
+                level.playSound(null, cometSpawn, COMET_SPAWN.get(), SoundSource.PLAYERS, 0.5f, 1f)
                 active = false
                 cometSpawn = null
             }

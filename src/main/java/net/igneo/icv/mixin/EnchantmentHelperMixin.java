@@ -1,7 +1,7 @@
 package net.igneo.icv.mixin;
 
 import net.igneo.icv.config.ICVCommonConfigs;
-import net.igneo.icv.enchantment.ModEnchantments;
+import net.igneo.icv.enchantment.Tools;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -188,7 +188,7 @@ public class EnchantmentHelperMixin {
      */
     @Overwrite
     public static int getBlockEfficiency(LivingEntity pEntity) {
-        if (EnchantmentHelper.getEnchantmentLevel(ModEnchantments.Tools.INSTANCE.getBRUTE_TOUCH().get(), pEntity) == 1) {
+        if (EnchantmentHelper.getEnchantmentLevel(Tools.INSTANCE.getBRUTE_TOUCH().get(), pEntity) == 1) {
             return 5;
         } else {
             return 0;

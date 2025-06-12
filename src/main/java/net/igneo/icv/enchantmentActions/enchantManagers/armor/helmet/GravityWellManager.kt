@@ -1,10 +1,10 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.armor.helmet
 
+import net.igneo.icv.Utils.collectEntitiesBox
 import net.igneo.icv.client.indicators.EnchantIndicator
 import net.igneo.icv.client.indicators.StasisCooldownIndicator
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager
-import net.igneo.icv.init.ICVUtils
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.LivingEntity
@@ -31,7 +31,7 @@ class GravityWellManager(player: Player?) : ArmorEnchantManager(EnchantType.HELM
     private fun applyGravityEffect(direction: Direction) {
         val level = player.level() as? ServerLevel ?: return
         val pos = position ?: return
-        val entities = ICVUtils.collectEntitiesBox(level, pos, 7.5)
+        val entities = collectEntitiesBox(level, pos, 7.5)
         val pushVec = when (direction) {
             Direction.UP -> Vec3(0.0, PUSH_STRENGTH * 0.2, 0.0)
             Direction.DOWN -> Vec3(0.0, -PUSH_STRENGTH, 0.0)

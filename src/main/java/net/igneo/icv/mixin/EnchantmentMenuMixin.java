@@ -57,32 +57,20 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
     @Unique
     private static final List<Enchantment> TOOL_ENCHANTS = new ArrayList<Enchantment>();
     @Shadow
+    public final int[] enchantClue = new int[]{-1, -1, -1};
+    @Shadow
+    public final int[] levelClue = new int[]{-1, -1, -1};
+    @Shadow
     private final RandomSource random = RandomSource.create();
     @Shadow
     private final DataSlot enchantmentSeed = DataSlot.standalone();
     @Shadow
-    public final int[] enchantClue = new int[]{-1, -1, -1};
-    @Shadow
-    public final int[] levelClue = new int[]{-1, -1, -1};
-    
-    private int localEnchShift = 0;
-    private int localLength = 0;
-    private ServerPlayer player = null;
-    @Shadow
-    private final Container enchantSlots = new SimpleContainer(2) {
-        /**
-         * For block entities, ensures the chunk containing the block entity is saved to disk later - the game won't think
-         * it hasn't changed and skip it.
-         */
-        public void setChanged() {
-            super.setChanged();
-            EnchantmentMenuMixin.this.slotsChanged(this);
-        }
-    };
-    @Shadow
     private final ContainerLevelAccess access;
     @Shadow
     public int[] costs = new int[3];
+    private int localEnchShift = 0;
+    private int localLength = 0;
+    private ServerPlayer player = null;
     
     @OnlyIn (Dist.CLIENT)
     protected EnchantmentMenuMixin(int pContainerId, Inventory pPlayerInventory, ContainerLevelAccess pAccess) {
@@ -95,7 +83,17 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
     @Shadow
     public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
         return null;
-    }
+    }    @Shadow
+    private final Container enchantSlots = new SimpleContainer(2) {
+        /**
+         * For block entities, ensures the chunk containing the block entity is saved to disk later - the game won't think
+         * it hasn't changed and skip it.
+         */
+        public void setChanged() {
+            super.setChanged();
+            EnchantmentMenuMixin.this.slotsChanged(this);
+        }
+    };
     
     @Override
     @Shadow
@@ -489,4 +487,8 @@ public class EnchantmentMenuMixin extends AbstractContainerMenu {
             TOOL_ENCHANTS.add(ModEnchantments.BRUTE_TOUCH.get());
         }*/
     }
+    
+
+    
+    
 }

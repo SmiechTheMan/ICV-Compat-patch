@@ -1,13 +1,13 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.armor.boots
 
+import net.igneo.icv.Utils.getFlatDirection
 import net.igneo.icv.client.indicators.BlackHoleIndicator
 import net.igneo.icv.client.indicators.EnchantIndicator
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.EntityTracker
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager
 import net.igneo.icv.entity.ICVEntity
-import net.igneo.icv.entity.ModEntities
-import net.igneo.icv.init.ICVUtils
+import net.igneo.icv.entity.SOUL_EMBER
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
@@ -39,10 +39,10 @@ class SoulEmberManager(player: Player?) :
 
     override fun activate() {
         if (player.level() is ServerLevel) {
-            child = ModEntities.SOUL_EMBER.get().create(player.level())
+            child = SOUL_EMBER.get().create(player.level())
             child!!.owner = player
             child!!.setPos(player.eyePosition.subtract(0.0, 0.7, 0.0))
-            child!!.deltaMovement = ICVUtils.getFlatDirection(player.yRot, 2f, 0.0)
+            child!!.deltaMovement = getFlatDirection(player.yRot, 2f, 0.0)
             player.level().addFreshEntity(child!!)
             syncClientChild(player as ServerPlayer, child, this)
         }

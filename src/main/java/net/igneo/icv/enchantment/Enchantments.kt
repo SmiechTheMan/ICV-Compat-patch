@@ -8,8 +8,8 @@ import net.igneo.icv.enchantmentActions.enchantManagers.armor.helmet.*
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.leggings.*
 import net.igneo.icv.enchantmentActions.enchantManagers.trident.*
 import net.igneo.icv.enchantmentActions.enchantManagers.weapon.*
-import net.igneo.icv.networking.ModMessages.sendToPlayer
 import net.igneo.icv.networking.packet.EnchantAttackS2CPacket
+import net.igneo.icv.networking.sendToPlayer
 import net.minecraft.resources.ResourceKey
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
@@ -25,18 +25,18 @@ import net.minecraft.world.level.Level
 import net.minecraftforge.server.ServerLifecycleHooks
 
 abstract class ICVEnchantment(
-    internal open val ICVEnchantRarity: Rarity,
-    internal open val ICVEnchantcategory: EnchantmentCategory,
-    internal open val ICVEnchantapplicableSlots: Array<out EquipmentSlot>
-) : Enchantment(ICVEnchantRarity, ICVEnchantcategory, ICVEnchantapplicableSlots) {
+    ICVEnchantRarity: Rarity,
+    ICVEnchantCategory: EnchantmentCategory,
+    ICVEnchantApplicableSlots: Array<out EquipmentSlot>
+) : Enchantment(ICVEnchantRarity, ICVEnchantCategory, ICVEnchantApplicableSlots) {
     abstract fun getManager(player: Player): EnchantmentManager
 }
 
 abstract class WeaponEnchantment(
-    override val ICVEnchantRarity: Rarity,
-    override val ICVEnchantcategory: EnchantmentCategory,
-    override val ICVEnchantapplicableSlots: Array<out EquipmentSlot>
-) : ICVEnchantment(ICVEnchantRarity, ICVEnchantcategory, ICVEnchantapplicableSlots) {
+    ICVEnchantRarity: Rarity,
+    ICVEnchantCategory: EnchantmentCategory,
+    ICVEnchantApplicableSlots: Array<out EquipmentSlot>
+) : ICVEnchantment(ICVEnchantRarity, ICVEnchantCategory, ICVEnchantApplicableSlots) {
     var currentLevel: ServerLevel? = null
 
     override fun doPostAttack(attacker: LivingEntity, target: Entity, level: Int) {
@@ -99,53 +99,65 @@ abstract class WeaponEnchantment(
 
 // Helmets
 
-class BlackHoleEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_HEAD, arrayOf(EquipmentSlot.HEAD)) {
+class BlackHoleEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_HEAD, arrayOf(EquipmentSlot.HEAD)) {
     override fun getManager(player: Player) = BlackHoleManager(player)
 }
 
-class DivineSmiteEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_HEAD, arrayOf(EquipmentSlot.HEAD)) {
+class DivineSmiteEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_HEAD, arrayOf(EquipmentSlot.HEAD)) {
     override fun getManager(player: Player) = DivineSmiteManager(player)
 }
 
-class GlacialImpasseEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_HEAD, arrayOf(EquipmentSlot.HEAD)) {
+class GlacialImpasseEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_HEAD, arrayOf(EquipmentSlot.HEAD)) {
     override fun getManager(player: Player) = GlacialImpasseManager(player)
 }
 
-class GravityWellEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_HEAD, arrayOf(EquipmentSlot.HEAD)) {
+class GravityWellEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_HEAD, arrayOf(EquipmentSlot.HEAD)) {
     override fun getManager(player: Player) = GravityWellManager(player)
 }
 
-class RiftRipperEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_HEAD, arrayOf(EquipmentSlot.HEAD)) {
+class RiftRipperEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_HEAD, arrayOf(EquipmentSlot.HEAD)) {
     override fun getManager(player: Player) = RiftRipperManager(player)
 }
 
-class VolcanoEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_HEAD, arrayOf(EquipmentSlot.HEAD)) {
+class VolcanoEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_HEAD, arrayOf(EquipmentSlot.HEAD)) {
     override fun getManager(player: Player) = VolcanoManager(player)
 }
 
 // Chestplates
 
-class AbyssOmenEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST, arrayOf(EquipmentSlot.CHEST)) {
+class AbyssOmenEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST, arrayOf(EquipmentSlot.CHEST)) {
     override fun getManager(player: Player) = AbyssOmenManager(player)
 }
 
-class ExtinctionEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST, arrayOf(EquipmentSlot.CHEST)) {
+class ExtinctionEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST, arrayOf(EquipmentSlot.CHEST)) {
     override fun getManager(player: Player) = ExtinctionManager(player)
 }
 
-class HauntEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST, arrayOf(EquipmentSlot.CHEST)) {
+class HauntEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST, arrayOf(EquipmentSlot.CHEST)) {
     override fun getManager(player: Player) = HauntManager(player)
 }
 
-class ImmolateEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST, arrayOf(EquipmentSlot.CHEST)) {
+class ImmolateEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST, arrayOf(EquipmentSlot.CHEST)) {
     override fun getManager(player: Player) = ImmolateManager(player)
 }
 
-class MilkyChrysalisEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST, arrayOf(EquipmentSlot.CHEST)) {
+class MilkyChrysalisEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST, arrayOf(EquipmentSlot.CHEST)) {
     override fun getManager(player: Player) = MilkyChrysalisManager(player)
 }
 
-class PlanarShiftEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST, arrayOf(EquipmentSlot.CHEST)) {
+class PlanarShiftEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_CHEST, arrayOf(EquipmentSlot.CHEST)) {
     override fun getManager(player: Player) = PlanarShiftManager(player)
 }
 
@@ -155,23 +167,28 @@ class GaleEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMO
     override fun getManager(player: Player) = GaleManager(player)
 }
 
-class HurricaneEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_LEGS, arrayOf(EquipmentSlot.LEGS)) {
+class HurricaneEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_LEGS, arrayOf(EquipmentSlot.LEGS)) {
     override fun getManager(player: Player) = HurricaneManager(player)
 }
 
-class JudgementEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_LEGS, arrayOf(EquipmentSlot.LEGS)) {
+class JudgementEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_LEGS, arrayOf(EquipmentSlot.LEGS)) {
     override fun getManager(player: Player) = JudgementManager(player)
 }
 
-class TempestEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_LEGS, arrayOf(EquipmentSlot.LEGS)) {
+class TempestEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_LEGS, arrayOf(EquipmentSlot.LEGS)) {
     override fun getManager(player: Player) = TempestManager(player)
 }
 
-class TsunamiEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_LEGS, arrayOf(EquipmentSlot.LEGS)) {
+class TsunamiEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_LEGS, arrayOf(EquipmentSlot.LEGS)) {
     override fun getManager(player: Player) = TsunamiManager(player)
 }
 
-class VoidWakeEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_LEGS, arrayOf(EquipmentSlot.LEGS)) {
+class VoidWakeEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_LEGS, arrayOf(EquipmentSlot.LEGS)) {
     override fun getManager(player: Player) = VoidWakeManager(player)
 }
 
@@ -181,11 +198,13 @@ class BlinkEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARM
     override fun getManager(player: Player) = BlinkManager(player)
 }
 
-class CurbStompEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_FEET, arrayOf(EquipmentSlot.FEET)) {
+class CurbStompEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_FEET, arrayOf(EquipmentSlot.FEET)) {
     override fun getManager(player: Player) = CurbStompManager(player)
 }
 
-class SoulEmberEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_FEET, arrayOf(EquipmentSlot.FEET)) {
+class SoulEmberEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_FEET, arrayOf(EquipmentSlot.FEET)) {
     override fun getManager(player: Player) = SoulEmberManager(player)
 }
 
@@ -193,7 +212,8 @@ class StasisEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.AR
     override fun getManager(player: Player) = StasisManager(player)
 }
 
-class StoneCallerEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_FEET, arrayOf(EquipmentSlot.FEET)) {
+class StoneCallerEnchantment :
+    ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMOR_FEET, arrayOf(EquipmentSlot.FEET)) {
     override fun getManager(player: Player) = StoneCallerManager(player)
 }
 
@@ -203,73 +223,90 @@ class SurfEnchantment : ICVEnchantment(Rarity.UNCOMMON, EnchantmentCategory.ARMO
 
 // Weapons
 
-class CascadeEnchantment : WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
+class CascadeEnchantment :
+    WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
     override fun getManager(player: Player): EnchantmentManager = CascadeManager(player)
 }
 
-class BurstEnchantment : WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
+class BurstEnchantment :
+    WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
     override fun getManager(player: Player): EnchantmentManager = BurstManager(player)
 }
 
-class TungstenCoreEnchantment : WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
+class TungstenCoreEnchantment :
+    WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
     override fun getManager(player: Player): EnchantmentManager = TungstenCoreManager(player)
 }
 
-class FinesseEnchantment : WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
+class FinesseEnchantment :
+    WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
     override fun getManager(player: Player): EnchantmentManager = FinesseManager(player)
 }
 
-class GustEnchantment : WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
+class GustEnchantment :
+    WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
     override fun getManager(player: Player): EnchantmentManager = GustManager(player)
 }
 
-class ViperEnchantment : WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
+class ViperEnchantment :
+    WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
     override fun getManager(player: Player): EnchantmentManager = ViperManager(player)
 }
 
-class CometStrikeEnchantment : WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
+class CometStrikeEnchantment :
+    WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
     override fun getManager(player: Player): EnchantmentManager = CometStrikeManager(player)
 }
 
-class KineticEnchantment : WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
+class KineticEnchantment :
+    WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
     override fun getManager(player: Player): EnchantmentManager = KineticManager(player)
 }
 
-class VolatileEnchantment : WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
+class VolatileEnchantment :
+    WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
     override fun getManager(player: Player): EnchantmentManager = VolatileManager(player)
 }
 
-class MoltenEnchantment : WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
+class MoltenEnchantment :
+    WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
     override fun getManager(player: Player): EnchantmentManager = MoltenManager(player)
 }
 
-class BreakthroughEnchantment : WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
+class BreakthroughEnchantment :
+    WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
     override fun getManager(player: Player): EnchantmentManager = BreakthroughManager(player)
 }
 
-class MeathookEnchantment : WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
+class MeathookEnchantment :
+    WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.WEAPON, arrayOf(EquipmentSlot.MAINHAND)) {
     override fun getManager(player: Player): EnchantmentManager = MeathookManager(player)
 }
 
 // Tridents
 
-class GeyserEnchantment : WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.TRIDENT, arrayOf(EquipmentSlot.MAINHAND)) {
+class GeyserEnchantment :
+    WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.TRIDENT, arrayOf(EquipmentSlot.MAINHAND)) {
     override fun getManager(player: Player): EnchantmentManager = GeyserManager(player)
 }
 
-class WhirlpoolEnchantment : WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.TRIDENT, arrayOf(EquipmentSlot.MAINHAND)) {
+class WhirlpoolEnchantment :
+    WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.TRIDENT, arrayOf(EquipmentSlot.MAINHAND)) {
     override fun getManager(player: Player): EnchantmentManager = WhirlpoolManager(player)
 }
 
-class UpwellEnchantment : WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.TRIDENT, arrayOf(EquipmentSlot.MAINHAND)) {
+class UpwellEnchantment :
+    WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.TRIDENT, arrayOf(EquipmentSlot.MAINHAND)) {
     override fun getManager(player: Player): EnchantmentManager = UpwellManager(player)
 }
 
-class CavitationEnchantment : WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.TRIDENT, arrayOf(EquipmentSlot.MAINHAND)) {
+class CavitationEnchantment :
+    WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.TRIDENT, arrayOf(EquipmentSlot.MAINHAND)) {
     override fun getManager(player: Player): EnchantmentManager = CavitationManager(player)
 }
 
-class UndertowEnchantment : WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.TRIDENT, arrayOf(EquipmentSlot.MAINHAND)) {
+class UndertowEnchantment :
+    WeaponEnchantment(Rarity.UNCOMMON, EnchantmentCategory.TRIDENT, arrayOf(EquipmentSlot.MAINHAND)) {
     override fun getManager(player: Player): EnchantmentManager = UndertowManager(player)
 }
 

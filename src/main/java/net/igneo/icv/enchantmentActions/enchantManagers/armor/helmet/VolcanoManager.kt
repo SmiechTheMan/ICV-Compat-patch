@@ -1,10 +1,10 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.armor.helmet
 
+import net.igneo.icv.Utils.collectEntitiesBox
 import net.igneo.icv.client.indicators.EnchantIndicator
 import net.igneo.icv.client.indicators.StasisCooldownIndicator
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager
-import net.igneo.icv.init.ICVUtils
 import net.minecraft.core.BlockPos
 import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.server.level.ServerLevel
@@ -66,11 +66,11 @@ class VolcanoManager(player: Player?) :
     private fun triggerVolcanoEffect(level: ServerLevel) {
         for (location in selectedLocations) {
             level.sendParticles(
-                ParticleTypes.EXPLOSION, player!!.x, player!!.y, player!!.z,
+                ParticleTypes.EXPLOSION, player.x, player.y, player.z,
                 5, 0.3, 0.3, 0.3, 0.05
             )
 
-            val entities = ICVUtils.collectEntitiesBox(player!!.level(), location.center, VOLCANO_RANGE)
+            val entities = collectEntitiesBox(player.level(), location.center, VOLCANO_RANGE)
 
             for (entity in entities) {
                 if (entity === player) {

@@ -1,9 +1,9 @@
 package net.igneo.icv.entity.weapon.boostCharge
 
+import net.igneo.icv.Utils.collectEntitiesBox
 import net.igneo.icv.entity.ICVEntity
-import net.igneo.icv.init.ICVUtils.collectEntitiesBox
-import net.igneo.icv.networking.ModMessages.sendToPlayer
 import net.igneo.icv.networking.packet.MovePlayerS2CPacket
+import net.igneo.icv.networking.sendToPlayer
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.entity.EntityType

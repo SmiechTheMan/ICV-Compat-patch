@@ -46,11 +46,6 @@ abstract class WeaponEnchantManager protected constructor(
 
     override fun canUse(): Boolean = stableCheck()
 
-    override fun tick() {
-        super.tick()
-        // Custom tick behavior can be added here
-    }
-
     override fun use() {
         if (canUse()) activate()
     }

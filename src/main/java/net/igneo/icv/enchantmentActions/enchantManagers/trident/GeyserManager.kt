@@ -1,9 +1,9 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.trident
 
+import net.igneo.icv.Utils.collectEntitiesBox
 import net.igneo.icv.enchantment.EnchantType
-import net.igneo.icv.init.ICVUtils
-import net.igneo.icv.networking.ModMessages
 import net.igneo.icv.networking.packet.PushPlayerS2CPacket
+import net.igneo.icv.networking.sendToPlayer
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.ThrownTrident
@@ -36,12 +36,12 @@ class GeyserManager(player: Player?) :
 
     private fun doPush(trident: ThrownTrident?) {
         if (canPush) {
-            for (entity in ICVUtils.collectEntitiesBox(player.level(), trident!!.position(), 3.5)) {
+            for (entity in collectEntitiesBox(player.level(), trident!!.position(), 3.5)) {
                 if (entity !== trident) {
                     if (entity is ServerPlayer) {
                         println("pushing the player")
                         entity.addDeltaMovement(Vec3(0.0, 1.0, 0.0))
-                        ModMessages.sendToPlayer(PushPlayerS2CPacket(Vec3(0.0, 1.0, 0.0)), entity)
+                        sendToPlayer(PushPlayerS2CPacket(Vec3(0.0, 1.0, 0.0)), entity)
                     } else {
                         entity.addDeltaMovement(Vec3(0.0, 1.0, 0.0))
                     }

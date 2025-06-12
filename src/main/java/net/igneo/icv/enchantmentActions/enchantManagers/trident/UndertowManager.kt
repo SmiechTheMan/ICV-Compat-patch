@@ -1,8 +1,8 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.trident
 
 import net.igneo.icv.enchantment.EnchantType
-import net.igneo.icv.networking.ModMessages
 import net.igneo.icv.networking.packet.MovePlayerS2CPacket
+import net.igneo.icv.networking.sendToPlayer
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.ThrownTrident
@@ -39,10 +39,12 @@ class UndertowManager(player: Player?) :
             return
         }
         if (active && realeased) {
-            println("""
+            println(
+                """
                     $active
                     $realeased
-                    """.trimIndent())
+                    """.trimIndent()
+            )
         }
         pullPlayer(trident!!)
     }
@@ -71,7 +73,7 @@ class UndertowManager(player: Player?) :
         player.fallDistance = 0.0f
 
         if (player is ServerPlayer) {
-            ModMessages.sendToPlayer(
+            sendToPlayer(
                 MovePlayerS2CPacket(Vec3(playerMovement.x, playerMovement.y, playerMovement.z)),
                 player as ServerPlayer
             )

@@ -1,7 +1,8 @@
 package net.igneo.icv.entity.helmet.divineLightningRod
 
+import net.igneo.icv.entity.ICE_SPIKE
 import net.igneo.icv.entity.ICVEntity
-import net.igneo.icv.entity.ModEntities
+import net.igneo.icv.entity.STONE_PILLAR
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
@@ -133,8 +134,8 @@ class DivineLightningRodEntity(pEntityType: EntityType<out Projectile?>, pLevel:
         private const val LIGHTNING_DAMAGE = 15
         private const val LIGHTNING_RADIUS = 20.0
         private val BLOCKING_ENTITIES: List<EntityType<*>> = listOf<EntityType<*>>(
-            ModEntities.ICE_SPIKE.get(),
-            ModEntities.STONE_PILLAR.get()
+            ICE_SPIKE.get(),
+            STONE_PILLAR.get()
         )
     }
 }

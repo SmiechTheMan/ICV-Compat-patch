@@ -5,8 +5,8 @@ import net.igneo.icv.client.indicators.EnchantIndicator
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.EntityTracker
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager
+import net.igneo.icv.entity.BLACK_HOLE
 import net.igneo.icv.entity.ICVEntity
-import net.igneo.icv.entity.ModEntities
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Player
@@ -39,7 +39,7 @@ class BlackHoleManager(player: Player?) :
 
     override fun activate() {
         if (player.level() is ServerLevel) {
-            child = ModEntities.BLACK_HOLE.get().create(player.level())
+            child = BLACK_HOLE.get().create(player.level())
             child!!.owner = player
             child!!.setPos(player.eyePosition)
             child!!.deltaMovement = player.lookAngle.scale(0.4)

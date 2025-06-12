@@ -1,10 +1,11 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.weapon
 
 import net.igneo.icv.ICV
+import net.igneo.icv.Utils.getFlatDirection
 import net.igneo.icv.enchantment.EnchantType
-import net.igneo.icv.entity.ModEntities
-import net.igneo.icv.init.ICVUtils
-import net.igneo.icv.sound.ModSounds
+import net.igneo.icv.entity.EMBER
+import net.igneo.icv.entity.FIRE_RING
+import net.igneo.icv.sound.PARRY
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundSource
@@ -22,14 +23,14 @@ class MoltenManager(player: Player?) :
                 target!!.extinguishFire()
                 val level = target!!.level()
                 if (level is ServerLevel) {
-                    level.playSound(null, target!!.blockPosition(), ModSounds.PARRY.get(), SoundSource.PLAYERS)
+                    level.playSound(null, target!!.blockPosition(), PARRY.get(), SoundSource.PLAYERS)
 
                     repeat(3) {
-                        val child = ModEntities.EMBER.get().create(player.level())
+                        val child = EMBER.get().create(player.level())
                         child?.let {
                             it.owner = player
                             it.setPos(target!!.eyePosition.subtract(0.0, 1.0, 0.0))
-                            it.deltaMovement = ICVUtils.getFlatDirection(
+                            it.deltaMovement = getFlatDirection(
                                 (Math.random() * 360).toFloat(),
                                 0.2f,
                                 0.3
@@ -47,7 +48,7 @@ class MoltenManager(player: Player?) :
 
     override fun activate() {
         super.activate()
-        val child = ModEntities.FIRE_RING.get().create(player.level())
+        val child = FIRE_RING.get().create(player.level())
         child!!.owner = player
         child.setPos(player.position())
         //child.setDeltaMovement(ICVUtils.getFlatDirection((float) (Math.random()*360),0.2f,0.3f));

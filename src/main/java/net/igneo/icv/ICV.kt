@@ -3,16 +3,16 @@ package net.igneo.icv
 import dev.kosmx.playerAnim.api.layered.IAnimation
 import dev.kosmx.playerAnim.api.layered.ModifierLayer
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationFactory
-import net.igneo.icv.client.EnchantmentHudOverlay
+import net.igneo.icv.client.HUD_ENCHANTMENTS
 import net.igneo.icv.config.ICVClientConfigs
 import net.igneo.icv.config.ICVCommonConfigs
-import net.igneo.icv.enchantment.ModEnchantments.register
-import net.igneo.icv.entity.ModEntities
+import net.igneo.icv.enchantment.registerEnchantments
+import net.igneo.icv.entity.registerEntities
 import net.igneo.icv.entity.registerEntityRenderer
-import net.igneo.icv.networking.ModMessages
-import net.igneo.icv.particle.ModParticles
-import net.igneo.icv.shader.ModShaders
-import net.igneo.icv.sound.ModSounds
+import net.igneo.icv.networking.registerPackets
+import net.igneo.icv.particle.registerParticles
+import net.igneo.icv.shader.registerShaders
+import net.igneo.icv.sound.registerSounds
 import net.minecraft.resources.ResourceLocation
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent
@@ -33,9 +33,7 @@ class ICV {
 
     init {
         val modEventBus = FMLJavaModLoadingContext.get().modEventBus
-
         modEventBus.addListener(this::onCommonSetup)
-
         MinecraftForge.EVENT_BUS.register(this)
 
         ModLoadingContext.get().apply {
@@ -43,14 +41,14 @@ class ICV {
             registerConfig(ModConfig.Type.COMMON, ICVCommonConfigs.spec, "icv-common.toml")
         }
 
-        register(modEventBus)
-        ModParticles.register(modEventBus)
-        ModSounds.register(modEventBus)
-        ModEntities.register(modEventBus)
+        registerEnchantments(modEventBus)
+        registerParticles(modEventBus)
+        registerSounds(modEventBus)
+        registerEntities(modEventBus)
     }
 
     private fun onCommonSetup(event: FMLCommonSetupEvent) {
-        ModMessages.register()
+        registerPackets()
     }
 
     @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = [Dist.CLIENT])
@@ -58,7 +56,7 @@ class ICV {
 
         @SubscribeEvent
         fun onClientSetup(event: FMLClientSetupEvent) {
-            ModShaders.register()
+            registerShaders()
             registerEntityRenderer()
 
             PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
@@ -71,7 +69,7 @@ class ICV {
 
         @SubscribeEvent
         fun onRegisterGuiOverlays(event: RegisterGuiOverlaysEvent) {
-            event.registerAboveAll("enchantments", EnchantmentHudOverlay.HUD_ENCHANTMENTS)
+            event.registerAboveAll("enchantments", HUD_ENCHANTMENTS)
         }
     }
 

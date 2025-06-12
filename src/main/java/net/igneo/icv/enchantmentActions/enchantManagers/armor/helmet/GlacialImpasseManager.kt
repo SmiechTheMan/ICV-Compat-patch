@@ -5,8 +5,9 @@ import net.igneo.icv.client.indicators.StasisCooldownIndicator
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.EntityTracker
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager
+import net.igneo.icv.entity.ICE_SPIKE
+import net.igneo.icv.entity.ICE_SPIKE_SPAWNER
 import net.igneo.icv.entity.ICVEntity
-import net.igneo.icv.entity.ModEntities
 import net.igneo.icv.entity.helmet.glacialImpasse.iceSpike.IceSpikeEntity
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
@@ -20,7 +21,7 @@ class GlacialImpasseManager(player: Player?) :
 
     override fun activate() {
         lifetime = 0
-        iceSpikeSpawner = ModEntities.ICE_SPIKE_SPAWNER.get().create(player.level())
+        iceSpikeSpawner = ICE_SPIKE_SPAWNER.get().create(player.level())
         if (player.level() !is ServerLevel) {
             return
         }
@@ -40,7 +41,8 @@ class GlacialImpasseManager(player: Player?) :
         }
 
         val checkRadius = 1.3
-        val tooClose: Boolean = level.getEntities<IceSpikeEntity>(ModEntities.ICE_SPIKE.get(),
+        val tooClose: Boolean = level.getEntities<IceSpikeEntity>(
+            ICE_SPIKE.get(),
             iceSpikeSpawner!!.boundingBox.inflate(checkRadius)
         ) { spike: IceSpikeEntity? ->
             spike != null &&
@@ -51,12 +53,14 @@ class GlacialImpasseManager(player: Player?) :
             return
         }
 
-        child = ModEntities.ICE_SPIKE.get().create(player.level())
+        child = ICE_SPIKE.get().create(player.level())
         if (child == null) {
             return
         }
 
-        (child as IceSpikeEntity).setPos(iceSpikeSpawner!!.position().add(iceSpikeSpawner!!.position().normalize().scale(-1.0)))
+        (child as IceSpikeEntity).setPos(
+            iceSpikeSpawner!!.position().add(iceSpikeSpawner!!.position().normalize().scale(-1.0))
+        )
         player.level().addFreshEntity(child)
         syncClientChild(player as ServerPlayer, child, this)
 

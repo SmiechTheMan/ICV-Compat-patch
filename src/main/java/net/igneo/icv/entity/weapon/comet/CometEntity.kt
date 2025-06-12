@@ -1,7 +1,8 @@
 package net.igneo.icv.entity.weapon.comet
 
 import net.igneo.icv.entity.ICVEntity
-import net.igneo.icv.sound.ModSounds
+import net.igneo.icv.sound.COMET_HIT
+import net.igneo.icv.sound.PARRY
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.damagesource.DamageSource
@@ -27,8 +28,6 @@ class CometEntity(pEntityType: EntityType<out Projectile?>, pLevel: Level) :
 
     init {
         this.addDeltaMovement(Vec3(0.0, 0.23, 0.0))
-        if (level() is ServerLevel) {
-        }
     }
 
     override fun <E : GeoEntity?> animController(event: AnimationState<E>?): PlayState? {
@@ -64,7 +63,7 @@ class CometEntity(pEntityType: EntityType<out Projectile?>, pLevel: Level) :
         hurtPos = this.position()
         val level = level() as ServerLevel
         if (level() is ServerLevel) {
-            level.playSound(null, this.blockPosition(), ModSounds.PARRY.get(), SoundSource.PLAYERS)
+            level.playSound(null, this.blockPosition(), PARRY.get(), SoundSource.PLAYERS)
         }
         if (pSource.entity != null) {
             this.deltaMovement = pSource.entity!!.lookAngle.normalize().scale(1.0)
@@ -109,7 +108,7 @@ class CometEntity(pEntityType: EntityType<out Projectile?>, pLevel: Level) :
         if (hurt > 0 && hurtTicks < 5) {
             this.setPos(hurtPos)
             if (hurtTicks == 4 && level() is ServerLevel) {
-                level().playSound(null, this.blockPosition(), ModSounds.COMET_HIT.get(), SoundSource.PLAYERS)
+                level().playSound(null, this.blockPosition(), COMET_HIT.get(), SoundSource.PLAYERS)
             }
             ++hurtTicks
         }

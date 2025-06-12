@@ -18,6 +18,7 @@ class BlackHoleEntity(pEntityType: EntityType<out Projectile?>, pLevel: Level) :
     override fun <E : GeoEntity?> animController(event: AnimationState<E>?): PlayState? {
         return event!!.setAndContinue(IDLE_ANIM)
     }
+
     override fun isNoGravity(): Boolean {
         return true
     }

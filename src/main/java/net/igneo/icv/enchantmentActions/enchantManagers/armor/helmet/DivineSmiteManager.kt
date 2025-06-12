@@ -5,8 +5,8 @@ import net.igneo.icv.client.indicators.StasisCooldownIndicator
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.EntityTracker
 import net.igneo.icv.enchantmentActions.enchantManagers.armor.ArmorEnchantManager
+import net.igneo.icv.entity.DIVINE_LIGHTNING_ROD
 import net.igneo.icv.entity.ICVEntity
-import net.igneo.icv.entity.ModEntities
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.EntityType
@@ -30,7 +30,7 @@ class DivineSmiteManager(player: Player?) :
             return
         }
 
-        val lightningRod = ModEntities.DIVINE_LIGHTNING_ROD.get().create(level) ?: return
+        val lightningRod = DIVINE_LIGHTNING_ROD.get().create(level) ?: return
 
         lightningRod.owner = player
 

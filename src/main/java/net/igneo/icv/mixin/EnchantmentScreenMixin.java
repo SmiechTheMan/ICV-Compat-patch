@@ -33,8 +33,6 @@ public class EnchantmentScreenMixin extends AbstractContainerScreen<EnchantmentM
     @Shadow
     private static final ResourceLocation ENCHANTING_BOOK_LOCATION = new ResourceLocation("textures/entity/enchanting_table_book.png");
     @Shadow
-    private BookModel bookModel;
-    @Shadow
     public float flip;
     @Shadow
     public float oFlip;
@@ -46,6 +44,8 @@ public class EnchantmentScreenMixin extends AbstractContainerScreen<EnchantmentM
     public float open;
     @Shadow
     public float oOpen;
+    @Shadow
+    private BookModel bookModel;
     
     public EnchantmentScreenMixin(EnchantmentMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);

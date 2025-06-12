@@ -1,11 +1,11 @@
 package net.igneo.icv.enchantmentActions.enchantManagers.weapon
 
 import net.igneo.icv.ICV
+import net.igneo.icv.Utils.getFlatDirection
 import net.igneo.icv.enchantment.EnchantType
 import net.igneo.icv.enchantmentActions.EntityTracker
 import net.igneo.icv.entity.ICVEntity
-import net.igneo.icv.entity.ModEntities
-import net.igneo.icv.init.ICVUtils
+import net.igneo.icv.entity.SNAKE_BITE
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
@@ -27,10 +27,10 @@ class ViperManager(player: Player?) :
         super.activate()
         val level = player.level()
         if (player.level() is ServerLevel) {
-            child = ModEntities.SNAKE_BITE.get().create(player.level())
+            child = SNAKE_BITE.get().create(player.level())
             child!!.owner = player
             child!!.setPos(player.eyePosition.subtract(0.0, 1.0, 0.0))
-            child!!.deltaMovement = ICVUtils.getFlatDirection(player.yRot, 1f, 0.0)
+            child!!.deltaMovement = getFlatDirection(player.yRot, 1f, 0.0)
             child?.let { level.addFreshEntity(it) }
             syncClientChild(player as ServerPlayer, child, this)
             nullCheck = true
