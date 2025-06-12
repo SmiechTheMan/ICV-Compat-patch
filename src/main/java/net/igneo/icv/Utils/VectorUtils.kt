@@ -2,6 +2,9 @@ package net.igneo.icv.Utils
 
 import net.igneo.icv.enchantmentActions.Input
 import net.igneo.icv.enchantmentActions.Input.Companion.getRotation
+import net.igneo.icv.enchantmentActions.enchantManagers.armor.chestplate.raycastHits
+import net.minecraft.core.BlockPos
+import net.minecraft.core.Vec3i
 import net.minecraft.world.level.ClipContext
 import net.minecraft.world.level.Level
 import net.minecraft.world.phys.HitResult
@@ -21,7 +24,7 @@ fun getFlatDirection(rot: Float, scale: Float, yVelocity: Double): Vec3 {
 }
 
 fun raycastGround(world: Level, start: Vec3, direction: Vec3, maxDistance: Double): HitResult? {
-    if (world.isClientSide) return null // Server-side only
+    if (world.isClientSide) return null
 
     val end = start.add(direction.normalize().scale(maxDistance))
 
@@ -35,6 +38,20 @@ fun raycastGround(world: Level, start: Vec3, direction: Vec3, maxDistance: Doubl
 
     return world.clip(context)
 }
+
+/*
+fun storeRaycastHit(world: Level, start: Vec3, direction: Vec3, maxDistance: Double, key: Int) {
+    val result = raycastGround(world, start, direction, maxDistance)
+
+    if (result != null && result.type == HitResult.Type.BLOCK) {
+        val hitPos = BlockPos(result.location as Vec3i)
+        raycastHits[key] = hitPos
+        println("Stored hit '$key' at: $hitPos")
+    } else {
+        println("No block hit for key: $key")
+    }
+}
+ */
 
 val DOWN_VECTOR = Vec3(0.0, -1.0, 0.0)
 val UP_VECTOR = Vec3(0.0, 1.0, 0.0)
