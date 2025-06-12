@@ -38,19 +38,19 @@ class BlackHoleManager(player: Player?) :
     }
 
     override fun activate() {
-        if (player!!.level() is ServerLevel) {
-            child = ModEntities.BLACK_HOLE.get().create(player!!.level())
+        if (player.level() is ServerLevel) {
+            child = ModEntities.BLACK_HOLE.get().create(player.level())
             child!!.owner = player
-            child!!.setPos(player!!.eyePosition)
-            child!!.deltaMovement = player!!.lookAngle.scale(0.4)
-            player!!.level().addFreshEntity(child)
+            child!!.setPos(player.eyePosition)
+            child!!.deltaMovement = player.lookAngle.scale(0.4)
+            player.level().addFreshEntity(child)
             syncClientChild(player as ServerPlayer, child, this)
         }
     }
 
     override fun dualActivate() {
-        if (child != null && player!!.level() is ServerLevel) {
-            val pushVec = Vec3((player!!.x - child!!.x), ((player!!.eyeY - 0.5) - child!!.y), (player!!.z - child!!.z))
+        if (child != null && player.level() is ServerLevel) {
+            val pushVec = Vec3((player.x - child!!.x), ((player.eyeY - 0.5) - child!!.y), (player.z - child!!.z))
             if (child!!.deltaMovement.length() < 0.3) {
                 child!!.addDeltaMovement(pushVec.normalize().scale(0.1))
             } else {

@@ -23,16 +23,16 @@ class ImmolateManager(player: Player?) :
         get() = StasisCooldownIndicator(this)
 
     override fun activate() {
-        val level = player!!.level()
-        if (player!!.level() !is ServerLevel) {
+        val level = player.level()
+        if (player.level() !is ServerLevel) {
             return
         }
         level.playSound(
-            null, player!!.x, player!!.y, player!!.z,
+            null, player.x, player.y, player.z,
             SoundEvents.BLAZE_SHOOT, SoundSource.PLAYERS, 1.0f, 0.8f
         )
 
-        val entities = ICVUtils.collectEntitiesBox(player!!.level(), player!!.position(), IMMOLATE_RADIUS)
+        val entities = ICVUtils.collectEntitiesBox(player.level(), player.position(), IMMOLATE_RADIUS)
 
         for (entity in entities) {
             if (entity === player) {
@@ -53,8 +53,8 @@ class ImmolateManager(player: Player?) :
     override fun tick() {
         super.tick()
 
-        val level = player?.level() as ServerLevel
-        if (player!!.level() !is ServerLevel) {
+        val level = player.level() as ServerLevel
+        if (player.level() !is ServerLevel) {
             return
         }
 
@@ -114,7 +114,7 @@ class ImmolateManager(player: Player?) :
             15, 0.5, 0.5, 0.5, 0.1
         )
 
-        val nearbyEntities = ICVUtils.collectEntitiesBox(player!!.level(), position, IMMOLATE_RADIUS)
+        val nearbyEntities = ICVUtils.collectEntitiesBox(player.level(), position, IMMOLATE_RADIUS)
 
         for (nearbyEntity in nearbyEntities) {
             nearbyEntity.hurt(level.damageSources().explosion(player, null), 1f)
@@ -123,7 +123,7 @@ class ImmolateManager(player: Player?) :
 
             var knockbackStrength = 1.5
 
-            if (!player!!.onGround()) {
+            if (!player.onGround()) {
                 knockbackStrength = 0.8
             }
 

@@ -38,12 +38,12 @@ class SoulEmberManager(player: Player?) :
     }
 
     override fun activate() {
-        if (player!!.level() is ServerLevel) {
-            child = ModEntities.SOUL_EMBER.get().create(player!!.level())
+        if (player.level() is ServerLevel) {
+            child = ModEntities.SOUL_EMBER.get().create(player.level())
             child!!.owner = player
-            child!!.setPos(player!!.eyePosition.subtract(0.0, 0.7, 0.0))
-            child!!.deltaMovement = ICVUtils.getFlatDirection(player!!.yRot, 2f, 0.0)
-            player!!.level().addFreshEntity(child!!)
+            child!!.setPos(player.eyePosition.subtract(0.0, 0.7, 0.0))
+            child!!.deltaMovement = ICVUtils.getFlatDirection(player.yRot, 2f, 0.0)
+            player.level().addFreshEntity(child!!)
             syncClientChild(player as ServerPlayer, child, this)
         }
     }

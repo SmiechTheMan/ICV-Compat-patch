@@ -25,8 +25,8 @@ class DivineSmiteManager(player: Player?) :
         get() = StasisCooldownIndicator(this)
 
     override fun activate() {
-        val level = player!!.level()
-        if (player!!.level() !is ServerLevel) {
+        val level = player.level()
+        if (player.level() !is ServerLevel) {
             return
         }
 
@@ -34,7 +34,7 @@ class DivineSmiteManager(player: Player?) :
 
         lightningRod.owner = player
 
-        val hitResult = player!!.pick(RANGE.toDouble(), 0f, false)
+        val hitResult = player.pick(RANGE.toDouble(), 0f, false)
 
         if (hitResult.type != HitResult.Type.BLOCK) {
             return
@@ -46,9 +46,9 @@ class DivineSmiteManager(player: Player?) :
         lightningRod.setPos(position.x, position.y, position.z)
 
         val immuneEntities: MutableList<EntityType<*>> = ArrayList()
-        immuneEntities.add(player!!.type)
+        immuneEntities.add(player.type)
 
-        player!!.level().addFreshEntity(lightningRod)
+        player.level().addFreshEntity(lightningRod)
 
         child = lightningRod
 

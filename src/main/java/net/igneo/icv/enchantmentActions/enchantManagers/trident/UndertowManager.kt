@@ -39,27 +39,25 @@ class UndertowManager(player: Player?) :
             return
         }
         if (active && realeased) {
-            println(
-                """
+            println("""
                     $active
                     $realeased
-                    """.trimIndent()
-            )
+                    """.trimIndent())
         }
         pullPlayer(trident!!)
     }
 
     private fun pullPlayer(trident: ThrownTrident) {
-        val xDiff = trident.x - player!!.x
-        val yDiff = trident.y - player!!.y
-        val zDiff = trident.z - player!!.z
+        val xDiff = trident.x - player.x
+        val yDiff = trident.y - player.y
+        val zDiff = trident.z - player.z
 
         val distance = sqrt(xDiff * xDiff + yDiff * yDiff + zDiff * zDiff)
 
         val playerMovement = Vec3(
-            player!!.deltaMovement.x + (xDiff / distance),
-            player!!.deltaMovement.y + (yDiff / distance),
-            player!!.deltaMovement.z + (zDiff / distance)
+            player.deltaMovement.x + (xDiff / distance),
+            player.deltaMovement.y + (yDiff / distance),
+            player.deltaMovement.z + (zDiff / distance)
         )
 
         if (distance < 3.0) {
@@ -68,9 +66,9 @@ class UndertowManager(player: Player?) :
             return
         }
 
-        player!!.deltaMovement = playerMovement
+        player.deltaMovement = playerMovement
 
-        player!!.fallDistance = 0.0f
+        player.fallDistance = 0.0f
 
         if (player is ServerPlayer) {
             ModMessages.sendToPlayer(

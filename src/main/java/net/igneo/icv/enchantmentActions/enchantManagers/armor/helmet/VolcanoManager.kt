@@ -18,7 +18,7 @@ class VolcanoManager(player: Player?) :
     override fun activate() {
         if (selectedLocations.size < MAX_LOCATIONS) {
             resetCoolDown()
-            val hitResult = player!!.pick(20.0, 0f, false)
+            val hitResult = player.pick(20.0, 0f, false)
 
             if (hitResult.type == HitResult.Type.BLOCK) {
                 val blockHitResult = hitResult as BlockHitResult
@@ -45,8 +45,8 @@ class VolcanoManager(player: Player?) :
 
     override fun dualActivate() {
         resetCoolDown()
-        val level = player!!.level() as ServerLevel
-        if (player!!.level() !is ServerLevel) {
+        val level = player.level() as ServerLevel
+        if (player.level() !is ServerLevel) {
             return
         }
         if (selectedLocations.size == MAX_LOCATIONS) {

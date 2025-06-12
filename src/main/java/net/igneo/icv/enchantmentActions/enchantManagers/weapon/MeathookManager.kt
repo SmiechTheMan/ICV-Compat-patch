@@ -8,7 +8,11 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.Vec3
 
 class MeathookManager(player: Player?) :
-    WeaponEnchantManager(EnchantType.WEAPON, player, ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross")) {
+    WeaponEnchantManager(
+        EnchantType.WEAPON,
+        player!!,
+        ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross")
+    ) {
     private val meat = HashMap<Entity, Int>()
 
     override fun onAttack(entity: Entity?) {

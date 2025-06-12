@@ -23,7 +23,6 @@ import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.world.entity.EntityType
 import net.minecraftforge.registries.RegistryObject
 
-object ModEntityRenderers {
     private fun <T : ICVEntity?> registerRenderer(
         entity: RegistryObject<EntityType<T>>,
         renderer: EntityRendererProvider<T>
@@ -31,7 +30,7 @@ object ModEntityRenderers {
         EntityRenderers.register(entity.get(), renderer)
     }
 
-    fun register() {
+    fun registerEntityRenderer() {
         registerRenderer(ModEntities.COMET) { renderManager: EntityRendererProvider.Context? -> CometRenderer(renderManager!!) }
         registerRenderer(ModEntities.EMBER) { renderManager: EntityRendererProvider.Context? -> EmberRenderer(renderManager!!) }
         registerRenderer(ModEntities.FIRE_RING) { renderManager: EntityRendererProvider.Context? -> FireRingRenderer(renderManager!!) }
@@ -51,4 +50,3 @@ object ModEntityRenderers {
         registerRenderer(ModEntities.DIVINE_LIGHTNING_ROD) { renderManager: EntityRendererProvider.Context? -> DivineLightningRodRenderer(renderManager!!) }
         registerRenderer(ModEntities.BOOST_CHARGE) { renderManager: EntityRendererProvider.Context? -> BoostChargeRenderer(renderManager!!) }
     }
-}

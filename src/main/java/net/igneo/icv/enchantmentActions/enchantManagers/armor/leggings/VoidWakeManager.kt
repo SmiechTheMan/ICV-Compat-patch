@@ -20,7 +20,7 @@ class VoidWakeManager(player: Player?) :
     private val spikes = ArrayList<VoidSpikeEntity>()
 
     override fun activate() {
-        println("activating on the " + player!!.level())
+        println("activating on the " + player.level())
         active = true
     }
 
@@ -33,11 +33,11 @@ class VoidWakeManager(player: Player?) :
     override fun tick() {
         super.tick()
         if (active) {
-            val level = player!!.level()
-            if (activeTicks > storedtick + (if (removing) 10 else 20) && player!!.level() is ServerLevel) {
+            val level = player.level()
+            if (activeTicks > storedtick + (if (removing) 10 else 20) && player.level() is ServerLevel) {
                 if (!removing) {
                     val entity = ModEntities.VOID_SPIKE.get().create(level)
-                    entity!!.setPos(player!!.position())
+                    entity!!.setPos(player.position())
                     entity.owner = player
                     level.addFreshEntity(entity)
                     spikes.add(entity)
@@ -62,9 +62,9 @@ class VoidWakeManager(player: Player?) :
 
     override fun dualActivate() {
         super.dualActivate()
-        if (player!!.level() is ServerLevel) {
-            val hitResult = player!!.pick(30.0, 0f, false)
-            var position = player!!.position().add(player!!.lookAngle.scale(2.0))
+        if (player.level() is ServerLevel) {
+            val hitResult = player.pick(30.0, 0f, false)
+            var position = player.position().add(player.lookAngle.scale(2.0))
             if (hitResult.type == HitResult.Type.BLOCK) {
                 val blockHitResult = hitResult as BlockHitResult
                 position = blockHitResult.location

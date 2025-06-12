@@ -48,20 +48,24 @@ object ICVUtils {
         return Vec3(x * scale, yVelocity, z * scale)
     }
 
-    fun <T : EnchantmentManager?> getManagerForType(player: Player, desiredManager: Class<T>): EnchantmentManager? {
-        val returnManager = AtomicReference<T?>(null)
-        player.getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS)
-            .ifPresent { enchVar: PlayerEnchantmentActions ->
-                for (manager in enchVar.managers) {
-                    println("testing manager: $manager for type: $desiredManager")
-                    if (manager != null && manager.javaClass == desiredManager) {
-                        println("returning the manager")
-                        returnManager.set(manager as T)
+    object GetManagerForType{
+        @JvmStatic
+        fun <T : EnchantmentManager?> getManagerForType(player: Player, desiredManager: Class<T>): EnchantmentManager? {
+            val returnManager = AtomicReference<T?>(null)
+            player.getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS)
+                .ifPresent { enchVar: PlayerEnchantmentActions ->
+                    for (manager in enchVar.managers) {
+                        println("testing manager: $manager for type: $desiredManager")
+                        if (manager != null && manager.javaClass == desiredManager) {
+                            println("returning the manager")
+                            returnManager.set(manager as T)
+                        }
                     }
                 }
-            }
-        return returnManager.get()
+            return returnManager.get()
+        }
     }
+
 
     fun <T : EnchantmentManager?> getSlotForType(player: Player, desiredManager: Class<T>): Int {
         val slot = AtomicInteger(-1)

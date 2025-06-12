@@ -21,9 +21,9 @@ class StoneCallerManager(player: Player?) :
 
     override fun activate() {
 
-        val level = player!!.level()
-        if (player!!.level() is ServerLevel) {
-            val hitResult = player!!.pick(20.0, 0f, false)
+        val level = player.level()
+        if (player.level() is ServerLevel) {
+            val hitResult = player.pick(20.0, 0f, false)
 
             if (hitResult.type == HitResult.Type.BLOCK) {
                 val blockHitResult = hitResult as BlockHitResult

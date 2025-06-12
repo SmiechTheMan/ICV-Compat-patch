@@ -19,36 +19,40 @@ import kotlin.math.sin
 import kotlin.math.tan
 
 class GustManager(player: Player?) :
-    WeaponEnchantManager(EnchantType.WEAPON, player, ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross")) {
+    WeaponEnchantManager(
+        EnchantType.WEAPON,
+        player!!,
+        ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross")
+    ) {
     override fun activate() {
         super.activate()
         if (System.currentTimeMillis() < gustDelay + GUST_COOLDOWN) {
             return
         }
 
-        val level = player!!.level()
-        if (player!!.level() !is ServerLevel) {
+        val level = player.level()
+        if (player.level() !is ServerLevel) {
             return
         }
-        level.playSound(null, player!!.blockPosition(), ModSounds.GUST.get(), SoundSource.PLAYERS, 0.5f, 1.2f)
+        level.playSound(null, player.blockPosition(), ModSounds.GUST.get(), SoundSource.PLAYERS, 0.5f, 1.2f)
 
         val radius = 5.0
         val halfAngleDegrees = 45.0
         val cosThreshold = cos(Math.toRadians(halfAngleDegrees))
 
-        val playerLook = player!!.lookAngle.normalize()
+        val playerLook = player.lookAngle.normalize()
 
-        renderConeHitbox(level as ServerLevel, player!!, playerLook, radius, halfAngleDegrees)
+        renderConeHitbox(level as ServerLevel, player, playerLook, radius, halfAngleDegrees)
 
         val nearbyEntities: List<Entity> = level.getEntities(player,
-            player!!.boundingBox.inflate(radius)
+            player.boundingBox.inflate(radius)
         ) { entity: Entity -> entity !== player }
 
         for (entity in nearbyEntities) {
             val toEntity = Vec3(
-                entity.x - player!!.x,
-                entity.y - player!!.y,
-                entity.z - player!!.z
+                entity.x - player.x,
+                entity.y - player.y,
+                entity.z - player.z
             )
             val distance = toEntity.length()
             if (distance >= radius) {

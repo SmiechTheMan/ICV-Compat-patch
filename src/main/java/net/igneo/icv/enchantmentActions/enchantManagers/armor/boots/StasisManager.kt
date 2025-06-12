@@ -19,7 +19,7 @@ class StasisManager(player: Player?) :
 
     override fun activate() {
         println("activating")
-        for (entity in player!!.level().getEntities(null, player!!.boundingBox.inflate(20.0))) {
+        for (entity in player.level().getEntities(null, player.boundingBox.inflate(20.0))) {
             if (entity !is LivingEntity && !blackList.contains(entity)) {
                 entityData[entity] = StasisEntityDataManager(Vec3.ZERO, entity.position(), entity.yRot, entity.xRot)
             }

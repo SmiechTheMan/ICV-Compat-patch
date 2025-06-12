@@ -14,12 +14,12 @@ import net.minecraft.world.entity.player.Player
 class TsunamiManager(player: Player?) :
     ArmorEnchantManager(EnchantType.LEGGINGS, 300, -10, false, player) {
     override fun activate() {
-        val level = player!!.level()
-        if (player!!.level() is ServerLevel) {
+        val level = player.level()
+        if (player.level() is ServerLevel) {
             for (i in 8 downTo 1) {
                 val rot = getRotation(getInput(i)).toFloat()
                 val entity = ModEntities.WAVE.get().create(level)
-                entity!!.setPos(player!!.position().add(ICVUtils.getFlatDirection(rot, 2f, 0.0)))
+                entity!!.setPos(player.position().add(ICVUtils.getFlatDirection(rot, 2f, 0.0)))
                 entity.setTrajectory(ICVUtils.getFlatDirection(rot, 1f, 0.0))
                 level.addFreshEntity(entity)
             }

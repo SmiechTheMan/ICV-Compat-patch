@@ -22,7 +22,7 @@ class WhirlpoolManager(player: Player?) :
         if (!canPull) {
             return
         }
-        for (entity in ICVUtils.collectEntitiesBox(player!!.level(), trident.position(), 3.5)) {
+        for (entity in ICVUtils.collectEntitiesBox(player.level(), trident.position(), 3.5)) {
             if (entity === trident || entity === player) {
                 continue
             }

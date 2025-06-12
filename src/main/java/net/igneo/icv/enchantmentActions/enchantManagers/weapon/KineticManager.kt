@@ -10,7 +10,11 @@ import net.minecraft.world.entity.player.Player
 import java.util.*
 
 class KineticManager(player: Player?) :
-    WeaponEnchantManager(EnchantType.WEAPON, player, ResourceLocation(ICV.MOD_ID, "kinetic")) {
+    WeaponEnchantManager(
+        EnchantType.WEAPON,
+        player!!,
+        ResourceLocation(ICV.MOD_ID, "kinetic")
+    ) {
     private var kineticChargeCount = 0
     private var kineticTimer = 0
     private var damageBoostActive = false
@@ -20,7 +24,7 @@ class KineticManager(player: Player?) :
         kineticTimer = 0
 
         val speedBonus = 0.25 * kineticChargeCount
-        player!!.attributes.getInstance(Attributes.MOVEMENT_SPEED)
+        player.attributes.getInstance(Attributes.MOVEMENT_SPEED)
             ?.addTransientModifier(
                 AttributeModifier(
                     SPEED_MODIFIER_UUID,
@@ -38,10 +42,10 @@ class KineticManager(player: Player?) :
     override fun activate() {
         if (kineticChargeCount > 0) {
             val bonusDamage = kineticChargeCount * 1.5
-            player!!.attributes.getInstance(Attributes.MOVEMENT_SPEED)!!.removeModifier(
+            player.attributes.getInstance(Attributes.MOVEMENT_SPEED)!!.removeModifier(
                 SPEED_MODIFIER_UUID
             )
-            player!!.attributes
+            player.attributes
                 .getInstance(Attributes.ATTACK_DAMAGE)!!
                 .addTransientModifier(
                     AttributeModifier(
@@ -72,10 +76,10 @@ class KineticManager(player: Player?) :
         kineticChargeCount = 0
         kineticTimer = 0
         damageBoostActive = false
-        player!!.attributes.getInstance(Attributes.MOVEMENT_SPEED)!!.removeModifier(
+        player.attributes.getInstance(Attributes.MOVEMENT_SPEED)!!.removeModifier(
             SPEED_MODIFIER_UUID
         )
-        player!!.attributes.getInstance(Attributes.ATTACK_DAMAGE)!!.removeModifier(
+        player.attributes.getInstance(Attributes.ATTACK_DAMAGE)!!.removeModifier(
             DAMAGE_MODIFIER_UUID
         )
     }

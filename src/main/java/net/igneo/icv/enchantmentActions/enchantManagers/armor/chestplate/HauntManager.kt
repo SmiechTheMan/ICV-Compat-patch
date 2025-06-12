@@ -18,12 +18,12 @@ class HauntManager(player: Player?) :
     private var nullCheck = false
 
     override fun activate() {
-        val level = player!!.level()
-        if (player!!.level() is ServerLevel) {
-            child = ModEntities.SOUL_ORB.get().create(player!!.level())
+        val level = player.level()
+        if (player.level() is ServerLevel) {
+            child = ModEntities.SOUL_ORB.get().create(player.level())
             child!!.owner = player
-            child!!.setPos(player!!.eyePosition.subtract(0.0, 1.0, 0.0))
-            child!!.deltaMovement = ICVUtils.getFlatDirection(player!!.yRot, 1f, 0.0)
+            child!!.setPos(player.eyePosition.subtract(0.0, 1.0, 0.0))
+            child!!.deltaMovement = ICVUtils.getFlatDirection(player.yRot, 1f, 0.0)
             level.addFreshEntity(child)
             syncClientChild(player as ServerPlayer, child, this)
             nullCheck = true
@@ -41,7 +41,7 @@ class HauntManager(player: Player?) :
     }
 
     override fun dualActivate() {
-        child!!.setPos(player!!.eyePosition)
+        child!!.setPos(player.eyePosition)
     }
 
     override var isDualUse: Boolean

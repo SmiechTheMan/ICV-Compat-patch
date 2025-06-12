@@ -22,15 +22,19 @@ import kotlin.math.ln
 import kotlin.math.sin
 
 class BurstManager(player: Player?) :
-    WeaponEnchantManager(EnchantType.WEAPON, player, ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross")) {
+    WeaponEnchantManager(
+        EnchantType.WEAPON,
+        player!!,
+        ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross")
+    ) {
     private var burstBoostCount = 0
     private var burstTimer = 0
 
     override fun onAttack(entity: Entity?) {
         super.onAttack(target)
-        player!!.getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS)
+        player.getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS)
             .ifPresent {
-                if (player!!.fallDistance <= 0) {
+                if (player.fallDistance <= 0) {
                     ++burstBoostCount
                 } else {
                     ++burstBoostCount
@@ -41,14 +45,14 @@ class BurstManager(player: Player?) :
                 val level = target!!.level()
                 if (target!!.level() is ServerLevel) {
                     level.playSound(
-                        null, player!!.blockPosition(),
+                        null, player.blockPosition(),
                         SoundEvents.ARROW_HIT_PLAYER,
                         SoundSource.PLAYERS,
                         0.5f, 0.3.toFloat() + burstBoostCount.toFloat() * 0.1f
                     )
-                    player!!.attributes.getInstance(Attributes.ATTACK_SPEED)!!
+                    player.attributes.getInstance(Attributes.ATTACK_SPEED)!!
                         .removeModifier(ATTACK_SPEED_MODIFIER_UUID)
-                    player!!.attributes.getInstance(Attributes.ATTACK_SPEED)!!
+                    player.attributes.getInstance(Attributes.ATTACK_SPEED)!!
                         .addTransientModifier(
                             AttributeModifier(
                                 ATTACK_SPEED_MODIFIER_UUID,
@@ -66,8 +70,8 @@ class BurstManager(player: Player?) :
 
 
         val level = target!!.level()
-        if (player!!.level() is ServerLevel) {
-            level.playSound(null, player!!.blockPosition(), ModSounds.GUST.get(), SoundSource.PLAYERS, 0.5f, 1.2f)
+        if (player.level() is ServerLevel) {
+            level.playSound(null, player.blockPosition(), ModSounds.GUST.get(), SoundSource.PLAYERS, 0.5f, 1.2f)
 
             val radius = 2.0
             val pushStrength = 2.5f
@@ -75,17 +79,17 @@ class BurstManager(player: Player?) :
 
             val burstBoostDecay = ln(burstBoostCount.toDouble()).toFloat()
 
-            renderRadius(level as ServerLevel, player!!.position(), radius * burstBoostDecay)
+            renderRadius(level as ServerLevel, player.position(), radius * burstBoostDecay)
 
             val nearbyEntities: List<Entity> = level.getEntities(player,
-                player!!.boundingBox.inflate(radius * burstBoostDecay)
+                player.boundingBox.inflate(radius * burstBoostDecay)
             ) { entity: Entity -> entity !== player }
 
             for (entity in nearbyEntities) {
                 val direction = Vec3(
-                    entity.x - player!!.x,
-                    entity.y - player!!.y,
-                    entity.z - player!!.z
+                    entity.x - player.x,
+                    entity.y - player.y,
+                    entity.z - player.z
                 ).normalize()
 
                 val pushVelocity = direction.scale((pushStrength * burstBoostDecay).toDouble())
@@ -127,13 +131,13 @@ class BurstManager(player: Player?) :
                 burstTimer = 0
                 burstBoostCount = 0
                 val level = target!!.level()
-                if (player?.level() is ServerLevel) {
-                    player!!.attributes
+                if (player.level() is ServerLevel) {
+                    player.attributes
                         .getInstance(Attributes.ATTACK_SPEED)!!
                         .removeModifier(ATTACK_SPEED_MODIFIER_UUID)
                     level.playSound(
                         null,
-                        player!!.blockPosition(),
+                        player.blockPosition(),
                         SoundEvents.CREEPER_DEATH,
                         SoundSource.PLAYERS,
                         4f,

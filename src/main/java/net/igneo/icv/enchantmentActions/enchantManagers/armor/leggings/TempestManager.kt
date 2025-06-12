@@ -10,8 +10,8 @@ import net.minecraft.world.entity.player.Player
 class TempestManager(player: Player?) :
     ArmorEnchantManager(EnchantType.LEGGINGS, 300, -10, false, player) {
     override fun activate() {
-        if (player!!.level().isClientSide) {
-            player!!.deltaMovement = ICVUtils.getFlatInputDirection(player!!.yRot, enchVar!!.input, 1.5f, 0.5)
+        if (player.level().isClientSide) {
+            player.deltaMovement = ICVUtils.getFlatInputDirection(player.yRot, enchVar!!.input, 1.5f, 0.5)
         }
     }
 

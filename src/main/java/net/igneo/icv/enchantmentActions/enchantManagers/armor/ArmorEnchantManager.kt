@@ -108,18 +108,18 @@ abstract class ArmorEnchantManager protected constructor(
     }
 
     fun payBloodCost(): Boolean {
-        if (player!!.isCreative) {
+        if (player.isCreative) {
             return false
         }
-        val health = player!!.maxHealth * 0.5f
+        val health = player.maxHealth * 0.5f
         val coolDownPercent = (coolDown.toFloat() / maxCoolDown) + 2
         val cost = health * coolDownPercent
-        if (player!!.health > cost) {
+        if (player.health > cost) {
 
-            val level = player!!.level()
-            if (player!!.level() is ServerLevel) {
+            val level = player.level()
+            if (player.level() is ServerLevel) {
                 val damageSource: DamageSource = level.damageSources().magic()
-                player!!.hurt(damageSource, cost)
+                player.hurt(damageSource, cost)
             }
             return true
         }

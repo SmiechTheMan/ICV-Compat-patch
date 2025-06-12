@@ -19,7 +19,11 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 class TungstenCoreManager(player: Player?) :
-    WeaponEnchantManager(EnchantType.WEAPON, player, ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross")) {
+    WeaponEnchantManager(
+        EnchantType.WEAPON,
+        player!!,
+        ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross")
+    ) {
     override fun onEquip() {
         super.onEquip()
         applyPassive()
@@ -32,7 +36,7 @@ class TungstenCoreManager(player: Player?) :
 
     override fun applyPassive() {
         super.applyPassive()
-        player!!.attributes.getInstance(Attributes.ATTACK_KNOCKBACK)!!.addTransientModifier(
+        player.attributes.getInstance(Attributes.ATTACK_KNOCKBACK)!!.addTransientModifier(
             AttributeModifier(
                 KNOCKBACK_MODIFIER_UUID,
                 "Tungsten Core Knockback boost",
@@ -44,7 +48,7 @@ class TungstenCoreManager(player: Player?) :
 
     override fun removePassive() {
         super.removePassive()
-        player!!.attributes.getInstance(Attributes.ATTACK_KNOCKBACK)!!.removeModifier(
+        player.attributes.getInstance(Attributes.ATTACK_KNOCKBACK)!!.removeModifier(
             KNOCKBACK_MODIFIER_UUID
         )
     }
@@ -53,18 +57,18 @@ class TungstenCoreManager(player: Player?) :
         super.activate()
 
         val level = target!!.level()
-        if (player!!.level() is ServerLevel) {
+        if (player.level() is ServerLevel) {
             val radius = 3.0f
             val pushStrength = 3.5f
 
-            renderRadius(level as ServerLevel, player!!.position(), radius)
+            renderRadius(level as ServerLevel, player.position(), radius)
 
             val nearbyEntities: List<Entity> = level.getEntities(player,
-                player!!.boundingBox.inflate(radius.toDouble())
+                player.boundingBox.inflate(radius.toDouble())
             ) { entity: Entity -> entity !== player }
 
             for (entity in nearbyEntities) {
-                val direction = entity.position().subtract(player!!.position()).normalize()
+                val direction = entity.position().subtract(player.position()).normalize()
 
                 val pushVelocity = direction.scale(pushStrength.toDouble())
                 entity.addDeltaMovement(pushVelocity)

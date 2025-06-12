@@ -20,13 +20,13 @@ class GlacialImpasseManager(player: Player?) :
 
     override fun activate() {
         lifetime = 0
-        iceSpikeSpawner = ModEntities.ICE_SPIKE_SPAWNER.get().create(player!!.level())
-        if (player!!.level() !is ServerLevel) {
+        iceSpikeSpawner = ModEntities.ICE_SPIKE_SPAWNER.get().create(player.level())
+        if (player.level() !is ServerLevel) {
             return
         }
         iceSpikeSpawner!!.owner = player
-        iceSpikeSpawner!!.setPos(player!!.eyePosition.add(player!!.getViewVector(1.0f).normalize()))
-        player!!.level().addFreshEntity(iceSpikeSpawner)
+        iceSpikeSpawner!!.setPos(player.eyePosition.add(player.getViewVector(1.0f).normalize()))
+        iceSpikeSpawner?.let { player.level().addFreshEntity(it) }
         syncClientChild(player as ServerPlayer, iceSpikeSpawner, this)
 
         active = true
@@ -34,8 +34,8 @@ class GlacialImpasseManager(player: Player?) :
 
     override fun tick() {
         super.tick()
-        val level = player!!.level()
-        if (iceSpikeSpawner == null || player!!.level() !is ServerLevel) {
+        val level = player.level()
+        if (iceSpikeSpawner == null || player.level() !is ServerLevel) {
             return
         }
 
@@ -51,13 +51,13 @@ class GlacialImpasseManager(player: Player?) :
             return
         }
 
-        child = ModEntities.ICE_SPIKE.get().create(player!!.level())
+        child = ModEntities.ICE_SPIKE.get().create(player.level())
         if (child == null) {
             return
         }
 
         (child as IceSpikeEntity).setPos(iceSpikeSpawner!!.position().add(iceSpikeSpawner!!.position().normalize().scale(-1.0)))
-        player!!.level().addFreshEntity(child)
+        player.level().addFreshEntity(child)
         syncClientChild(player as ServerPlayer, child, this)
 
         if (lifetime < 200) {

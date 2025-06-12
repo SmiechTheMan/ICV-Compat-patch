@@ -25,20 +25,17 @@ class JudgementManager(player: Player?) :
     override fun activate() {
         active = true
         println("activating")
-        if (player!!.level() is ClientLevel) {
-            animator!!.setAnimation(
-                EnchantAnimationPlayer(
-                    PlayerAnimationRegistry.getAnimation(
-                        ResourceLocation(
-                            ICV.MOD_ID,
-                            "judgement_jump"
-                        )
-                    )!!
-                )
+        if (player.level() is ClientLevel) {
+            animator!!.animation = EnchantAnimationPlayer(
+                PlayerAnimationRegistry.getAnimation(
+                    ResourceLocation(
+                        ICV.MOD_ID,
+                        "judgement_jump"
+                    )
+                )!!
             )
-        } else {
         }
-        kickPos = player!!.position()
+        kickPos = player.position()
     }
 
     override fun onOffCoolDown(player: Player?) {
@@ -54,12 +51,12 @@ class JudgementManager(player: Player?) :
     override fun tick() {
         super.tick()
         if (active) {
-            if (kicking && !player!!.onGround()) {
+            if (kicking && !player.onGround()) {
                 if (kickTicks < 10) {
                     ++kickTicks
-                    player!!.setPos(kickPos)
+                    player.setPos(kickPos)
                     if (kickTicks == 10) {
-                        val yaw = Math.toRadians(player!!.yRot.toDouble())
+                        val yaw = Math.toRadians(player.yRot.toDouble())
                         val x = -sin(yaw)
                         val y = 0.5
                         val z = cos(yaw)
@@ -69,41 +66,38 @@ class JudgementManager(player: Player?) :
                         judged!!.deltaMovement = flatDirection
                         scale = -0.5
                         flatDirection = Vec3(x * scale, y, z * scale)
-                        player!!.deltaMovement = flatDirection
+                        player.deltaMovement = flatDirection
                     }
                 }
             } else if (activeTicks > 24) {
-                kickPos = player!!.position()
-                for (entity in player!!.level().getEntities(null, player!!.boundingBox.inflate(1.2))) {
+                kickPos = player.position()
+                for (entity in player.level().getEntities(null, player.boundingBox.inflate(1.2))) {
                     if (entity !== player) {
                         kicking = true
                         judged = entity
-                        if (player!!.level().isClientSide) {
-                            animator!!.setAnimation(
-                                EnchantAnimationPlayer(
-                                    PlayerAnimationRegistry.getAnimation(
-                                        ResourceLocation(ICV.MOD_ID, "judgement_hit")
-                                    )!!
-                                )
+                        if (player.level().isClientSide) {
+                            animator!!.animation = EnchantAnimationPlayer(
+                                PlayerAnimationRegistry.getAnimation(
+                                    ResourceLocation(ICV.MOD_ID, "judgement_hit")
+                                )!!
                             )
-                        } else {
                         }
                     }
                 }
             }
             if (activeTicks == 24) {
-                val yaw = Math.toRadians(player!!.yRot.toDouble())
+                val yaw = Math.toRadians(player.yRot.toDouble())
                 val x = -sin(yaw)
                 val y = 0.35
                 val z = cos(yaw)
                 val scale = 3.5
 
                 val flatDirection = Vec3(x * scale, y, z * scale)
-                player!!.deltaMovement = flatDirection
+                player.deltaMovement = flatDirection
             } else if (activeTicks < 24) {
-                if (kickPos != null) player!!.setPos(kickPos)
+                if (kickPos != null) player.setPos(kickPos)
             }
-            if (player!!.level().isClientSide) {
+            if (player.level().isClientSide) {
                 if (!animator!!.isActive) {
                     animator!!.animation =
                         EnchantAnimationPlayer(
@@ -116,9 +110,9 @@ class JudgementManager(player: Player?) :
                         )
                 }
             }
-            if (player!!.onGround() && activeTicks > 28 && !(kicking && kickTicks < 10)) {
+            if (player.onGround() && activeTicks > 28 && !(kicking && kickTicks < 10)) {
                 if (!kicking) {
-                    if (player!!.level().isClientSide) {
+                    if (player.level().isClientSide) {
                         animator!!.animation =
                             EnchantAnimationPlayer(
                                 PlayerAnimationRegistry.getAnimation(
@@ -129,14 +123,14 @@ class JudgementManager(player: Player?) :
                                 )!!
                             )
                     }
-                    val yaw = Math.toRadians(player!!.yRot.toDouble())
+                    val yaw = Math.toRadians(player.yRot.toDouble())
                     val x = -sin(yaw)
                     val y = 0.0
                     val z = cos(yaw)
                     val scale = 2.5
 
                     val flatDirection = Vec3(x * scale, y, z * scale)
-                    player!!.deltaMovement = flatDirection
+                    player.deltaMovement = flatDirection
                 }
                 activeTicks = 0
                 active = false

@@ -20,7 +20,7 @@ class PlanarShiftManager(player: Player?) :
 
     override fun activate() {
         println("activating")
-        position = player!!.position()
+        position = player.position()
         active = true
     }
 
@@ -36,7 +36,7 @@ class PlanarShiftManager(player: Player?) :
 
     override fun dualActivate() {
         resetCoolDown()
-        val dir = player!!.direction
+        val dir = player.direction
         println(dir)
 
         val dist = 1f
@@ -60,7 +60,7 @@ class PlanarShiftManager(player: Player?) :
             )
         )
         val scale = Vec3(5.0, 5.0, 5.0)
-        for (entity in player!!.level().getEntities(null, AABB(position!!.subtract(scale), position!!.add(scale)))) {
+        for (entity in player.level().getEntities(null, AABB(position!!.subtract(scale), position!!.add(scale)))) {
             entity.setPos(
                 entity.position().add(
                     ICVUtils.getFlatInputDirection(

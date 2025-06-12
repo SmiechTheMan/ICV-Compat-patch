@@ -20,7 +20,7 @@ class RiftRipperManager(player: Player?) :
 
     override fun activate() {
         println("running activate")
-        oldPlayerPosition = player!!.position()
+        oldPlayerPosition = player.position()
         active = true
     }
 
@@ -30,16 +30,16 @@ class RiftRipperManager(player: Player?) :
 
     override fun dualActivate() {
         println(oldPlayerPosition)
-        newPlayerPosition = player!!.position()
+        newPlayerPosition = player.position()
         resetCoolDown()
-        newPlayerPosition = player!!.position()
+        newPlayerPosition = player.position()
 
-        player!!.setPos(oldPlayerPosition)
+        player.setPos(oldPlayerPosition)
 
-        val entities = oldPlayerPosition?.let { ICVUtils.collectEntitiesBox(player!!.level(), it, TELEPORT_RADIUS) }
+        val entities = oldPlayerPosition?.let { ICVUtils.collectEntitiesBox(player.level(), it, TELEPORT_RADIUS) }
 
         for (entity in entities!!) {
-            entity.setPos(newPlayerPosition)
+            newPlayerPosition?.let { entity.setPos(it) }
         }
 
         active = false

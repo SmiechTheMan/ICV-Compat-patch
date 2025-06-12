@@ -20,8 +20,8 @@ class GravityWellManager(player: Player?) : ArmorEnchantManager(EnchantType.HELM
     override val indicator: EnchantIndicator = StasisCooldownIndicator(this)
 
     override fun activate() {
-        if (player!!.level() !is ServerLevel) return
-        (player!!.pick(5.0, 0.0f, false) as? BlockHitResult)?.let {
+        if (player.level() !is ServerLevel) return
+        (player.pick(5.0, 0.0f, false) as? BlockHitResult)?.let {
             surfaceDirection = it.direction
             position = it.location
             applyGravityEffect(it.direction)
@@ -29,7 +29,7 @@ class GravityWellManager(player: Player?) : ArmorEnchantManager(EnchantType.HELM
     }
 
     private fun applyGravityEffect(direction: Direction) {
-        val level = player!!.level() as? ServerLevel ?: return
+        val level = player.level() as? ServerLevel ?: return
         val pos = position ?: return
         val entities = ICVUtils.collectEntitiesBox(level, pos, 7.5)
         val pushVec = when (direction) {

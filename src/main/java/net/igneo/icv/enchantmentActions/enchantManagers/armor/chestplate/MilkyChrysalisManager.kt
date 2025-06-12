@@ -16,8 +16,8 @@ class MilkyChrysalisManager(player: Player?) :
 
     override fun activate() {
         println("activating")
-        player!!.deltaMovement = ICVUtils.getFlatInputDirection(player!!.yRot, enchVar!!.input, 1.2f, 1.0)
-        player!!.startFallFlying()
+        player.deltaMovement = ICVUtils.getFlatInputDirection(player.yRot, enchVar!!.input, 1.2f, 1.0)
+        player.startFallFlying()
         active = true
     }
 
@@ -46,7 +46,7 @@ class MilkyChrysalisManager(player: Player?) :
     override fun tick() {
         super.tick()
         if (active) {
-            player?.startFallFlying()
+            player.startFallFlying()
             ++activeTicks
             if (activeTicks > 1000) {
                 dualActivate()

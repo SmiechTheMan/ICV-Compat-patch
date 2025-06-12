@@ -19,7 +19,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 
-abstract class EnchantmentManager protected constructor(val type: EnchantType, var player: Player?) {
+abstract class EnchantmentManager protected constructor(val type: EnchantType, var player: Player) {
     @JvmField
     @OnlyIn(Dist.CLIENT)
     var animator: ModifierLayer<IAnimation>? = null
@@ -29,17 +29,14 @@ abstract class EnchantmentManager protected constructor(val type: EnchantType, v
     var enchVar: PlayerEnchantmentActions? = null
 
     init {
-        player!!.getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS)
-            .ifPresent { enchVar: PlayerEnchantmentActions? ->
-                this.enchVar =
-                    enchVar
-            }
+        player.getCapability(PlayerEnchantmentActionsProvider.PLAYER_ENCHANTMENT_ACTIONS)
+            .ifPresent { enchVar: PlayerEnchantmentActions -> this.enchVar = enchVar }
         if (player is LocalPlayer) {
             this.animator =
                 PlayerAnimationAccess.getPlayerAssociatedData(player as AbstractClientPlayer)[ResourceLocation(
                     ICV.MOD_ID,
                     "enchant_animator"
-                )] as ModifierLayer<IAnimation>?
+                )] as ModifierLayer<IAnimation>
         }
     }
 
@@ -63,18 +60,18 @@ abstract class EnchantmentManager protected constructor(val type: EnchantType, v
         } else {
             activeTicks = 0
         }
-        if (player!!.level().isClientSide) {
+        if (player.level().isClientSide) {
             if (!animator!!.isActive && enchVar!!.animated) {
-                enchVar!!.animated = false
+                enchVar?.animated = false
                 ModMessages.sendToServer(AnimatedSyncC2SPacket(false))
             }
         }
     }
 
     open fun stableCheck(): Boolean {
-        return player!!.onGround() &&
+        return player.onGround() &&
                 !enchVar!!.animated &&
-                !player!!.isSwimming &&
+                !player.isSwimming &&
                 !Parkourability.get(player)!!.get(Dodge::class.java).isDoing &&
                 !Parkourability.get(player)!!.get(Slide::class.java).isDoing
     }

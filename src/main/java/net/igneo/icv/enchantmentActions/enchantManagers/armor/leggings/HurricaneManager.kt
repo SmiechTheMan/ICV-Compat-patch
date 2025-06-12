@@ -12,7 +12,7 @@ class HurricaneManager(player: Player?) :
     ArmorEnchantManager(EnchantType.LEGGINGS, 300, -10, false, player) {
     override fun activate() {
         println("activating")
-        player!!.deltaMovement = ICVUtils.getFlatDirection(player!!.yRot, 2f, 0.5)
+        player.deltaMovement = ICVUtils.getFlatDirection(player.yRot, 2f, 0.5)
         active = true
     }
 
@@ -29,12 +29,12 @@ class HurricaneManager(player: Player?) :
     override fun tick() {
         super.tick()
         if (active) {
-            for (entity in player!!.level().getEntities(null, player!!.boundingBox.inflate(2.0))) {
+            for (entity in player.level().getEntities(null, player.boundingBox.inflate(2.0))) {
                 if (entity !== player) {
                     entity.deltaMovement =
-                        player!!.position().subtract(entity.position()).normalize().scale(2.0).reverse()
+                        player.position().subtract(entity.position()).normalize().scale(2.0).reverse()
                     if (entity is LivingEntity) {
-                        entity.hurt(player!!.damageSources().playerAttack(player), 10f)
+                        entity.hurt(player.damageSources().playerAttack(player), 10f)
                     }
                 }
             }

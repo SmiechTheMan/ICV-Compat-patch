@@ -12,12 +12,12 @@ class GaleManager(player: Player?) :
     ArmorEnchantManager(EnchantType.LEGGINGS, 300, -10, false, player) {
     override fun activate() {
         println("activating")
-        for (entity in player!!.level().getEntities(null, player!!.boundingBox.inflate(5.0))) {
+        for (entity in player.level().getEntities(null, player.boundingBox.inflate(5.0))) {
             var scale = 2f
             if (entity is LivingEntity) {
                 scale = 4f
             }
-            entity.deltaMovement = ICVUtils.getFlatDirection(player!!.yRot, scale, 0.5)
+            entity.deltaMovement = ICVUtils.getFlatDirection(player.yRot, scale, 0.5)
         }
         resetCoolDown()
     }

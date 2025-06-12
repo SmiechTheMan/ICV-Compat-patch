@@ -23,14 +23,14 @@ class ExtinctionManager(player: Player?) :
         get() = StasisCooldownIndicator(this)
 
     override fun activate() {
-        val level = player!!.level()
-        if (player!!.level() !is ServerLevel) {
+        val level = player.level()
+        if (player.level() !is ServerLevel) {
             return
         }
-        child = ModEntities.METEOR_SUMMONER.get().create(player!!.level())
+        child = ModEntities.METEOR_SUMMONER.get().create(player.level())
         child!!.owner = player
 
-        val hitResult = player!!.pick(5.0, 0f, false)
+        val hitResult = player.pick(5.0, 0f, false)
 
         val blockHitResult = hitResult as BlockHitResult
         val position = blockHitResult.location

@@ -19,7 +19,7 @@ import net.minecraftforge.api.distmarker.OnlyIn
 
 abstract class WeaponEnchantManager protected constructor(
     setSlot: EnchantType,
-    player: Player?,
+    player: Player,
     animationRes: ResourceLocation
 ) : EnchantmentManager(setSlot, player) {
 
@@ -64,13 +64,13 @@ abstract class WeaponEnchantManager protected constructor(
     }
 
     override fun onEquip() {
-        // TODO: Add sound or visual feedback
+
     }
 
     override fun activate() {
         requireNotNull(enchVar).animated = true
 
-        if (player!!.level().isClientSide) {
+        if (player.level().isClientSide) {
             println("Activating animation...")
 
             val enchantAnim = PlayerAnimationRegistry.getAnimation(

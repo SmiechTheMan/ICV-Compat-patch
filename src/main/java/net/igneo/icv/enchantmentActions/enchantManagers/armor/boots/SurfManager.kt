@@ -33,15 +33,15 @@ class SurfManager(player: Player?) :
     override fun tick() {
         super.tick()
         if (child != null) {
-            player!!.setYBodyRot(player!!.yRot)
+            player.setYBodyRot(player.yRot)
             if (!child!!.isAlive) {
                 child = null
             } else if (!riding) {
-                player!!.startRiding(child)
+                player.startRiding(child)
                 riding = true
             }
         }
-        if (currentAnim != null && !player?.isPassenger!!) {
+        if (currentAnim != null && !player.isPassenger) {
             currentAnim!!.stop()
             animator!!.animation = null
             currentAnim = null
@@ -76,12 +76,12 @@ class SurfManager(player: Player?) :
     }
 
     override fun activate() {
-        player!!.forcedPose = Pose.STANDING
-        if (player!!.level() is ServerLevel) {
-            child = ModEntities.SURF_WAVE.get().create(player!!.level())
+        player.forcedPose = Pose.STANDING
+        if (player.level() is ServerLevel) {
+            child = ModEntities.SURF_WAVE.get().create(player.level())
             child!!.owner = player
-            child!!.setPos(player!!.eyePosition)
-            player!!.level().addFreshEntity(child)
+            child!!.setPos(player.eyePosition)
+            player.level().addFreshEntity(child)
             syncClientChild(player as ServerPlayer, child, this)
             (player as ServerPlayer).level().playSound(
                 null, (player as ServerPlayer).position().x, (player as ServerPlayer).position().y, (player as ServerPlayer).position().z,

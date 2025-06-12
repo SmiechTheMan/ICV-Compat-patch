@@ -11,7 +11,11 @@ import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.player.Player
 
 class MoltenManager(player: Player?) :
-    WeaponEnchantManager(EnchantType.WEAPON, player, ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross")) {
+    WeaponEnchantManager(
+        EnchantType.WEAPON,
+        player!!,
+        ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross")
+    ) {
     override val damageBonus: Float
         get() {
             if (target?.isOnFire == true) {
@@ -21,7 +25,7 @@ class MoltenManager(player: Player?) :
                     level.playSound(null, target!!.blockPosition(), ModSounds.PARRY.get(), SoundSource.PLAYERS)
 
                     repeat(3) {
-                        val child = ModEntities.EMBER.get().create(player!!.level())
+                        val child = ModEntities.EMBER.get().create(player.level())
                         child?.let {
                             it.owner = player
                             it.setPos(target!!.eyePosition.subtract(0.0, 1.0, 0.0))
@@ -43,10 +47,10 @@ class MoltenManager(player: Player?) :
 
     override fun activate() {
         super.activate()
-        val child = ModEntities.FIRE_RING.get().create(player!!.level())
+        val child = ModEntities.FIRE_RING.get().create(player.level())
         child!!.owner = player
-        child.setPos(player!!.position())
+        child.setPos(player.position())
         //child.setDeltaMovement(ICVUtils.getFlatDirection((float) (Math.random()*360),0.2f,0.3f));
-        player!!.level().addFreshEntity(child)
+        player.level().addFreshEntity(child)
     }
 }

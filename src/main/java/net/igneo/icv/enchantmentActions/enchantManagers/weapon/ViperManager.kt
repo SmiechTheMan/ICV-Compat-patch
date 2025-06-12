@@ -14,20 +14,24 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 
 class ViperManager(player: Player?) :
-    WeaponEnchantManager(EnchantType.WEAPON, player, ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross")),
+    WeaponEnchantManager(
+        EnchantType.WEAPON,
+        player!!,
+        ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross")
+    ),
     EntityTracker {
     override var child: ICVEntity? = null
     private var nullCheck: Boolean = false
 
     override fun activate() {
         super.activate()
-        val level = player!!.level()
-        if (player!!.level() is ServerLevel) {
-            child = ModEntities.SNAKE_BITE.get().create(player!!.level())
+        val level = player.level()
+        if (player.level() is ServerLevel) {
+            child = ModEntities.SNAKE_BITE.get().create(player.level())
             child!!.owner = player
-            child!!.setPos(player!!.eyePosition.subtract(0.0, 1.0, 0.0))
-            child!!.deltaMovement = ICVUtils.getFlatDirection(player!!.yRot, 1f, 0.0)
-            level.addFreshEntity(child)
+            child!!.setPos(player.eyePosition.subtract(0.0, 1.0, 0.0))
+            child!!.deltaMovement = ICVUtils.getFlatDirection(player.yRot, 1f, 0.0)
+            child?.let { level.addFreshEntity(it) }
             syncClientChild(player as ServerPlayer, child, this)
             nullCheck = true
         }

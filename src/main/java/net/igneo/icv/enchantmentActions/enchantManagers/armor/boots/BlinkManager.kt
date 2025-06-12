@@ -40,15 +40,15 @@ class BlinkManager(player: Player?) :
     }
 
     override fun activate() {
-        val playerPos = player!!.eyePosition
-        val lookVector = player!!.lookAngle.normalize()
+        val playerPos = player.eyePosition
+        val lookVector = player.lookAngle.normalize()
         var targetPos = playerPos.add(
             lookVector.x * BLINK_DISTANCE,
             (lookVector.y * BLINK_DISTANCE) - 1,
             lookVector.z * BLINK_DISTANCE
         )
 
-        val result = player!!.level().clip(
+        val result = player.level().clip(
             ClipContext(
                 playerPos,
                 targetPos,
@@ -58,7 +58,6 @@ class BlinkManager(player: Player?) :
             )
         )
 
-        // Fixed: Use HitResult.Type instead of BlockHitResult.Type
         if (result.type != HitResult.Type.MISS) {
             val hitPos = result.location
             targetPos = hitPos.subtract(
@@ -68,16 +67,17 @@ class BlinkManager(player: Player?) :
             )
         }
 
-        player!!.teleportTo(
+        player.teleportTo(
             targetPos.x,
             targetPos.y,
             targetPos.z
         )
-        val level = player!!.level() as ServerLevel
-        if (player!!.level() is ServerLevel) {
+
+        val level = player.level() as ServerLevel
+        if (player.level() is ServerLevel) {
             ParticleShapes.renderLine(level, playerPos, targetPos, ParticleTypes.PORTAL, 10)
 
-            LodestoneParticles.blinkParticles(level, targetPos.add(player!!.lookAngle.scale(8.0)))
+            LodestoneParticles.blinkParticles(level, targetPos.add(player.lookAngle.scale(8.0)))
             level.playSound(
                 null, targetPos.x, targetPos.y, targetPos.z,
                 ModSounds.BLINK_USE_WALL.get(),
@@ -90,9 +90,9 @@ class BlinkManager(player: Player?) :
             )
 
             targetPos = Vec3(targetPos.x, targetPos.y - 0.5, targetPos.z)
-            sendPacketInRange<SendBlinkShaderS2CPacket>(level, targetPos, 200f, SendBlinkShaderS2CPacket(targetPos))
+            sendPacketInRange(level, targetPos, 200f, SendBlinkShaderS2CPacket(targetPos))
         }
-        LodestoneParticles.blinkParticles(player!!.level(), playerPos)
+        LodestoneParticles.blinkParticles(player.level(), playerPos)
 
         //for (Vec3 pos : ParticleShapes.renderRingList(player.level(),targetPos,10,1.5F)) {
         //  System.out.println(pos);

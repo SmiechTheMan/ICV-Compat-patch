@@ -22,7 +22,7 @@ class UpwellManager(player: Player?) :
 
 
     private fun pushAway(trident: ThrownTrident) {
-        val nearybyEntities = ICVUtils.collectEntitiesBox(player!!.level(), trident.position(), 3.5)
+        val nearybyEntities = ICVUtils.collectEntitiesBox(player.level(), trident.position(), 3.5)
 
         for (entity in nearybyEntities) {
             if (entity === player) {

@@ -36,7 +36,7 @@ class GeyserManager(player: Player?) :
 
     private fun doPush(trident: ThrownTrident?) {
         if (canPush) {
-            for (entity in ICVUtils.collectEntitiesBox(player!!.level(), trident!!.position(), 3.5)) {
+            for (entity in ICVUtils.collectEntitiesBox(player.level(), trident!!.position(), 3.5)) {
                 if (entity !== trident) {
                     if (entity is ServerPlayer) {
                         println("pushing the player")

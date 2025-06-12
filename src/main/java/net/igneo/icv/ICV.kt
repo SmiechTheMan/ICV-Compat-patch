@@ -8,7 +8,7 @@ import net.igneo.icv.config.ICVClientConfigs
 import net.igneo.icv.config.ICVCommonConfigs
 import net.igneo.icv.enchantment.ModEnchantments.register
 import net.igneo.icv.entity.ModEntities
-import net.igneo.icv.entity.ModEntityRenderers
+import net.igneo.icv.entity.registerEntityRenderer
 import net.igneo.icv.networking.ModMessages
 import net.igneo.icv.particle.ModParticles
 import net.igneo.icv.shader.ModShaders
@@ -59,7 +59,7 @@ class ICV {
         @SubscribeEvent
         fun onClientSetup(event: FMLClientSetupEvent) {
             ModShaders.register()
-            ModEntityRenderers.register()
+            registerEntityRenderer()
 
             PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
                 ResourceLocation(MOD_ID, "enchant_animator"),

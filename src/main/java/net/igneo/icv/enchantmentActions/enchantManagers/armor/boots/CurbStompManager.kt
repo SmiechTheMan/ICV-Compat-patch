@@ -24,12 +24,12 @@ class CurbStompManager(player: Player?) :
     }
 
     override fun activate() {
-        if (!player!!.onGround() && player!!.fallDistance > 1) {
+        if (!player.onGround() && player.fallDistance > 1) {
             primed = true
-            player!!.setDeltaMovement(0.0, -1.0, 0.0)
+            player.setDeltaMovement(0.0, -1.0, 0.0)
         } else {
             persist = true
-            player!!.setDeltaMovement(0.0, 1.0, 0.0)
+            player.setDeltaMovement(0.0, 1.0, 0.0)
         }
         active = true
     }
@@ -41,16 +41,16 @@ class CurbStompManager(player: Player?) :
         } else {
             activeTicks = 0
         }
-        if (activeTicks > 60 && !player?.onGround()!! && persist) {
+        if (activeTicks > 60 && !player.onGround() && persist) {
             persist = false
             primed = true
-            player!!.setDeltaMovement(0.0, -1.0, 0.0)
+            player.setDeltaMovement(0.0, -1.0, 0.0)
         }
-        if (primed && player!!.onGround()) {
-            for (e in ICVUtils.collectEntitiesBox(player!!.level(), player!!.position(), 3.0)) {
+        if (primed && player.onGround()) {
+            for (e in ICVUtils.collectEntitiesBox(player.level(), player.position(), 3.0)) {
                 if (e !== player && e is LivingEntity) {
                     e.hurt(
-                        player!!.damageSources().playerAttack(player),
+                        player.damageSources().playerAttack(player),
                         (if (e.getDeltaMovement().length() < 0.1) 20 else 10).toFloat()
                     )
                 }

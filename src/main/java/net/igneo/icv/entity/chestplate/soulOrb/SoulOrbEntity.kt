@@ -4,7 +4,7 @@ import net.igneo.icv.enchantmentActions.enchantManagers.armor.chestplate.HauntMa
 import net.igneo.icv.entity.ICVEntity
 import net.igneo.icv.entity.ModEntities
 import net.igneo.icv.entity.chestplate.soulSpider.SoulSpiderEntity
-import net.igneo.icv.init.ICVUtils.getManagerForType
+import net.igneo.icv.init.ICVUtils.GetManagerForType.getManagerForType
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.Projectile

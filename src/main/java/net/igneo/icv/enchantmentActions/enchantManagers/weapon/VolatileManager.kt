@@ -13,12 +13,16 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.player.Player
 
 class VolatileManager(player: Player?) :
-    WeaponEnchantManager(EnchantType.WEAPON, player, ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross")) {
+    WeaponEnchantManager(
+        EnchantType.WEAPON,
+        player!!,
+        ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross")
+    ) {
     override fun onAttack(entity: Entity?) {
-        if (player!!.fallDistance > 0) {
+        if (player.fallDistance > 0) {
             for (entity in target?.let { ICVUtils.collectEntitiesBox(it.level(), target!!.position(), 3.0) }!!) {
                 if (entity !== player && entity !== target) {
-                    entity.hurt(player!!.damageSources().explosion(player, entity), 7f)
+                    entity.hurt(player.damageSources().explosion(player, entity), 7f)
                 }
             }
         }
@@ -26,18 +30,18 @@ class VolatileManager(player: Player?) :
 
     override fun activate() {
         super.activate()
-        if (player?.level() is ServerLevel) {
-            val child = ModEntities.BOOST_CHARGE.get().create(player!!.level())
+        if (player.level() is ServerLevel) {
+            val child = ModEntities.BOOST_CHARGE.get().create(player.level())
             child!!.owner = player
-            child.setPos(player!!.eyePosition.subtract(0.0, 1.0, 0.0))
-            child.deltaMovement = player!!.lookAngle.scale(0.6)
-            player?.level()?.addFreshEntity(child)
+            child.setPos(player.eyePosition.subtract(0.0, 1.0, 0.0))
+            child.deltaMovement = player.lookAngle.scale(0.6)
+            player.level()?.addFreshEntity(child)
         }
     }
 
     override fun stableCheck(): Boolean {
         return !enchVar!!.animated &&
-                !player?.isSwimming!! &&
+                !player.isSwimming &&
                 !Parkourability.get(player)!!.get(Dodge::class.java).isDoing &&
                 !Parkourability.get(player)!!.get(Slide::class.java).isDoing
     }

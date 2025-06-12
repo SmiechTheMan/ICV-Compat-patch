@@ -1,9 +1,6 @@
 package net.igneo.icv.enchantment
 
 import net.igneo.icv.ICV
-import net.igneo.icv.enchantment.tool.BruteTouchEnchantment
-import net.igneo.icv.enchantment.trident.*
-import net.igneo.icv.enchantment.weapon.*
 import net.minecraft.world.item.enchantment.Enchantment
 import net.minecraftforge.eventbus.api.IEventBus
 import net.minecraftforge.registries.DeferredRegister
@@ -15,7 +12,7 @@ object ModEnchantments {
     val ENCHANTMENTS: DeferredRegister<Enchantment> =
         DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, ICV.MOD_ID)
 
-    private fun <T : ICVEnchantment> registerEnchantment(
+    private fun <T : Enchantment> registerEnchantment(
         name: String,
         factory: () -> T
     ): RegistryObject<Enchantment> = ENCHANTMENTS.register(name, factory)

@@ -15,7 +15,11 @@ import net.minecraft.world.entity.player.Player
 import java.util.*
 
 class CometStrikeManager(player: Player?) :
-    WeaponEnchantManager(EnchantType.WEAPON, player, ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross")) {
+    WeaponEnchantManager(
+        EnchantType.WEAPON,
+        player!!,
+        ResourceLocation(ICV.MOD_ID, "dual_handed_slash_cross")
+    ) {
     private var cometSpawn: BlockPos? = null
     override fun onEquip() {
         super.onEquip()
@@ -30,7 +34,7 @@ class CometStrikeManager(player: Player?) :
     override fun applyPassive() {
         super.applyPassive()
         println("applying buff")
-        player!!.attributes.getInstance(Attributes.MOVEMENT_SPEED)!!.addTransientModifier(
+        player.attributes.getInstance(Attributes.MOVEMENT_SPEED)!!.addTransientModifier(
             AttributeModifier(
                 COMET_SPEED_MODIFIER_UUID,
                 "Comet strike speed boost",
@@ -41,30 +45,30 @@ class CometStrikeManager(player: Player?) :
     }
 
     override fun removePassive() {
-        player!!.attributes.getInstance(Attributes.MOVEMENT_SPEED)!!.removeModifier(
+        player.attributes.getInstance(Attributes.MOVEMENT_SPEED)!!.removeModifier(
             COMET_SPEED_MODIFIER_UUID
         )
     }
 
     private fun spawnComet() {
         val level = target!!.level()
-        if (player!!.level() is ServerLevel) {
+        if (player.level() is ServerLevel) {
             if (cometSpawn == null) {
                 println("grabbing new location")
                 var x = 0
                 var z = 0
                 val i = 0.4
-                if (player!!.lookAngle.x > i) {
+                if (player.lookAngle.x > i) {
                     x = 2
-                } else if (player!!.lookAngle.x < -i) {
+                } else if (player.lookAngle.x < -i) {
                     x = -2
                 }
-                if (player!!.lookAngle.z > i) {
+                if (player.lookAngle.z > i) {
                     z = 2
-                } else if (player!!.lookAngle.z < -i) {
+                } else if (player.lookAngle.z < -i) {
                     z = -2
                 }
-                cometSpawn = BlockPos(player!!.blockX + x, player!!.blockY, player!!.blockZ + z)
+                cometSpawn = BlockPos(player.blockX + x, player.blockY, player.blockZ + z)
             }
             if (activeTicks > 30) {
                 ModEntities.COMET.get().spawn(level as ServerLevel, cometSpawn, MobSpawnType.COMMAND)
